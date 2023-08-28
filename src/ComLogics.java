@@ -2,13 +2,26 @@ import graphics.code.Board;
 
 public class ComLogics {
 
-  private Player com;
+  private Player player;
+  private int[][] board;
 
   ComLogics() {
-    this.com = new Player("com");
+    this.player = new Player("com");
+    this.board = Board.getBoard();
   }
 
-  int[][] board = Board.getBoard();
+  public void comCheckerColor(Player player) {
+    if (Player.getSelectedCheckerColor() == 1) {
+      this.player.setSelectedCheckerColor(2);
+    } else {
+      this.player.setSelectedCheckerColor(1);
+    }
+  }
 
-
+  public boolean isFirstMoveMakesCom() {
+    if (this.player.getSelectedCheckerColor() == 1) {
+      return true;
+    }
+    return false;
+  }
 }

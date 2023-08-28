@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Player {
 
-  private static String name;
+  private String name;
   private static int selectedCheckerColor;
 
 
@@ -11,7 +11,9 @@ public class Player {
   }
 
   public void selectColor(Scanner scanner) {
-
+    if (scanner.nextInt() > 0 && scanner.nextInt() < 3) {
+      selectedCheckerColor = scanner.nextInt();
+    }
   }
   public String getName() {
     return name;
@@ -21,7 +23,7 @@ public class Player {
     this.name = name;
   }
 
-  public int getSelectedCheckerColor() {
+  public static int getSelectedCheckerColor() {
     return selectedCheckerColor;
   }
 
