@@ -1,4 +1,5 @@
 public class Figure {
+
   private int x;
   private int y;
 
