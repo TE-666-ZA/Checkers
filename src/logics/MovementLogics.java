@@ -1,3 +1,5 @@
+package logics;
+
 import graphics.code.Board;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -6,12 +8,12 @@ import javax.swing.JPanel;
 public class MovementLogics extends JPanel {
 
   int[][] board = Board.getBoard();
-  private int selectedRow;
-  private int selectedCol;
+  private static int selectedRow;
+  private static int selectedCol;
 
   public MovementLogics() {
-    this.selectedRow = -1;
-    this.selectedCol = -1;
+    selectedRow = -1;
+    selectedCol = -1;
     addMouseListener(new MouseAdapter() {
     @Override
       public void mouseClicked (MouseEvent e){
@@ -74,11 +76,11 @@ public class MovementLogics extends JPanel {
 
   }
 
-  public int getSelectedRow() {
+  public static int getSelectedRow() {
     return selectedRow;
   }
 
-  public int getSelectedCol() {
+  public static int getSelectedCol() {
     return selectedCol;
   }
 }

@@ -1,3 +1,5 @@
+package logics;
+
 import java.util.Scanner;
 
 public class Player {

@@ -1,3 +1,5 @@
+package logics;
+
 public class Figure {
 
   private int x;

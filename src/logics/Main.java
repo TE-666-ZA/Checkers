@@ -1,3 +1,5 @@
+package logics;
+
 import graphics.code.Board;
 import javax.swing.JFrame;
 

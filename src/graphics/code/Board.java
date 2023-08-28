@@ -2,13 +2,12 @@ package graphics.code;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import logics.MovementLogics;
 
 public class Board extends JPanel {
 
@@ -31,47 +30,14 @@ public class Board extends JPanel {
       {2, 0, 2, 0, 2, 0, 2, 0}
   };
 
-
-  private int selectedRow;
-  private int selectedCol;
-
   public Board() {
-    this.selectedRow = -1;
-    this.selectedCol = -1;
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/res/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/res/blackSprite.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        int row = e.getY() / CELL_SIZE;
-        int col = e.getX() / CELL_SIZE;
-        int tempRow;
-        int tempCol;
-
-        if (selectedRow == -1) {
-          if (board[row][col] != 0) {
-            selectedRow = row;
-            selectedCol = col;
-          }
-
-        } else {
-          // Здесь реализуйте логику перемещения шашек
-          board[row][col] = board[selectedRow][selectedCol];
-          board[selectedRow][selectedCol] = 0;
-          selectedRow = -1;
-          selectedCol = -1;
-        }
-
-        repaint();
-      }
-    });
   }
-
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -98,9 +64,10 @@ public class Board extends JPanel {
       }
     }
 
-    if (selectedRow != -1 && selectedCol != -1) {
+    if (MovementLogics.getSelectedRow() != -1 && MovementLogics.getSelectedCol() != -1) {
       g.setColor(Color.GREEN);
-      g.drawRect(selectedCol * CELL_SIZE, selectedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      g.drawRect(MovementLogics.getSelectedCol() * CELL_SIZE,
+          MovementLogics.getSelectedRow() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
   }
 
