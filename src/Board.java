@@ -32,8 +32,8 @@ public class Board extends JPanel {
 
     public Board() {
         try {
-            whitePieceImage = ImageIO.read(new File("Res/white.png"));
-            blackPieceImage = ImageIO.read(new File("Res/black.png"));
+            whitePieceImage = ImageIO.read(new File("graphics/res/whiteSprite.png"));
+            blackPieceImage = ImageIO.read(new File("graphics/res/blackSprite.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
