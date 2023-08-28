@@ -1,13 +1,18 @@
+import java.util.Scanner;
+
 public class Player {
 
   private static String name;
-  String selectedCheckerColor;
+  private static int selectedCheckerColor;
 
 
   public Player(String name) {
     this.name = name;
   }
 
+  public void selectColor(Scanner scanner) {
+
+  }
   public String getName() {
     return name;
   }
@@ -16,11 +21,11 @@ public class Player {
     this.name = name;
   }
 
-  public String getSelectedCheckerColor() {
+  public int getSelectedCheckerColor() {
     return selectedCheckerColor;
   }
 
-  public void setSelectedCheckerColor(String selectedCheckerColor) {
+  public void setSelectedCheckerColor(int selectedCheckerColor) {
     this.selectedCheckerColor = selectedCheckerColor;
   }
 }
