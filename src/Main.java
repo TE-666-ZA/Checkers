@@ -1,3 +1,5 @@
+import graphics.code.Board;
+
 import javax.swing.*;
 
 public class Main {

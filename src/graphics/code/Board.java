@@ -1,3 +1,5 @@
+package graphics.code;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +10,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Board extends JPanel {
-    static final int BOARD_SIZE = 8;
-    static final int CELL_SIZE = 60;
-    static final Color LIGHT_COLOR = new Color(227, 193, 111);
-    static final Color DARK_COLOR = new Color(175, 135, 83);
+    public static final int BOARD_SIZE = 8;
+    public static final int CELL_SIZE = 100;
+    public static final Color LIGHT_COLOR = new Color(2, 1, 1);
+    public static final Color DARK_COLOR = new Color(194, 158, 120);
 
     private BufferedImage whitePieceImage;
     private BufferedImage blackPieceImage;
@@ -32,8 +34,8 @@ public class Board extends JPanel {
 
     public Board() {
         try {
-            whitePieceImage = ImageIO.read(new File("graphics/res/whiteSprite.png"));
-            blackPieceImage = ImageIO.read(new File("graphics/res/blackSprite.png"));
+            whitePieceImage = ImageIO.read(new File("src/graphics/res/whiteSprite.png"));
+            blackPieceImage = ImageIO.read(new File("src/graphics/res/blackSprite.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
