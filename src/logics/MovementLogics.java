@@ -27,11 +27,13 @@ public class MovementLogics extends JPanel {
           }
 
         } else {
-          // Здесь реализуйте логику перемещения шашек
-          board[row][col] = board[selectedRow][selectedCol];
-          board[selectedRow][selectedCol] = 0;
-          selectedRow = -1;
-          selectedCol = -1;
+          if (isMoveValid(row, col)) {
+            // Здесь реализуйте логику перемещения шашек
+            board[row][col] = board[selectedRow][selectedCol];
+            board[selectedRow][selectedCol] = 0;
+            selectedRow = -1;
+            selectedCol = -1;
+          }
         }
 
         repaint();
@@ -43,8 +45,8 @@ public class MovementLogics extends JPanel {
     int choice = choiceToMove();
 
     if (choice == 1) {
-      while (row != selectedRow + 1) {
-        System.out.println("Некорректый выбор позиции");
+      if ((row != selectedRow + 1) && ((col != selectedCol + 1) || (col != selectedCol - 1))) {
+        return false;
       }
       if (board[row][col] == 0) {
         return true;
@@ -52,17 +54,40 @@ public class MovementLogics extends JPanel {
         return false;
       }
 
-      if ()
+      if (col == selectedCol + 1) {
+        if (board[row + 1][col + 1] == 0) {
+         return true;
+        }
+      }
+      if (col == selectedCol - 1) {
+        if (board[row + 1][col - 1] == 0) {
+          return true;
+        }
+      }
     }
 
     if (choice == 2) {
+      if ((row != selectedRow - 1) && ((col != selectedCol + 1) || (col != selectedCol - 1))) {
+        return false;
+      }
       if (board[row][col] == 0) {
         return true;
       } else if (board[row][col] == choice) {
         return false;
       }
-      return false;
+
+      if (col == selectedCol + 1) {
+        if (board[row - 1][col + 1] == 0) {
+          return true;
+        }
+      }
+      if (col == selectedCol - 1) {
+        if (board[row - 1][col - 1] == 0) {
+          return true;
+        }
+      }
     }
+    return false;
   }
 
   public int choiceToMove() {
@@ -70,10 +95,6 @@ public class MovementLogics extends JPanel {
       return 1;
     }
       return 2;
-  }
-
-  public boolean placeToMove() {
-
   }
 
   public static int getSelectedRow() {
