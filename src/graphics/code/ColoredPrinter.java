@@ -15,14 +15,14 @@ public class ColoredPrinter {
     this.redColor = "\u001B[31m";
     this.greenColor = "\u001B[32m";
     this.resetColor = "\u001B[0m";
-    this.yellowColor = "\u001B[33";
-    this.blueColor = "\u001B[34";
-    this.purpleColor = "\u001B[35";
-    this.whiteColor = "\u001B[37";
+    this.yellowColor = "\u001B[33m";
+    this.blueColor = "\u001B[34m";
+    this.purpleColor = "\u001B[35m";
+    this.whiteColor = "\u001B[37m";
   }
 
   public static int getConsoleWidth() {
-    return Math.max(80, Math.min(120, Integer.parseInt(System.getenv("COLUMNS"))));
+    return Math.max(40, Math.min(120, 80));
   }
 
   public void printInMiddleRed(String text) {
