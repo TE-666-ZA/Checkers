@@ -1,20 +1,19 @@
 package logics;
 
-import java.util.Scanner;
-
 public class Player {
 
   private String name;
-  private static int selectedCheckerColor;
+  private int selectedCheckerColor;
+
 
 
   public Player(String name) {
     this.name = name;
   }
 
-  public void selectColor(Scanner scanner) {
-    if (scanner.nextInt() > 0 && scanner.nextInt() < 3) {
-      selectedCheckerColor = scanner.nextInt();
+  public void selectCheckersColor(int choice) {
+    if (choice > 0 && choice < 3) {
+      selectedCheckerColor = choice;
     }
   }
   public String getName() {
@@ -25,11 +24,8 @@ public class Player {
     this.name = name;
   }
 
-  public static int getSelectedCheckerColor() {
+  public int getSelectedCheckerColor() {
     return selectedCheckerColor;
   }
 
-  public void setSelectedCheckerColor(int selectedCheckerColor) {
-    this.selectedCheckerColor = selectedCheckerColor;
-  }
 }

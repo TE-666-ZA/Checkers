@@ -13,10 +13,10 @@ public class ComLogics {
   }
 
   public void comCheckerColor(Player player) {
-    if (Player.getSelectedCheckerColor() == 1) {
-      this.player.setSelectedCheckerColor(2);
+    if (player.getSelectedCheckerColor() == 1) {
+      this.player.selectCheckersColor(2);
     } else {
-      this.player.setSelectedCheckerColor(1);
+      this.player.selectCheckersColor(1);
     }
   }
 

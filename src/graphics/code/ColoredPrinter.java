@@ -22,7 +22,7 @@ public class ColoredPrinter {
   }
 
   public static int getConsoleWidth() {
-    return Math.max(40, Math.min(120, 80));
+    return Math.max(80, Math.min(100, 60));
   }
 
   public void printInMiddleRed(String text) {
@@ -77,26 +77,32 @@ public class ColoredPrinter {
 
   public void printRed(String text) {
     String coloredText = redColor + text + resetColor;
+    System.out.println(coloredText);
   }
 
   public void printGreen(String text) {
     String coloredText = greenColor + text + resetColor;
+    System.out.println(coloredText);
   }
 
   public void printYellow(String text) {
     String coloredText = yellowColor + text + resetColor;
+    System.out.println(coloredText);
   }
 
   public void printBlue(String text) {
     String coloredText = blueColor + text + resetColor;
+    System.out.println(coloredText);
   }
 
   public void printPurple(String text) {
     String coloredText = purpleColor + text + resetColor;
+    System.out.println(coloredText);
   }
 
   public void printWhite(String text) {
     String coloredText = whiteColor + text + resetColor;
+    System.out.println(coloredText);
   }
 
   public void print(String text) {
