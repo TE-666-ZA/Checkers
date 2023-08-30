@@ -9,7 +9,8 @@ import java.util.Scanner;
 
 public class FileReader {
 
-  private String ourFile = "C:\\Users\\selun\\IdeaProjects\\Checkers\\src\\graphics\\res\\playersStatistics.csv";
+  private String ourFile =
+      "C:\\Users\\selun\\IdeaProjects\\Checkers\\src\\graphics\\res\\playersStatistics.csv";
   private List<Player> players = new ArrayList<>();
   private static final String SEPARATOR = ";";
 
@@ -55,5 +56,18 @@ public class FileReader {
 
   public String getOurFile() {
     return ourFile;
+  }
+
+  public void printNumberedListStatistics() {
+    for (int i = 0; i < players.size(); i++) {
+      System.out.println(i + 1 + ". " + players.get(i).getName() + " - побед:" + players.get(i)
+          .getNumberOfVictories() + " поражений:" + players.get(i).getNumberOfDefeats());
+    }
+  }
+
+  public void printNumberedListNamesPlayers() {
+    for (int i = 0; i < players.size(); i++) {
+      System.out.println(i + 1 + ". " + players.get(i).getName());
+    }
   }
 }
