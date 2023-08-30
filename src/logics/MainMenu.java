@@ -1,4 +1,6 @@
 package logics;
+
+import graphics.code.Board;
 import graphics.code.ColoredPrinter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -38,8 +40,10 @@ public class MainMenu {
         player1VsPlayer2();
         break;
       case 3:
+        player1VsCom();
         break;
       case 4:
+        comVsCom();
         break;
       case 5:
         break;
@@ -51,6 +55,8 @@ public class MainMenu {
   public void player1VsPlaer1() {
     isStatisticIsOn = false;
     Player player = new Player("DefaultName");
+    Board.setPlayer1Name(player.getName());
+    Board.setPlayer2Name(player.getName());
     Main.play(player, player, isStatisticIsOn);
   }
 
@@ -59,14 +65,39 @@ public class MainMenu {
     printer.printYellow("Please input 1st player name ");
     String input = scanner.nextLine();
     Player player1 = new Player(input);
+    Board.setPlayer1Name(player1.getName());
     choseCheckersColor(player1);
 
     printer.printGreen("Please input 2nd player name ");
     scanner.next();
     input = scanner.nextLine();
     Player player2 = new Player(input);
+    // Board.setPlayer2Name(player2.getName());
     choseCheckersColor(player2);
     Main.play(player1, player2, isStatisticIsOn);
+  }
+
+  public void player1VsCom() {
+    isStatisticIsOn = true;
+    String input = scanner.nextLine();
+    Player player = new Player(input);
+    ComLogics com = new ComLogics();
+    Board.setPlayer1Name(player.getName());
+    Board.setPlayer2Name(com.getPlayer().getName());
+    choseCheckersColor(player);
+
+    choseCheckersColor(com.getPlayer());
+
+    Main.play(player, com.getPlayer(), isStatisticIsOn);
+  }
+
+  public void comVsCom() {
+    isStatisticIsOn = false;
+    ComLogics com1 = new ComLogics("com1");
+    com1.getPlayer().selectCheckersColor(1);
+    ComLogics com2 = new ComLogics("com2");
+    com2.getPlayer().selectCheckersColor(2);
+    Main.play(com1.getPlayer(), com2.getPlayer(), isStatisticIsOn);
   }
 
   public void choseCheckersColor(Player player) {

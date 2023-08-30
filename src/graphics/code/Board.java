@@ -1,7 +1,10 @@
 package graphics.code;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +17,15 @@ public class Board extends JPanel {
   public static final int BOARD_SIZE = 8;
   public static final int CELL_SIZE = 100;
   public static final Color LIGHT_COLOR = new Color(2, 1, 1);
-  public static final Color DARK_COLOR = new Color(194, 158, 120);
+  public static final Color DARK_COLOR = new Color(159, 2, 2);
 
+  private MovementLogics movementLogics;
   private BufferedImage whitePieceImage;
   private BufferedImage blackPieceImage;
+  private int selectedRow;
+  private int selectedCol;
+  private static String player1Name;
+  private static String player2Name;
 
   private static int[][] board = {
       {0, 1, 0, 1, 0, 1, 0, 1},
@@ -31,16 +39,64 @@ public class Board extends JPanel {
   };
 
   public Board() {
+    movementLogics = new MovementLogics();
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/res/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/res/blackSprite.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
+    selectedRow = -1;
+    selectedCol = -1;
+    addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        int row = e.getY() / Board.CELL_SIZE;
+        int col = e.getX() / Board.CELL_SIZE;
+
+        if (selectedRow == -1) {
+          if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
+            selectedRow = row;
+            selectedCol = col;
+          }
+
+        } else if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
+          selectedRow = row;
+          selectedCol = col;
+        } else {
+          if (movementLogics.checkMovement(board, row, col, selectedRow, selectedCol)) {
+            board[row][col] = board[selectedRow][selectedCol];
+            board[selectedRow][selectedCol] = 0;
+            selectedRow = -1;
+            selectedCol = -1;
+          }
+        }
+
+        repaint();
+      }
+    });
   }
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+
+    int panelWidth = getWidth();
+    int panelHeight = getHeight();
+    int cellSize = Math.min(panelWidth / BOARD_SIZE, panelHeight / BOARD_SIZE);
+
+    // zapolnyaem fon chernim
+    g.setColor(Color.BLACK);
+    g.fillRect(0, 0, panelWidth, panelHeight);
+    g.setColor(Color.BLACK);
+    g.setFont(new Font("Arial", Font.BOLD, 18));
+    g.setColor(Color.yellow);
+    g.drawString("Player 1: " + player1Name, 10, getHeight() - 30);
+    g.setColor(Color.green);
+    g.drawString("Player 2: " + player2Name, 10, getHeight() - 10);
+    //FIXME
+    // vidilyaem kraya doski cvetom
+    g.setColor(Color.GREEN);
+    g.drawRect(0, 0, BOARD_SIZE * BOARD_SIZE + 1, BOARD_SIZE * BOARD_SIZE + 1);
 
     for (int row = 0; row < BOARD_SIZE; row++) {
       for (int col = 0; col < BOARD_SIZE; col++) {
@@ -64,14 +120,26 @@ public class Board extends JPanel {
       }
     }
 
-    if (MovementLogics.getSelectedRow() != -1 && MovementLogics.getSelectedCol() != -1) {
-      g.setColor(Color.GREEN);
-      g.drawRect(MovementLogics.getSelectedCol() * CELL_SIZE,
-          MovementLogics.getSelectedRow() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    if (selectedRow != -1 && selectedCol != -1) {
+      g.setColor(Color.BLUE);
+      g.drawRect(selectedCol * CELL_SIZE, selectedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
     }
   }
 
   public static int[][] getBoard() {
     return board;
+  }
+
+  public static void setPlayer1Name(String Name) {
+    player1Name = Name;
+  }
+
+  public static void setPlayer2Name(String Name) {
+    player2Name = Name;
+  }
+
+  public static void setBoard(int selectedRow, int selectedCol) {
+    board[selectedRow][selectedCol] = 0;
   }
 }

@@ -12,18 +12,20 @@ public class ComLogics {
     this.board = Board.getBoard();
   }
 
-  public void comCheckerColor(Player player) {
-    if (player.getSelectedCheckerColor() == 1) {
-      this.player.selectCheckersColor(2);
-    } else {
-      this.player.selectCheckersColor(1);
-    }
+  ComLogics(String name) {
+    this.player = new Player(name);
   }
+
+
 
   public boolean isFirstMoveMakesCom() {
     if (this.player.getSelectedCheckerColor() == 1) {
       return true;
     }
     return false;
+  }
+
+  public Player getPlayer() {
+    return player;
   }
 }
