@@ -7,12 +7,6 @@ import javax.swing.JFrame;
 public class Main {
   public static void main(String[] args) throws IOException {
     FileReader fileReader = new FileReader();
-//    List<Player> players = fileReader.getPlayers();
-//    Player player = new Player("Витек");
-//    Player player1 = new Player("Саша");
-//    player.setNumberOfVictories(player.getNumberOfVictories());
-//    players.add(player);
-//    players.add(player1);
     fileReader.readingFromFile();
     fileReader.printNumberedListStatistics();
     fileReader.writingToFile();
