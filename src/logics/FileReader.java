@@ -1,6 +1,7 @@
 package logics;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,6 @@ public class FileReader {
 
   /**
    * Чтение данных из файла
-   *
    */
   public void readingFromFile() throws IOException {
     File file = new File(ourFile);
@@ -39,7 +39,14 @@ public class FileReader {
    * Запись данных в файл
    *
    */
-  public void writingToFile() {
+  public void writingToFile() throws IOException {
+    FileWriter fileWriter = new FileWriter(ourFile);
 
+    for (Player player : players) {
+      String result = player.getName() + SEPARATOR + player.getNumberOfVictories() + SEPARATOR
+          + player.getNumberOfDefeats();
+      fileWriter.write(result + "\n");
+    }
+    fileWriter.close();
   }
 }
