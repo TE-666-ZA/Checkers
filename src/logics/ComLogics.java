@@ -1,15 +1,11 @@
 package logics;
 
-import graphics.code.Board;
-
 public class ComLogics {
 
   private Player player;
-  private int[][] board;
 
   ComLogics() {
     this.player = new Player("com");
-    this.board = Board.getBoard();
   }
 
   ComLogics(String name) {

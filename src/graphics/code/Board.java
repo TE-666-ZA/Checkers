@@ -127,7 +127,7 @@ public class Board extends JPanel {
     }
   }
 
-  public static int[][] getBoard() {
+  public int[][] getBoard() {
     return board;
   }
 
@@ -139,7 +139,7 @@ public class Board extends JPanel {
     player2Name = Name;
   }
 
-  public static void setBoard(int selectedRow, int selectedCol) {
+  public static void killChecker(int selectedRow, int selectedCol) {
     board[selectedRow][selectedCol] = 0;
   }
 }
