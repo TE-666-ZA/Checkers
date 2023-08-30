@@ -31,6 +31,11 @@ public class Player {
     return numberOfVictories;
   }
 
+  /**
+   * Инкремент количества побед
+   *
+   * @param numberOfVictories количество побед
+   */
   public void setNumberOfVictories(int numberOfVictories) {
     this.numberOfVictories++;
   }
@@ -39,6 +44,11 @@ public class Player {
     return numberOfDefeats;
   }
 
+  /**
+   * Инкремент количества поражений
+   *
+   * @param numberOfDefeats количество поражений
+   */
   public void setNumberOfDefeats(int numberOfDefeats) {
     this.numberOfDefeats++;
   }
