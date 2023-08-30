@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 public class FileReader {
 
-  private String ourFile =
-      "C:\\Users\\selun\\IdeaProjects\\Checkers\\src\\graphics\\res\\playersStatistics.csv";
+  private String ourFile = "src/graphics/res/playersStatistics.csv";
   private List<Player> players = new ArrayList<>();
   private static final String SEPARATOR = ";";
 
