@@ -4,11 +4,14 @@ public class Player {
 
   private String name;
   private int selectedCheckerColor;
-
+  private int numberOfVictories;
+  private int numberOfDefeats;
 
 
   public Player(String name) {
     this.name = name;
+    this.numberOfVictories = 0;
+    this.numberOfDefeats = 0;
   }
 
   public void selectCheckersColor(int choice) {
@@ -22,6 +25,22 @@ public class Player {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public int getNumberOfVictories() {
+    return numberOfVictories;
+  }
+
+  public void setNumberOfVictories(int numberOfVictories) {
+    this.numberOfVictories++;
+  }
+
+  public int getNumberOfDefeats() {
+    return numberOfDefeats;
+  }
+
+  public void setNumberOfDefeats(int numberOfDefeats) {
+    this.numberOfDefeats++;
   }
 
   public int getSelectedCheckerColor() {
