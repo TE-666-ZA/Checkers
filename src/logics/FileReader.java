@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class FileReader {
 
-  private String ourFile = "res/playersStatistics.csv";
+  private String ourFile = "C:\\Users\\selun\\IdeaProjects\\Checkers\\src\\graphics\\res\\playersStatistics.csv";
   private List<Player> players = new ArrayList<>();
   private static final String SEPARATOR = ";";
 
@@ -37,7 +37,6 @@ public class FileReader {
 
   /**
    * Запись данных в файл
-   *
    */
   public void writingToFile() throws IOException {
     FileWriter fileWriter = new FileWriter(ourFile);
@@ -52,5 +51,9 @@ public class FileReader {
 
   public List<Player> getPlayers() {
     return players;
+  }
+
+  public String getOurFile() {
+    return ourFile;
   }
 }
