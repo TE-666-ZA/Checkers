@@ -49,4 +49,8 @@ public class FileReader {
     }
     fileWriter.close();
   }
+
+  public List<Player> getPlayers() {
+    return players;
+  }
 }
