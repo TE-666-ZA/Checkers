@@ -38,37 +38,45 @@ public class MovementLogics extends JPanel {
 
   private boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     if (checkerMove == WHITECHECKER) {
-      checkerMove = BLACKCHECKER;
+
       if (isLeftBorderChecker(selectedCol)) {
+        checkerMove = BLACKCHECKER;
         return leftBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (isRightBorderChecker(selectedCol)) {
+        checkerMove = BLACKCHECKER;
         return rightBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board,
           row,
             col)) {
           Board.killChecker(selectedRow + 1, selectedCol + 1);
+        checkerMove = BLACKCHECKER;
           return true;
 
         } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
             row, col)) {
           Board.killChecker(selectedRow + 1, selectedCol - 1);
+        checkerMove = BLACKCHECKER;
           return true;
 
       }
     } else {
-      checkerMove = WHITECHECKER;
+
       if (isLeftBorderChecker(selectedCol)) {
+        checkerMove = WHITECHECKER;
         return leftBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (isRightBorderChecker(selectedCol)) {
+        checkerMove = WHITECHECKER;
         return rightBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board,
           row,
             col)) {
           Board.killChecker(selectedRow - 1, selectedCol + 1);
+        checkerMove = WHITECHECKER;
           return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
             row, col)) {
           Board.killChecker(selectedRow - 1, selectedCol - 1);
+        checkerMove = WHITECHECKER;
           return true;
         }
       }
