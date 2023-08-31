@@ -57,6 +57,9 @@ public class FileReader {
     return ourFile;
   }
 
+  /**
+   * Вывод пронумерованного списка игроков с данными статистики
+   */
   public void printNumberedListStatistics() {
     for (int i = 0; i < players.size(); i++) {
       System.out.println(i + 1 + ". " + players.get(i).getName() + " - побед:" + players.get(i)
@@ -64,6 +67,9 @@ public class FileReader {
     }
   }
 
+  /**
+   * Вывод пронумерованного списка имен игроков
+   */
   public void printNumberedListNamesPlayers() {
     for (int i = 0; i < players.size(); i++) {
       System.out.println(i + 1 + ". " + players.get(i).getName());
