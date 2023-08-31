@@ -14,7 +14,7 @@ public class FileReader {
   private static final String SEPARATOR = ";";
 
   /**
-   * Чтение данных из файла
+   * Reading data from a file
    */
   public void readingFromFile() throws IOException {
     File file = new File(ourFile);
@@ -36,7 +36,7 @@ public class FileReader {
   }
 
   /**
-   * Запись данных в файл
+   * Writing data to a file
    */
   public void writingToFile() throws IOException {
     FileWriter fileWriter = new FileWriter(ourFile);
@@ -58,7 +58,7 @@ public class FileReader {
   }
 
   /**
-   * Вывод пронумерованного списка игроков с данными статистики
+   * Output of a numbered list of players with statistics data
    */
   public void printNumberedListStatistics() {
     for (int i = 0; i < players.size(); i++) {
@@ -68,7 +68,7 @@ public class FileReader {
   }
 
   /**
-   * Вывод пронумерованного списка имен игроков
+   * Output a numbered list of player names
    */
   public void printNumberedListNamesPlayers() {
     for (int i = 0; i < players.size(); i++) {
