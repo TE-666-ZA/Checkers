@@ -48,18 +48,18 @@ public class MovementLogics extends JPanel {
         checkerMove = BLACKCHECKER;
         return rightBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board,
-          row, col)) {
-          Board.killChecker(selectedRow + 1, selectedCol + 1);
-          checkWhiteVictory();
+          row, col) && board[selectedRow + 1][selectedCol + 1] != WHITECHECKER) {
+        Board.killChecker(selectedRow + 1, selectedCol + 1);
+        checkWhiteVictory();
         checkerMove = BLACKCHECKER;
-          return true;
+        return true;
 
-        } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
-            row, col)) {
-          Board.killChecker(selectedRow + 1, selectedCol - 1);
-          checkWhiteVictory();
+      } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
+          row, col) && board[selectedRow + 1][selectedCol - 1] != WHITECHECKER) {
+        Board.killChecker(selectedRow + 1, selectedCol - 1);
+        checkWhiteVictory();
         checkerMove = BLACKCHECKER;
-          return true;
+        return true;
 
       }
     } else {
@@ -71,27 +71,27 @@ public class MovementLogics extends JPanel {
         checkerMove = WHITECHECKER;
         return rightBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board,
-          row,
-            col)) {
-          Board.killChecker(selectedRow - 1, selectedCol + 1);
-          checkBlackVictory();
+          row, col) && board[selectedRow - 1][selectedCol + 1] != BLACKCHECKER) {
+        Board.killChecker(selectedRow - 1, selectedCol + 1);
+        checkBlackVictory();
         checkerMove = WHITECHECKER;
-          return true;
+        return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
-            row, col)) {
-          Board.killChecker(selectedRow - 1, selectedCol - 1);
-          checkBlackVictory();
+          row, col) && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
+        Board.killChecker(selectedRow - 1, selectedCol - 1);
+        checkBlackVictory();
         checkerMove = WHITECHECKER;
-          return true;
-        }
+        return true;
       }
+    }
     return false;
   }
 
 
   private boolean leftBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
-    if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)) {
+    if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)
+        && board[selectedRow + 1][selectedCol + 1] != WHITECHECKER) {
       Board.killChecker(selectedRow + 1, selectedCol + 1);
       checkWhiteVictory();
       return true;
@@ -101,7 +101,8 @@ public class MovementLogics extends JPanel {
 
   private boolean leftBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
-    if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)) {
+    if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)
+        && board[selectedRow - 1][selectedCol + 1] != BLACKCHECKER) {
       Board.killChecker(selectedRow - 1, selectedCol + 1);
       checkBlackVictory();
       return true;
@@ -111,7 +112,8 @@ public class MovementLogics extends JPanel {
 
   private boolean rightBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
-    if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)) {
+    if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)
+        && board[selectedRow + 1][selectedCol - 1] != WHITECHECKER) {
       Board.killChecker(selectedRow + 1, selectedCol - 1);
       checkWhiteVictory();
       return true;
@@ -121,7 +123,8 @@ public class MovementLogics extends JPanel {
 
   private boolean rightBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
-    if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)) {
+    if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)
+        && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
       Board.killChecker(selectedRow - 1, selectedCol - 1);
       checkBlackVictory();
       return true;
