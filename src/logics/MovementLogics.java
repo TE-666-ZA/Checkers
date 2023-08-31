@@ -8,6 +8,8 @@ public class MovementLogics extends JPanel {
   private int checkerMove;
   private final int WHITECHECKER = 1;
   private final int BLACKCHECKER = 2;
+  private int countWhiteChecker = 12;
+  private int countBlackChecker = 12;
 
   public MovementLogics() {
     checkerMove = WHITECHECKER;
@@ -46,15 +48,16 @@ public class MovementLogics extends JPanel {
         checkerMove = BLACKCHECKER;
         return rightBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board,
-          row,
-            col)) {
+          row, col)) {
           Board.killChecker(selectedRow + 1, selectedCol + 1);
+          checkWhiteVictory();
         checkerMove = BLACKCHECKER;
           return true;
 
         } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
             row, col)) {
           Board.killChecker(selectedRow + 1, selectedCol - 1);
+          checkWhiteVictory();
         checkerMove = BLACKCHECKER;
           return true;
 
@@ -71,11 +74,13 @@ public class MovementLogics extends JPanel {
           row,
             col)) {
           Board.killChecker(selectedRow - 1, selectedCol + 1);
+          checkBlackVictory();
         checkerMove = WHITECHECKER;
           return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
             row, col)) {
           Board.killChecker(selectedRow - 1, selectedCol - 1);
+          checkBlackVictory();
         checkerMove = WHITECHECKER;
           return true;
         }
@@ -88,6 +93,7 @@ public class MovementLogics extends JPanel {
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)) {
       Board.killChecker(selectedRow + 1, selectedCol + 1);
+      checkWhiteVictory();
       return true;
     }
     return false;
@@ -97,6 +103,7 @@ public class MovementLogics extends JPanel {
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)) {
       Board.killChecker(selectedRow - 1, selectedCol + 1);
+      checkBlackVictory();
       return true;
     }
     return false;
@@ -106,6 +113,7 @@ public class MovementLogics extends JPanel {
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)) {
       Board.killChecker(selectedRow + 1, selectedCol - 1);
+      checkWhiteVictory();
       return true;
     }
     return false;
@@ -115,6 +123,7 @@ public class MovementLogics extends JPanel {
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)) {
       Board.killChecker(selectedRow - 1, selectedCol - 1);
+      checkBlackVictory();
       return true;
     }
     return false;
@@ -134,5 +143,47 @@ public class MovementLogics extends JPanel {
 
   private boolean isRightBorderChecker(int selectedCol) {
     return selectedCol == 7;
+  }
+
+  private boolean isWhiteCheckerResetToZero() {
+    return countWhiteChecker == 0;
+  }
+
+  private boolean isBlackCheckerResetToZero() {
+    return countBlackChecker == 0;
+  }
+
+  public void minusOneWhiteChecker() {
+    this.countWhiteChecker--;
+  }
+
+  public void minusOneBlackChecker() {
+    this.countBlackChecker--;
+  }
+
+  public void checkWhiteVictory() {
+    minusOneBlackChecker();
+    if (isBlackCheckerResetToZero()) {
+      gameOverWithWhiteVictory();
+    }
+  }
+
+  public void checkBlackVictory() {
+    minusOneWhiteChecker();
+    if (isWhiteCheckerResetToZero()) {
+      gameOverWithBlackVictory();
+    }
+  }
+
+  public void gameOverWithWhiteVictory() {
+    // TODO увеличение побед белых и увеличение поражений черных
+    System.out.println("Игра завершена! Белые выиграли!");
+    System.exit(1);
+  }
+
+  public void gameOverWithBlackVictory() {
+    // TODO увеличение побед черных и увеличение поражений белых
+    System.out.println("Игра завершена! Черные выиграли!");
+    System.exit(1);
   }
 }
