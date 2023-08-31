@@ -76,6 +76,7 @@ public class Board extends JPanel {
       }
     });
   }
+
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -139,6 +140,14 @@ public class Board extends JPanel {
     player2Name = Name;
   }
 
+  /**
+   * Makes the cage from where the checker is walking, empty
+   *
+   * @param selectedRow the position of the line from where the checker moves, which the player
+   *                    moves
+   * @param selectedCol the position of the column from where the checker moves, which the player
+   *                    moves
+   */
   public static void killChecker(int selectedRow, int selectedCol) {
     board[selectedRow][selectedCol] = 0;
   }
