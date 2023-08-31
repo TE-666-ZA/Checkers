@@ -15,6 +15,20 @@ public class MovementLogics extends JPanel {
     checkerMove = WHITECHECKER;
   }
 
+  /**
+   * Checking the possibility of movement of the checkers
+   *
+   * @param board       playing field
+   * @param row         the position of the row of the cell of the field where we want to move the
+   *                    checker
+   * @param col         the position of the column of the cell of the field where we want to move
+   *                    the checker
+   * @param selectedRow the position of the row of the cell of the field from where we want to move
+   *                    the checker
+   * @param selectedCol the position of the column of the cell of the field from where we want to
+   *                    move the checker
+   * @return true if the checker can be moved, and false if the checker cannot be moved
+   */
   public boolean checkMovement(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     if (checkerMove == WHITECHECKER) {
       if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
@@ -38,6 +52,20 @@ public class MovementLogics extends JPanel {
     return false;
   }
 
+  /**
+   * The opportunity to cut down the opponent's checker
+   *
+   * @param board       playing field
+   * @param row         the position of the row of the cell of the field where we want to move the
+   *                    checker
+   * @param col         the position of the column of the cell of the field where we want to move
+   *                    the checker
+   * @param selectedRow the position of the row of the cell of the field from where we want to move
+   *                    the checker
+   * @param selectedCol the position of the column of the cell of the field from where we want to
+   *                    move the checker
+   * @return
+   */
   private boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     if (checkerMove == WHITECHECKER) {
 
@@ -149,39 +177,39 @@ public class MovementLogics extends JPanel {
   }
 
   /**
-   * Проверка, что белых шашек не осталось на поле
+   * Checking that there are no white checkers left on the field
    *
-   * @return количество белых шашек = 0
+   * @return true if there are no white checkers left on the playing field
    */
   private boolean isWhiteCheckerResetToZero() {
     return countWhiteChecker == 0;
   }
 
   /**
-   * Проверка, что черных шашек не осталось на поле
+   * Checking that there are no black checkers left on the field
    *
-   * @return количество черных шашек = 0
+   * @return true if there are no black checkers left on the playing field
    */
   private boolean isBlackCheckerResetToZero() {
     return countBlackChecker == 0;
   }
 
   /**
-   * Декремент количества белых шашек
+   * Decrement of the number of white checkers
    */
   public void minusOneWhiteChecker() {
     this.countWhiteChecker--;
   }
 
   /**
-   * Декремент количества черных шашек
+   * Decrement of the number of black checkers
    */
   public void minusOneBlackChecker() {
     this.countBlackChecker--;
   }
 
   /**
-   * Проверка победы белых шашек
+   * Checking the victory of white checkers
    */
   public void checkWhiteVictory() {
     minusOneBlackChecker();
@@ -191,7 +219,7 @@ public class MovementLogics extends JPanel {
   }
 
   /**
-   * Проверка победы черных шашек
+   * Checking the victory of black checkers
    */
   public void checkBlackVictory() {
     minusOneWhiteChecker();
@@ -201,7 +229,7 @@ public class MovementLogics extends JPanel {
   }
 
   /**
-   * Окончание игры с победой белых шашек
+   * The end of the game with the victory of the white checkers and exit the game
    */
   public void gameOverWithWhiteVictory() {
     // TODO увеличение побед белых и увеличение поражений черных
@@ -210,7 +238,7 @@ public class MovementLogics extends JPanel {
   }
 
   /**
-   * Окончание игры с победой черных шашек
+   * The end of the game with the victory of the black checkers and exit the game
    */
   public void gameOverWithBlackVictory() {
     // TODO увеличение побед черных и увеличение поражений белых
