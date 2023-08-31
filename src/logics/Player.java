@@ -32,9 +32,9 @@ public class Player {
   }
 
   /**
-   * Инкремент количества побед
+   * Increment of the number of wins
    *
-   * @param numberOfVictories количество побед
+   * @param numberOfVictories number of wins
    */
   public void setNumberOfVictories(int numberOfVictories) {
     this.numberOfVictories++;
@@ -45,9 +45,9 @@ public class Player {
   }
 
   /**
-   * Инкремент количества поражений
+   * Increment of the number of defeats
    *
-   * @param numberOfDefeats количество поражений
+   * @param numberOfDefeats number of defeats
    */
   public void setNumberOfDefeats(int numberOfDefeats) {
     this.numberOfDefeats++;
@@ -56,5 +56,4 @@ public class Player {
   public int getSelectedCheckerColor() {
     return selectedCheckerColor;
   }
-
 }
