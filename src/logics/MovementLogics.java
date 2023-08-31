@@ -148,22 +148,41 @@ public class MovementLogics extends JPanel {
     return selectedCol == 7;
   }
 
+  /**
+   * Проверка, что белых шашек не осталось на поле
+   *
+   * @return количество белых шашек = 0
+   */
   private boolean isWhiteCheckerResetToZero() {
     return countWhiteChecker == 0;
   }
 
+  /**
+   * Проверка, что черных шашек не осталось на поле
+   *
+   * @return количество черных шашек = 0
+   */
   private boolean isBlackCheckerResetToZero() {
     return countBlackChecker == 0;
   }
 
+  /**
+   * Декремент количества белых шашек
+   */
   public void minusOneWhiteChecker() {
     this.countWhiteChecker--;
   }
 
+  /**
+   * Декремент количества черных шашек
+   */
   public void minusOneBlackChecker() {
     this.countBlackChecker--;
   }
 
+  /**
+   * Проверка победы белых шашек
+   */
   public void checkWhiteVictory() {
     minusOneBlackChecker();
     if (isBlackCheckerResetToZero()) {
@@ -171,6 +190,9 @@ public class MovementLogics extends JPanel {
     }
   }
 
+  /**
+   * Проверка победы черных шашек
+   */
   public void checkBlackVictory() {
     minusOneWhiteChecker();
     if (isWhiteCheckerResetToZero()) {
@@ -178,12 +200,18 @@ public class MovementLogics extends JPanel {
     }
   }
 
+  /**
+   * Окончание игры с победой белых шашек
+   */
   public void gameOverWithWhiteVictory() {
     // TODO увеличение побед белых и увеличение поражений черных
     System.out.println("Игра завершена! Белые выиграли!");
     System.exit(1);
   }
 
+  /**
+   * Окончание игры с победой черных шашек
+   */
   public void gameOverWithBlackVictory() {
     // TODO увеличение побед черных и увеличение поражений белых
     System.out.println("Игра завершена! Черные выиграли!");
