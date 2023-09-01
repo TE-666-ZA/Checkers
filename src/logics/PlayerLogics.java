@@ -90,7 +90,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
         return rightBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board,
-          row, col) && board[selectedRow + 1][selectedCol + 1] != WHITECHECKER) {
+          row, col) && board[selectedRow + 1][selectedCol + 1] == BLACKCHECKER) {
         Board.killChecker(selectedRow + 1, selectedCol + 1);
         lastRowPosition = selectedRow + 2;
         lastColPosition = selectedCol + 2;
@@ -99,7 +99,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         return true;
 
       } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
-          row, col) && board[selectedRow + 1][selectedCol - 1] != WHITECHECKER) {
+          row, col) && board[selectedRow + 1][selectedCol - 1] == BLACKCHECKER) {
         Board.killChecker(selectedRow + 1, selectedCol - 1);
         lastRowPosition = selectedRow + 2;
         lastColPosition = selectedCol - 2;
@@ -116,7 +116,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
         return rightBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board,
-          row, col) && board[selectedRow - 1][selectedCol + 1] != BLACKCHECKER) {
+          row, col) && board[selectedRow - 1][selectedCol + 1] == WHITECHECKER) {
         Board.killChecker(selectedRow - 1, selectedCol + 1);
         checkBlackVictory();
         lastRowPosition = selectedRow - 2;
@@ -124,7 +124,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
         return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
-          row, col) && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
+          row, col) && board[selectedRow - 1][selectedCol - 1] == WHITECHECKER) {
         Board.killChecker(selectedRow - 1, selectedCol - 1);
         checkBlackVictory();
         lastRowPosition = selectedRow - 2;
@@ -154,7 +154,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean leftBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)
-        && board[selectedRow + 1][selectedCol + 1] != WHITECHECKER) {
+        && board[selectedRow + 1][selectedCol + 1] == BLACKCHECKER) {
       Board.killChecker(selectedRow + 1, selectedCol + 1);
       checkWhiteVictory();
       lastRowPosition = selectedRow + 2;
@@ -183,7 +183,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean leftBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)
-        && board[selectedRow - 1][selectedCol + 1] != BLACKCHECKER) {
+        && board[selectedRow - 1][selectedCol + 1] == WHITECHECKER) {
       Board.killChecker(selectedRow - 1, selectedCol + 1);
       checkBlackVictory();
       lastRowPosition = selectedRow - 2;
@@ -197,7 +197,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean rightBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)
-        && board[selectedRow + 1][selectedCol - 1] != WHITECHECKER) {
+        && board[selectedRow + 1][selectedCol - 1] == BLACKCHECKER) {
       Board.killChecker(selectedRow + 1, selectedCol - 1);
       checkWhiteVictory();
       lastRowPosition = selectedRow + 2;
@@ -211,7 +211,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean rightBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)
-        && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
+        && board[selectedRow - 1][selectedCol - 1] == WHITECHECKER) {
       Board.killChecker(selectedRow - 1, selectedCol - 1);
       checkBlackVictory();
       lastRowPosition = selectedRow - 2;
