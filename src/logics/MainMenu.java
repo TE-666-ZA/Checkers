@@ -2,7 +2,9 @@ package logics;
 
 import graphics.code.Board;
 import graphics.code.ColoredPrinter;
+import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -13,14 +15,18 @@ public class MainMenu {
   private boolean isStatisticIsOn;
   private boolean isCheckersColorSelected;
   private int saveSelectedColor;
+  private FileReader fileReader;
+  private Map<String, Player> players = fileReader.getPlayers();
 
   MainMenu() {
     this.printer = new ColoredPrinter();
     this.scanner = new Scanner(System.in);
     this.isCheckersColorSelected = false;
+    this.fileReader = new FileReader();
   }
 
-  public void showMainMenu() {
+  public void showMainMenu() throws IOException {
+    fileReader.readingFromFile();
     printer.printInMiddlePurple("Checkers created by Natalya Seluynina & Kenan Iusubovi");
     printer.printInMiddleBlue("Checkers");
     printer.printBlue("1. Player 1 vs Player 1");
@@ -67,6 +73,24 @@ public class MainMenu {
     Player player1 = new Player(input);
     Board.setPlayer1Name(player1.getName());
     choseCheckersColor(player1);
+//    System.out.println("Игрок № 1 вы здесь в первый раз: ");
+//    System.out.println("1. Yes");
+//    System.out.println("2. No");
+//    int choice = scanner.nextInt();
+//    scanner.nextLine();
+//
+//    if (choice == 1) {
+//      printer.printYellow("Please input 1st player name ");
+//      String input = scanner.nextLine();
+//      Player player1 = new Player();
+//      players.put(input, player1);
+//      Board.setPlayer1Name(input);
+//      choseCheckersColor(player1);
+//    } else {
+//      fileReader.printNumberedListNamesPlayers();
+//      System.out.println("Выберите свое имя:");
+//      int numberName = scanner.nextInt();
+//    }
 
     printer.printGreen("Please input 2nd player name ");
     scanner.next();
