@@ -3,14 +3,13 @@ package logics;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class FileReader {
 
   private String ourFile = "src/graphics/res/playersStatistics.csv";
-  private Map<String, Player> players = new HashMap<>();
+  private HashSet<Player> players = new HashSet<>();
   private static final String SEPARATOR = ";";
 
   /**
@@ -29,8 +28,8 @@ public class FileReader {
       String name = cells[0];
       int numberOfVictories = Integer.parseInt(cells[1]);
       int numberOfDefeats = Integer.parseInt(cells[2]);
-      Player player = new Player(numberOfVictories, numberOfDefeats);
-      players.put(name, player);
+      Player player = new Player(name);
+      players.add(player);
     }
     scanner.close();
   }
@@ -41,16 +40,15 @@ public class FileReader {
   public void writingToFile() throws IOException {
     FileWriter fileWriter = new FileWriter(ourFile);
 
-    for (Map.Entry<String, Player> entry : players.entrySet()) {
-      String result =
-          entry.getKey() + SEPARATOR + entry.getValue().getNumberOfVictories() + SEPARATOR
-              + entry.getValue().getNumberOfDefeats();
+    for (Player player : players) {
+      String result = player.getName() + SEPARATOR + player.getNumberOfVictories() + SEPARATOR
+          + player.getNumberOfDefeats();
       fileWriter.write(result + "\n");
     }
     fileWriter.close();
   }
 
-  public Map<String, Player> getPlayers() {
+  public HashSet<Player> getPlayers() {
     return players;
   }
 
@@ -63,10 +61,10 @@ public class FileReader {
    */
   public void printNumberedListStatistics() {
     int index = 1;
-    for (Map.Entry<String, Player> entry : players.entrySet()) {
-      System.out.println(index + ". " + entry.getKey() + ": кол-во побед - " + entry.getValue()
-          .getNumberOfVictories() + ", кол-во поражений - " + entry.getValue()
-          .getNumberOfDefeats());
+    for (Player player : players) {
+      System.out.println(
+          index + ". " + player.getName() + ": кол-во побед - " + player.getNumberOfVictories()
+              + ", кол-во поражений - " + player.getNumberOfDefeats());
       index++;
     }
   }
@@ -76,8 +74,8 @@ public class FileReader {
    */
   public void printNumberedListNamesPlayers() {
     int index = 1;
-    for (Map.Entry<String, Player> entry : players.entrySet()) {
-      System.out.println(index + ". " + entry.getKey());
+    for (Player player : players) {
+      System.out.println(index + ". " + player.getName());
       index++;
     }
   }
