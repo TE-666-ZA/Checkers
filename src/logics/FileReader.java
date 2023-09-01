@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class FileReader {
 
-  private String ourFile = "src/graphics/res/playersStatistics.csv";
+  private String ourFile = "src/logics/res/playersStatistics.csv";
   private HashSet<Player> players = new HashSet<>();
   private static final String SEPARATOR = ";";
 
