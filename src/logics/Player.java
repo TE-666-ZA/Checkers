@@ -10,12 +10,14 @@ public class Player {
 
   public Player(String name) {
     this.name = name;
-  }
-
-  public Player(int numberOfVictories, int numberOfDefeats) {
     this.numberOfVictories = 0;
     this.numberOfDefeats = 0;
   }
+
+//  public Player() {
+//    this.numberOfVictories = 0;
+//    this.numberOfDefeats = 0;
+//  }
 
   public void selectCheckersColor(int choice) {
     if (choice > 0 && choice < 3) {
