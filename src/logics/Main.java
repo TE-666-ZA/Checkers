@@ -12,7 +12,7 @@ public class Main {
 //    fileReader.writingToFile();
 
 
-    MovementLogics movementLogics = new MovementLogics();
+    PlayerLogics movementLogics = new PlayerLogics();
     MainMenu menu = new MainMenu();
 
     menu.showMainMenu();
