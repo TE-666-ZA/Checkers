@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 
 public class Main {
   public static void main(String[] args) throws IOException {
-    FileReader fileReader = new FileReader();
-    fileReader.readingFromFile();
-    fileReader.printNumberedListStatistics();
-    fileReader.writingToFile();
+//    FileReader fileReader = new FileReader();
+//    fileReader.readingFromFile();
+//    fileReader.printNumberedListStatistics();
+//    fileReader.writingToFile();
 
 
     MovementLogics movementLogics = new MovementLogics();
