@@ -4,7 +4,6 @@ import graphics.code.Board;
 import graphics.code.ColoredPrinter;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -39,7 +38,7 @@ public class MainMenu {
     scanner.nextLine();
     switch (command) {
       case 1:
-        player1VsPlaer1();
+        player1VsPlayer1();
         break;
       case 2:
         player1VsPlayer2();
@@ -57,7 +56,7 @@ public class MainMenu {
     }
   }
 
-  public void player1VsPlaer1() {
+  public void player1VsPlayer1() {
     isStatisticIsOn = false;
     Player player = new Player("DefaultName");
     Board.setPlayer1Name(player.getName());
@@ -65,44 +64,86 @@ public class MainMenu {
     Main.play(player, player, isStatisticIsOn);
   }
 
-  public void player1VsPlayer2() {
+  public void player1VsPlayer2() throws IOException {
     isStatisticIsOn = true;
-    fileReader.printNumberedListNamesPlayers();
-    fileReader.printNumberedListStatistics();
-    printer.printYellow("Please input 1st player name ");
-    String input = scanner.nextLine();
-    Player player1 = new Player(input);
-    Board.setPlayer1Name(player1.getName());
-    choseCheckersColor(player1);
-//    System.out.println("Игрок № 1 вы здесь в первый раз: ");
-//    System.out.println("1. Yes");
-//    System.out.println("2. No");
-//    int choice = scanner.nextInt();
-//    scanner.nextLine();
-//
-//    if (choice == 1) {
-//      printer.printYellow("Please input 1st player name ");
-//      String input = scanner.nextLine();
-//      Player player1 = new Player();
-//      players.put(input, player1);
-//      Board.setPlayer1Name(input);
-//      choseCheckersColor(player1);
-//    } else {
-//      fileReader.printNumberedListNamesPlayers();
-//      System.out.println("Выберите свое имя:");
-//      int numberName = scanner.nextInt();
-//    }
+    int choice;
+    String name1Player = null;
+    String name2Player = null;
+    Player player1;
+    Player player2;
+//    printer.printYellow("Please input 1st player name ");
+//    String input = scanner.nextLine();
+//    Player player1 = new Player(input);
+//    Board.setPlayer1Name(player1.getName());
+//    choseCheckersColor(player1);
+    printer.printYellow("Player №1 you are here for the first time: ");
+    System.out.println("1. Yes");
+    System.out.println("2. No");
+    choice = scanner.nextInt();
+    scanner.nextLine();
 
-    printer.printGreen("Please input 2nd player name ");
-    scanner.next();
-    input = scanner.nextLine();
-    Player player2 = new Player(input);
-    // Board.setPlayer2Name(player2.getName());
-    choseCheckersColor(player2);
+    if (choice == 1) {
+      printer.printYellow("Please input 1st player name ");
+      name1Player = scanner.nextLine();
+      player1 = new Player(name1Player);
+      fileReader.getPlayers().add(player1);
+      Board.setPlayer1Name(name1Player);
+      choseCheckersColor(player1);
+    } else {
+      System.out.println("Choose the number of your name in the game:");
+      fileReader.printNumberedListNamesPlayers();
+      int numberName = scanner.nextInt();
+      scanner.nextLine();
+      int index = 0;
+      for (Player player : fileReader.getPlayers()) {
+        index++;
+        if (index == numberName) {
+          name1Player = player.getName();
+        }
+      }
+      player1 = new Player(name1Player);
+    }
+
+//    printer.printGreen("Please input 2nd player name ");
+//    scanner.next();
+//    input = scanner.nextLine();
+//    Player player2 = new Player(input);
+//    // Board.setPlayer2Name(player2.getName());
+//    choseCheckersColor(player2);
+//    Main.play(player1, player2, isStatisticIsOn);
+
+    printer.printYellow("Player №2 you are here for the first time: ");
+    System.out.println("1. Yes");
+    System.out.println("2. No");
+    choice = scanner.nextInt();
+    scanner.nextLine();
+
+    if (choice == 1) {
+      printer.printYellow("Please input 2nd player name ");
+      name2Player = scanner.nextLine();
+      player2 = new Player(name2Player);
+      fileReader.getPlayers().add(player2);
+      Board.setPlayer1Name(name2Player);
+      choseCheckersColor(player2);
+    } else {
+      System.out.println("Choose the number of your name in the game:");
+      fileReader.printNumberedListNamesPlayers();
+      int numberName = scanner.nextInt();
+      scanner.nextLine();
+      int index = 0;
+      for (Player player : fileReader.getPlayers()) {
+        index++;
+        if (index == numberName) {
+          name2Player = player.getName();
+        }
+      }
+      player2 = new Player(name2Player);
+    }
     Main.play(player1, player2, isStatisticIsOn);
+    fileReader.writingToFile();
   }
 
-  public void player1VsCom() {
+  public void player1VsCom() throws IOException {
     isStatisticIsOn = true;
     String input = scanner.nextLine();
     Player player = new Player(input);
@@ -114,9 +155,10 @@ public class MainMenu {
     choseCheckersColor(com.getPlayer());
 
     Main.play(player, com.getPlayer(), isStatisticIsOn);
+    fileReader.writingToFile();
   }
 
-  public void comVsCom() {
+  public void comVsCom() throws IOException {
     isStatisticIsOn = false;
     ComLogics com1 = new ComLogics("com1");
     com1.getPlayer().selectCheckersColor(1);
@@ -165,5 +207,4 @@ public class MainMenu {
       printer.printGreen("Player --" + player.getName() + "-- playing with WHITE color");
     }
   }
-
 }
