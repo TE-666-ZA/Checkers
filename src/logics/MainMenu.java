@@ -16,7 +16,6 @@ public class MainMenu {
   private boolean isCheckersColorSelected;
   private int saveSelectedColor;
   private FileReader fileReader;
-  private Map<String, Player> players = fileReader.getPlayers();
 
   MainMenu() {
     this.printer = new ColoredPrinter();
@@ -68,6 +67,8 @@ public class MainMenu {
 
   public void player1VsPlayer2() {
     isStatisticIsOn = true;
+    fileReader.printNumberedListNamesPlayers();
+    fileReader.printNumberedListStatistics();
     printer.printYellow("Please input 1st player name ");
     String input = scanner.nextLine();
     Player player1 = new Player(input);
