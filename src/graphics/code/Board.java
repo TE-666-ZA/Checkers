@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import logics.MovementLogics;
+import logics.PlayerLogics;
 
 public class Board extends JPanel {
 
@@ -19,7 +19,7 @@ public class Board extends JPanel {
   public static final Color LIGHT_COLOR = new Color(2, 1, 1);
   public static final Color DARK_COLOR = new Color(194, 158, 120);
 
-  private MovementLogics movementLogics;
+  private PlayerLogics movementLogics;
   private BufferedImage whitePieceImage;
   private BufferedImage blackPieceImage;
   private int selectedRow;
@@ -39,7 +39,7 @@ public class Board extends JPanel {
   };
 
   public Board() {
-    movementLogics = new MovementLogics();
+    movementLogics = new PlayerLogics();
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/res/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/res/blackSprite.png"));
