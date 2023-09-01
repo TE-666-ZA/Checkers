@@ -12,7 +12,7 @@ public class Player {
     this.name = name;
   }
 
-  public Player() {
+  public Player(int numberOfVictories, int numberOfDefeats) {
     this.numberOfVictories = 0;
     this.numberOfDefeats = 0;
   }
