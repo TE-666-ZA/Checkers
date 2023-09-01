@@ -75,8 +75,8 @@ public class FileReader {
    * Output a numbered list of player names
    */
   public void printNumberedListNamesPlayers() {
+    int index = 1;
     for (Map.Entry<String, Player> entry : players.entrySet()) {
-      int index = 1;
       System.out.println(index + ". " + entry.getKey());
       index++;
     }
