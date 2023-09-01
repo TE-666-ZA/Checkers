@@ -8,11 +8,19 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   private int checkerMove;
   private final int WHITECHECKER = 1;
   private final int BLACKCHECKER = 2;
+  private final int ROW_LIMITER_TOP = 1;
+  private final int ROW_LIMITER_DOWN = 6;
   private int countWhiteChecker = 12;
   private int countBlackChecker = 12;
+  int lastRowPosition;
+  int lastColPosition;
+  boolean canDoNextMove;
 
   public PlayerLogics() {
     checkerMove = WHITECHECKER;
+    canDoNextMove = false;
+    lastColPosition = -1;
+    lastRowPosition = -1;
   }
 
   /**
@@ -29,25 +37,30 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *                    move the checker
    * @return true if the checker can be moved, and false if the checker cannot be moved
    */
-  @Override
+
   public boolean checkMovement(int[][] board, int row, int col, int selectedRow, int selectedCol) {
-    if (checkerMove == WHITECHECKER) {
-      if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
-          && isTargetCellFree(board, row, col)) {
-        checkerMove = BLACKCHECKER;
-        return true;
-      } else {
+    if (canDoNextMove) {
+      if (lastRowPosition == selectedRow && lastColPosition == selectedCol) {
         return canKill(board, row, col, selectedRow, selectedCol);
       }
-    }
+    } else {
+      if (checkerMove == WHITECHECKER) {
+        if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
+            && isTargetCellFree(board, row, col)) {
 
-    if (checkerMove == BLACKCHECKER) {
-      if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow - 1)
-          && isTargetCellFree(board, row, col)) {
-        checkerMove = WHITECHECKER;
-        return true;
-      } else {
-        return canKill(board, row, col, selectedRow, selectedCol);
+          return true;
+        } else {
+          return canKill(board, row, col, selectedRow, selectedCol);
+        }
+      }
+
+      if (checkerMove == BLACKCHECKER) {
+        if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow - 1)
+            && isTargetCellFree(board, row, col)) {
+          return true;
+        } else {
+          return canKill(board, row, col, selectedRow, selectedCol);
+        }
       }
     }
     return false;
@@ -67,49 +80,56 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *                    which we want to eat the opponent's checker is located
    * @return true if the white checker can eat the opponent's black checker, and false if it can't
    */
-  @Override
   public boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     if (checkerMove == WHITECHECKER) {
 
       if (isLeftBorderChecker(selectedCol)) {
-        checkerMove = BLACKCHECKER;
+
         return leftBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (isRightBorderChecker(selectedCol)) {
-        checkerMove = BLACKCHECKER;
+
         return rightBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board,
           row, col) && board[selectedRow + 1][selectedCol + 1] != WHITECHECKER) {
         Board.killChecker(selectedRow + 1, selectedCol + 1);
+        lastRowPosition = selectedRow + 2;
+        lastColPosition = selectedCol + 2;
         checkWhiteVictory();
-        checkerMove = BLACKCHECKER;
+        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
         return true;
 
       } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
           row, col) && board[selectedRow + 1][selectedCol - 1] != WHITECHECKER) {
         Board.killChecker(selectedRow + 1, selectedCol - 1);
+        lastRowPosition = selectedRow + 2;
+        lastColPosition = selectedCol - 2;
         checkWhiteVictory();
-        checkerMove = BLACKCHECKER;
+        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
         return true;
       }
 
     } else {
       if (isLeftBorderChecker(selectedCol)) {
-        checkerMove = WHITECHECKER;
+
         return leftBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (isRightBorderChecker(selectedCol)) {
-        checkerMove = WHITECHECKER;
+
         return rightBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board,
           row, col) && board[selectedRow - 1][selectedCol + 1] != BLACKCHECKER) {
         Board.killChecker(selectedRow - 1, selectedCol + 1);
         checkBlackVictory();
-        checkerMove = WHITECHECKER;
+        lastRowPosition = selectedRow - 2;
+        lastColPosition = selectedCol + 2;
+        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
         return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
           row, col) && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
         Board.killChecker(selectedRow - 1, selectedCol - 1);
         checkBlackVictory();
-        checkerMove = WHITECHECKER;
+        lastRowPosition = selectedRow - 2;
+        lastColPosition = selectedCol - 2;
+        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
         return true;
       }
     }
@@ -131,13 +151,15 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *                    which plans to eat the opponent's black checker
    * @return true if the white checker can eat the opponent's black checker, and false if it can't
    */
-  @Override
   public boolean leftBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)
         && board[selectedRow + 1][selectedCol + 1] != WHITECHECKER) {
       Board.killChecker(selectedRow + 1, selectedCol + 1);
       checkWhiteVictory();
+      lastRowPosition = selectedRow + 2;
+      lastColPosition = selectedCol + 2;
+      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
       return true;
     }
     return false;
@@ -158,37 +180,43 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *                    which plans to eat the opponent's white checker
    * @return true if the black checker can eat the opponent's white checker, and false if it can't
    */
-  @Override
   public boolean leftBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board, row, col)
         && board[selectedRow - 1][selectedCol + 1] != BLACKCHECKER) {
       Board.killChecker(selectedRow - 1, selectedCol + 1);
       checkBlackVictory();
+      lastRowPosition = selectedRow - 2;
+      lastColPosition = selectedCol + 2;
+      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
       return true;
     }
     return false;
   }
 
-  @Override
   public boolean rightBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)
         && board[selectedRow + 1][selectedCol - 1] != WHITECHECKER) {
       Board.killChecker(selectedRow + 1, selectedCol - 1);
       checkWhiteVictory();
+      lastRowPosition = selectedRow + 2;
+      lastColPosition = selectedCol - 2;
+      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
       return true;
     }
     return false;
   }
 
-  @Override
   public boolean rightBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board, row, col)
         && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
       Board.killChecker(selectedRow - 1, selectedCol - 1);
       checkBlackVictory();
+      lastRowPosition = selectedRow - 2;
+      lastColPosition = selectedCol - 2;
+      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
       return true;
     }
     return false;
@@ -205,12 +233,10 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    * @return true if the cell of the playing field is free, and false if there is another checker on
    * the cell
    */
-  @Override
   public boolean isTargetCellFree(int[][] board, int row, int col) {
     return board[row][col] == 0;
   }
 
-  @Override
   public int getCheckerMove() {
     return checkerMove;
   }
@@ -223,7 +249,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    * @return true if the checker is in the left most table of the playing field, and false if the
    * checker is in any other table
    */
-  @Override
   public boolean isLeftBorderChecker(int selectedCol) {
     return selectedCol == 0;
   }
@@ -236,7 +261,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    * @return true if the checker is in the right most table of the playing field, and false if the
    * checker is in any other table
    */
-  @Override
   public boolean isRightBorderChecker(int selectedCol) {
     return selectedCol == 7;
   }
@@ -246,7 +270,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *
    * @return true if there are no white checkers left on the playing field
    */
-  @Override
   public boolean isWhiteCheckerResetToZero() {
     return countWhiteChecker == 0;
   }
@@ -256,7 +279,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *
    * @return true if there are no black checkers left on the playing field
    */
-  @Override
   public boolean isBlackCheckerResetToZero() {
     return countBlackChecker == 0;
   }
@@ -264,7 +286,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * Decrement of the number of white checkers
    */
-  @Override
   public void minusOneWhiteChecker() {
     this.countWhiteChecker--;
   }
@@ -272,7 +293,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * Decrement of the number of black checkers
    */
-  @Override
   public void minusOneBlackChecker() {
     this.countBlackChecker--;
   }
@@ -280,7 +300,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * Checking the victory of white checkers
    */
-  @Override
   public void checkWhiteVictory() {
     minusOneBlackChecker();
     if (isBlackCheckerResetToZero()) {
@@ -291,7 +310,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * Checking the victory of black checkers
    */
-  @Override
   public void checkBlackVictory() {
     minusOneWhiteChecker();
     if (isWhiteCheckerResetToZero()) {
@@ -302,7 +320,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * The end of the game with the victory of the white checkers and exit the game
    */
-  @Override
   public void gameOverWithWhiteVictory() {
     // TODO увеличение побед белых и увеличение поражений черных
     System.out.println("Игра завершена! Белые выиграли!");
@@ -312,18 +329,68 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * The end of the game with the victory of the black checkers and exit the game
    */
-  @Override
   public void gameOverWithBlackVictory() {
     // TODO увеличение побед черных и увеличение поражений белых
     System.out.println("Игра завершена! Черные выиграли!");
     System.exit(1);
   }
 
-  public int getWHITECHECKER() {
-    return WHITECHECKER;
+  private boolean isNextKillPossible(int[][] board, int row, int col, int selectedRow,
+      int selectedCol) {
+    if (selectedCol > 4 && row < ROW_LIMITER_DOWN && row > ROW_LIMITER_TOP) {
+      if (checkerMove == WHITECHECKER) {
+        return isNextKillPossibleRightWhite(board, selectedRow, selectedCol);
+      } else {
+        return isNextKillPossibleRightBlack(board, selectedRow, selectedCol);
+      }
+    } else if (selectedCol < 3 && row < ROW_LIMITER_DOWN && row > ROW_LIMITER_TOP) {
+      if (checkerMove == WHITECHECKER) {
+        return isNextKillPossibleLeftWhite(board, selectedRow, selectedCol);
+      } else {
+        return isNextKillPossibleLeftBlack(board, selectedRow, selectedCol);
+      }
+    }
+    return false;
   }
 
-  public int getBLACKCHECKER() {
-    return BLACKCHECKER;
+  private boolean isNextKillPossibleLeftWhite(int[][] board, int selectedRow, int selectedCol) {
+    return board[selectedRow + 3][selectedCol + 3] == BLACKCHECKER && isTargetCellFree(board,
+        selectedRow + 4, selectedCol + 4);
+  }
+
+
+  private boolean isNextKillPossibleRightWhite(int[][] board, int selectedRow, int selectedCol) {
+    return board[selectedRow + 3][selectedCol - 3] == BLACKCHECKER && isTargetCellFree(board,
+        selectedRow + 4, selectedCol - 4);
+  }
+
+  private boolean isNextKillPossibleLeftBlack(int[][] board, int selectedRow, int selectedCol) {
+    return board[selectedRow - 3][selectedCol + 3] == WHITECHECKER && isTargetCellFree(board,
+        selectedRow - 4, selectedCol + 4);
+  }
+
+  private boolean isNextKillPossibleRightBlack(int[][] board, int selectedRow, int selectedCol) {
+    return board[selectedRow - 3][selectedCol - 3] == WHITECHECKER && isTargetCellFree(board,
+        selectedRow - 4, selectedCol - 4);
+  }
+
+  public boolean isCanDoNextMove() {
+    return canDoNextMove;
+  }
+
+  public void changeMoveColor() {
+    if (checkerMove == WHITECHECKER) {
+      checkerMove = BLACKCHECKER;
+    } else {
+      checkerMove = WHITECHECKER;
+    }
+  }
+
+  public int getLastRowPosition() {
+    return lastRowPosition;
+  }
+
+  public int getLastColPosition() {
+    return lastColPosition;
   }
 }

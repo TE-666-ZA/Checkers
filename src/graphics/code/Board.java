@@ -41,8 +41,8 @@ public class Board extends JPanel {
   public Board() {
     movementLogics = new PlayerLogics();
     try {
-      whitePieceImage = ImageIO.read(new File("src/graphics/res/whiteSprite.png"));
-      blackPieceImage = ImageIO.read(new File("src/graphics/res/blackSprite.png"));
+      whitePieceImage = ImageIO.read(new File("src/graphics/sprites/whiteSprite.png"));
+      blackPieceImage = ImageIO.read(new File("src/graphics/sprites/blackSprite.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -53,6 +53,7 @@ public class Board extends JPanel {
       public void mouseClicked(MouseEvent e) {
         int row = e.getY() / Board.CELL_SIZE;
         int col = e.getX() / Board.CELL_SIZE;
+
 
         if (selectedRow == -1) {
           if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
@@ -69,6 +70,9 @@ public class Board extends JPanel {
             board[selectedRow][selectedCol] = 0;
             selectedRow = -1;
             selectedCol = -1;
+            if (!movementLogics.isCanDoNextMove()) {
+              movementLogics.changeMoveColor();
+            }
           }
         }
 
@@ -124,7 +128,10 @@ public class Board extends JPanel {
     if (selectedRow != -1 && selectedCol != -1) {
       g.setColor(Color.BLUE);
       g.drawRect(selectedCol * CELL_SIZE, selectedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-
+    } else if (movementLogics.isCanDoNextMove()) {
+      g.setColor(Color.RED);
+      g.drawRect(movementLogics.getLastColPosition() * CELL_SIZE,
+          movementLogics.getLastRowPosition() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
   }
 
