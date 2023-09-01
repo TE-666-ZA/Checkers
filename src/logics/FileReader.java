@@ -29,7 +29,7 @@ public class FileReader {
       String name = cells[0];
       int numberOfVictories = Integer.parseInt(cells[1]);
       int numberOfDefeats = Integer.parseInt(cells[2]);
-      Player player = new Player(name);
+      Player player = new Player(numberOfVictories, numberOfDefeats);
       players.put(name, player);
     }
     scanner.close();
@@ -62,8 +62,8 @@ public class FileReader {
    * Output of a numbered list of players with statistics data
    */
   public void printNumberedListStatistics() {
+    int index = 1;
     for (Map.Entry<String, Player> entry : players.entrySet()) {
-      int index = 1;
       System.out.println(index + ". " + entry.getKey() + ": кол-во побед - " + entry.getValue()
           .getNumberOfVictories() + ", кол-во поражений - " + entry.getValue()
           .getNumberOfDefeats());
