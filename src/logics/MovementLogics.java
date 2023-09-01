@@ -88,10 +88,9 @@ public class MovementLogics extends JPanel {
         checkWhiteVictory();
         checkerMove = BLACKCHECKER;
         return true;
-
       }
-    } else {
 
+    } else {
       if (isLeftBorderChecker(selectedCol)) {
         checkerMove = WHITECHECKER;
         return leftBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
