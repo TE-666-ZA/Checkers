@@ -14,11 +14,6 @@ public class Player {
     this.numberOfDefeats = 0;
   }
 
-//  public Player() {
-//    this.numberOfVictories = 0;
-//    this.numberOfDefeats = 0;
-//  }
-
   public void selectCheckersColor(int choice) {
     if (choice > 0 && choice < 3) {
       selectedCheckerColor = choice;
@@ -38,10 +33,8 @@ public class Player {
 
   /**
    * Increment of the number of wins
-   *
-   * @param numberOfVictories number of wins
    */
-  public void setNumberOfVictories(int numberOfVictories) {
+  public void setNumberOfVictories() {
     this.numberOfVictories++;
   }
 
