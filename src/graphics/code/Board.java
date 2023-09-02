@@ -22,8 +22,8 @@ public class Board extends JPanel {
   private PlayerLogics movementLogics;
   private BufferedImage whitePieceImage;
   private BufferedImage blackPieceImage;
-  private int selectedRow;
-  private int selectedCol;
+  private static int selectedRow;
+  private static int selectedCol;
   private static String player1Name;
   private static String player2Name;
 
@@ -63,8 +63,8 @@ public class Board extends JPanel {
         } else if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
           selectedRow = row;
           selectedCol = col;
-        } else {
-          if (movementLogics.checkMovement(board, row, col, selectedRow, selectedCol)) {
+        }
+        if (movementLogics.isMoveValid(board, row, col, selectedRow, selectedCol)) {
             board[row][col] = board[selectedRow][selectedCol];
             board[selectedRow][selectedCol] = 0;
             selectedRow = -1;
@@ -73,7 +73,6 @@ public class Board extends JPanel {
               movementLogics.changeMoveColor();
             }
           }
-        }
 
         repaint();
       }
@@ -156,5 +155,13 @@ public class Board extends JPanel {
    */
   public static void killChecker(int selectedRow, int selectedCol) {
     board[selectedRow][selectedCol] = 0;
+  }
+
+  public static void setSelectedRow(int row) {
+    selectedRow = row;
+  }
+
+  public static void setSelectedCol(int col) {
+    selectedCol = col;
   }
 }
