@@ -94,6 +94,7 @@ public class PlayerLogics extends JPanel {
         Board.killChecker(selectedRow + 1, selectedCol + 1);
         lastRowPosition = selectedRow + 2;
         lastColPosition = selectedCol + 2;
+//        turnsWhiteCheckerInWhiteKing(board, row, col);
         checkWhiteVictory();
         canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
         return true;
@@ -122,6 +123,8 @@ public class PlayerLogics extends JPanel {
         lastRowPosition = selectedRow - 2;
         lastColPosition = selectedCol + 2;
         canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+//        turnsBlackCheckerInBlackKing(board, row, col);
+
         return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
           row, col) && board[selectedRow - 1][selectedCol - 1] != BLACKCHECKER) {
@@ -130,6 +133,8 @@ public class PlayerLogics extends JPanel {
         lastRowPosition = selectedRow - 2;
         lastColPosition = selectedCol - 2;
         canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+//        turnsBlackCheckerInBlackKing(board, row, col);
+
         return true;
       }
     }
@@ -160,6 +165,8 @@ public class PlayerLogics extends JPanel {
       lastRowPosition = selectedRow + 2;
       lastColPosition = selectedCol + 2;
       canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+//      turnsWhiteCheckerInWhiteKing(board, row, col);
+
       return true;
     }
     return false;
@@ -189,6 +196,8 @@ public class PlayerLogics extends JPanel {
       lastRowPosition = selectedRow - 2;
       lastColPosition = selectedCol + 2;
       canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+//      turnsBlackCheckerInBlackKing(board, row, col);
+
       return true;
     }
     return false;
@@ -203,6 +212,8 @@ public class PlayerLogics extends JPanel {
       lastRowPosition = selectedRow + 2;
       lastColPosition = selectedCol - 2;
       canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+//      turnsWhiteCheckerInWhiteKing(board, row, col);
+
       return true;
     }
     return false;
@@ -217,6 +228,8 @@ public class PlayerLogics extends JPanel {
       lastRowPosition = selectedRow - 2;
       lastColPosition = selectedCol - 2;
       canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+//      turnsBlackCheckerInBlackKing(board, row, col);
+
       return true;
     }
     return false;
@@ -369,6 +382,7 @@ public class PlayerLogics extends JPanel {
   public boolean isNextKillPossibleRightBlack(int[][] board, int selectedRow, int selectedCol) {
     return board[selectedRow - 3][selectedCol - 3] == WHITECHECKER;
   }
+
   public boolean isCanDoNextMove() {
     return canDoNextMove;
   }
@@ -387,5 +401,42 @@ public class PlayerLogics extends JPanel {
 
   public int getLastColPosition() {
     return lastColPosition;
+//  }
+//
+//  public void turnsWhiteCheckerInWhiteKing(int[][] board, int row, int col) {
+//    if (isCheckingPossibilityBecomingWhiteKing()) {
+//      board[row][col] = kingWhiteChecker;
+//    }
+//  }
+//
+//  public boolean isCheckingPossibilityBecomingWhiteKing() {
+//    return lastRowPosition == 7;
+//  }
+//
+//  public void turnsBlackCheckerInBlackKing(int[][] board, int row, int col) {
+//    if (isCheckingPossibilityBecomingBlackKing()) {
+//      board[row][col] = kingBlackChecker;
+//    }
+//  }
+//
+//  public boolean isCheckingPossibilityBecomingBlackKing() {
+//    return lastRowPosition == 0;
+//  }
+//
+//  public int getWHITECHECKER() {
+//    return WHITECHECKER;
+//  }
+//
+//  public int getBLACKCHECKER() {
+//    return BLACKCHECKER;
+//  }
+//
+//  public void setKingWhiteChecker(KingLogics kingLogics) {
+//    this.kingWhiteChecker = kingLogics.getKING_WHITE_CHECKER();
+//  }
+//
+//  public void setKingBlackChecker(KingLogics kingLogics) {
+//    this.kingBlackChecker = kingLogics.getKING_BLACK_CHECKER();
+//  }
   }
 }
