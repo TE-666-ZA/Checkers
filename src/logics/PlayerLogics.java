@@ -8,8 +8,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   private int checkerMove;
   private final int WHITECHECKER = 1;
   private final int BLACKCHECKER = 2;
-  private final int ROW_LIMITER_TOP = 1;
-  private final int ROW_LIMITER_DOWN = 6;
   private int countWhiteChecker = 12;
   private int countBlackChecker = 12;
   int lastRowPosition;
@@ -356,7 +354,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   }
 
   public boolean isCanDoValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
-    if (selectedRow < 5 && selectedRow > 2 && selectedCol < 5 && selectedCol > 2) {
+    if (selectedRow < 6 && selectedRow > 1 && selectedCol < 6 && selectedCol > 1) {
       if (checkerMove == WHITECHECKER) {
         if (board[lastRowPosition + 2][lastColPosition + 2] == 0
             || board[lastRowPosition + 2][lastColPosition - 2] == 0) {
