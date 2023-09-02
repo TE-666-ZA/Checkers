@@ -41,7 +41,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean checkMovement(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     if (canDoNextMove) {
       if (lastRowPosition == selectedRow && lastColPosition == selectedCol) {
-        return canKill(board, row, col, selectedRow, selectedCol);
+        canDoNextMove = canKill(board, row, col, selectedRow, selectedCol);
+        return canDoNextMove;
       }
     } else {
       if (checkerMove == WHITECHECKER) {
@@ -50,7 +51,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
           return true;
         } else {
-          return canKill(board, row, col, selectedRow, selectedCol);
+          canDoNextMove = canKill(board, row, col, selectedRow, selectedCol);
+          return canDoNextMove;
         }
       }
 
@@ -59,7 +61,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
             && isTargetCellFree(board, row, col)) {
           return true;
         } else {
-          return canKill(board, row, col, selectedRow, selectedCol);
+          canDoNextMove = canKill(board, row, col, selectedRow, selectedCol);
+          return canDoNextMove;
         }
       }
     }
@@ -95,7 +98,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         lastRowPosition = selectedRow + 2;
         lastColPosition = selectedCol + 2;
         checkWhiteVictory();
-        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
         return true;
 
       } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board,
@@ -104,7 +107,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         lastRowPosition = selectedRow + 2;
         lastColPosition = selectedCol - 2;
         checkWhiteVictory();
-        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
         return true;
       }
 
@@ -121,7 +124,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         checkBlackVictory();
         lastRowPosition = selectedRow - 2;
         lastColPosition = selectedCol + 2;
-        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
         return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board,
           row, col) && board[selectedRow - 1][selectedCol - 1] == WHITECHECKER) {
@@ -129,7 +132,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         checkBlackVictory();
         lastRowPosition = selectedRow - 2;
         lastColPosition = selectedCol - 2;
-        canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
         return true;
       }
     }
@@ -159,7 +162,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       checkWhiteVictory();
       lastRowPosition = selectedRow + 2;
       lastColPosition = selectedCol + 2;
-      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
       return true;
     }
     return false;
@@ -188,7 +191,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       checkBlackVictory();
       lastRowPosition = selectedRow - 2;
       lastColPosition = selectedCol + 2;
-      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
       return true;
     }
     return false;
@@ -202,7 +205,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       checkWhiteVictory();
       lastRowPosition = selectedRow + 2;
       lastColPosition = selectedCol - 2;
-      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
       return true;
     }
     return false;
@@ -216,7 +219,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       checkBlackVictory();
       lastRowPosition = selectedRow - 2;
       lastColPosition = selectedCol - 2;
-      canDoNextMove = isNextKillPossible(board, row, col, selectedRow, selectedCol);
+
       return true;
     }
     return false;
@@ -333,45 +336,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     // TODO увеличение побед черных и увеличение поражений белых
     System.out.println("Игра завершена! Черные выиграли!");
     System.exit(1);
-  }
-
-  private boolean isNextKillPossible(int[][] board, int row, int col, int selectedRow,
-      int selectedCol) {
-    if (selectedCol > 4 && row < ROW_LIMITER_DOWN && row > ROW_LIMITER_TOP) {
-      if (checkerMove == WHITECHECKER) {
-        return isNextKillPossibleRightWhite(board, selectedRow, selectedCol);
-      } else {
-        return isNextKillPossibleRightBlack(board, selectedRow, selectedCol);
-      }
-    } else if (selectedCol < 3 && row < ROW_LIMITER_DOWN && row > ROW_LIMITER_TOP) {
-      if (checkerMove == WHITECHECKER) {
-        return isNextKillPossibleLeftWhite(board, selectedRow, selectedCol);
-      } else {
-        return isNextKillPossibleLeftBlack(board, selectedRow, selectedCol);
-      }
-    }
-    return false;
-  }
-
-  private boolean isNextKillPossibleLeftWhite(int[][] board, int selectedRow, int selectedCol) {
-    return board[selectedRow + 3][selectedCol + 3] == BLACKCHECKER && isTargetCellFree(board,
-        selectedRow + 4, selectedCol + 4);
-  }
-
-
-  private boolean isNextKillPossibleRightWhite(int[][] board, int selectedRow, int selectedCol) {
-    return board[selectedRow + 3][selectedCol - 3] == BLACKCHECKER && isTargetCellFree(board,
-        selectedRow + 4, selectedCol - 4);
-  }
-
-  private boolean isNextKillPossibleLeftBlack(int[][] board, int selectedRow, int selectedCol) {
-    return board[selectedRow - 3][selectedCol + 3] == WHITECHECKER && isTargetCellFree(board,
-        selectedRow - 4, selectedCol + 4);
-  }
-
-  private boolean isNextKillPossibleRightBlack(int[][] board, int selectedRow, int selectedCol) {
-    return board[selectedRow - 3][selectedCol - 3] == WHITECHECKER && isTargetCellFree(board,
-        selectedRow - 4, selectedCol - 4);
   }
 
   public boolean isCanDoNextMove() {
