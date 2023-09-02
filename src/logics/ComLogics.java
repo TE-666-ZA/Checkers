@@ -24,7 +24,7 @@ public class ComLogics implements MovementLogics {
   }
 
   @Override
-  public boolean checkMovement(int[][] board, int row, int col, int selectedRow, int selectedCol) {
+  public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     return false;
   }
 

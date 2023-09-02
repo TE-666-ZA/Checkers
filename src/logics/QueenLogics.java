@@ -5,7 +5,7 @@ public class QueenLogics implements MovementLogics {
   PlayerLogics playerLogics = new PlayerLogics();
 
   @Override
-  public boolean checkMovement(int[][] board, int row, int col, int selectedRow, int selectedCol) {
+  public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     int differentRow = Math.abs(row - selectedRow);
     int differentCol = Math.abs(col - selectedCol);
     if ((differentRow == differentCol) && (board[row][col] == 0)) {

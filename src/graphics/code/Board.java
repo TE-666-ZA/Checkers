@@ -16,8 +16,8 @@ public class Board extends JPanel {
 
   public static final int BOARD_SIZE = 8;
   public static final int CELL_SIZE = 100;
-  public static final Color LIGHT_COLOR = new Color(194, 158, 120);
   public static final Color DARK_COLOR = new Color(2, 1, 1);
+  public static final Color LIGHT_COLOR = new Color(194, 158, 120);
 
   private PlayerLogics movementLogics;
   private BufferedImage whitePieceImage;

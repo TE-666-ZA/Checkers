@@ -2,7 +2,7 @@ package logics;
 
 public interface MovementLogics {
 
-  boolean checkMovement(int[][] board, int row, int col, int selectedRow, int selectedCol);
+  boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol);
 
   boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol);
 
