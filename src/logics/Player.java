@@ -54,4 +54,13 @@ public class Player {
   public int getSelectedCheckerColor() {
     return selectedCheckerColor;
   }
+
+  @Override
+  public String toString() {
+    return "Player{" +
+        "name='" + name + '\'' +
+        ", numberOfVictories=" + numberOfVictories +
+        ", numberOfDefeats=" + numberOfDefeats +
+        '}';
+  }
 }
