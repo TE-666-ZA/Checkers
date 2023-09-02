@@ -16,8 +16,8 @@ public class Board extends JPanel {
 
   public static final int BOARD_SIZE = 8;
   public static final int CELL_SIZE = 100;
-  public static final Color LIGHT_COLOR = new Color(2, 1, 1);
-  public static final Color DARK_COLOR = new Color(194, 158, 120);
+  public static final Color LIGHT_COLOR = new Color(194, 158, 120);
+  public static final Color DARK_COLOR = new Color(2, 1, 1);
 
   private PlayerLogics movementLogics;
   private BufferedImage whitePieceImage;
@@ -53,7 +53,6 @@ public class Board extends JPanel {
       public void mouseClicked(MouseEvent e) {
         int row = e.getY() / Board.CELL_SIZE;
         int col = e.getX() / Board.CELL_SIZE;
-
 
         if (selectedRow == -1) {
           if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
