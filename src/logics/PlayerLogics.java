@@ -313,7 +313,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public void isKing(int row, int col) {
     if (checkerMove == WHITE_CHECKER && row == 7) {
       Board.setKing(row, col);
-    } else if (checkerMove == BLACK_CHECKER && row == 0) {
+    } else if (row == 0) {
       Board.setKing(row, col);
     }
   }
