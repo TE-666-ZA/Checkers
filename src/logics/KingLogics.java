@@ -6,37 +6,71 @@ public class KingLogics implements MovementLogics {
 
   private static final int KING_WHITE_CHECKER = 3;
   private static final int KING_BLACK_CHECKER = 4;
-  
+
   @Override
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     int differentRow = Math.abs(row - selectedRow);
     int differentCol = Math.abs(col - selectedCol);
-    if (differentCol != differentRow) {
+    if (differentRow != differentCol) {
       return false;
+    }
+    int rowStep = (row - selectedRow) > 0 ? 1 : -1;
+    int colStep = (col - selectedCol) > 0 ? 1 : -1;
+    int currentRow = selectedRow + rowStep;
+    int currentCol = selectedCol + colStep;
 
-    } else {
-      int rowStep = (row - selectedRow) > 0 ? 1 : -1;
-      int colStep = (col - selectedCol) > 0 ? 1 : -1;
-      int currentRow = selectedRow + rowStep;
-      int currentCol = selectedCol + colStep;
+    if (differentRow == 1 || differentRow == 2) {
+      if (board[currentRow][currentCol] != 0 && board[row][col] != 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
 
-      while (currentRow != row && currentCol != col) {
-        if (board[currentRow][currentCol] != 0) {
-          return false;
+    if (differentRow > 2) {
+      if (moveDownAndRight(selectedRow, selectedCol, row, col)) {
+        int currentDownAndRight = 1;
+        while (currentDownAndRight <= differentRow) {
+          if (board[selectedRow + currentDownAndRight][selectedCol + currentDownAndRight] == 0) {
+            currentDownAndRight++;
+          } else {
+            return false;
+          }
         }
-        if (rowStep > 0) {
-          currentRow++;
-        } else {
-          currentRow--;
+      }
+      if (moveDownAndLeft(selectedRow, selectedCol, row, col)) {
+        int currentDownAndLeft = 1;
+        while (currentDownAndLeft <= differentRow) {
+          if (board[selectedRow + currentDownAndLeft][selectedCol - currentDownAndLeft] == 0) {
+            currentDownAndLeft++;
+          } else {
+            return false;
+          }
         }
-        if (colStep > 0) {
-          currentCol++;
-        } else {
-          currentCol++;
+      }
+      if (moveUpAndRight(selectedRow, selectedCol, row, col)) {
+        int currentUpAndRight = 1;
+        while (currentUpAndRight <= differentRow) {
+          if (board[selectedRow - currentUpAndRight][selectedCol + currentUpAndRight] == 0) {
+            currentUpAndRight++;
+          } else {
+            return false;
+          }
+        }
+      }
+      if (moveUpAndLeft(selectedRow, selectedCol, row, col)) {
+        int currentUpAndLeft = 1;
+        while (currentUpAndLeft <= differentRow) {
+          if (board[selectedRow - currentUpAndLeft][selectedCol - currentUpAndLeft] == 0) {
+            currentUpAndLeft++;
+          } else {
+            return false;
+          }
         }
       }
       return true;
     }
+    return true;
   }
 
   @Override
