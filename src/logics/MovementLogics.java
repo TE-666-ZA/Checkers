@@ -18,7 +18,7 @@ public interface MovementLogics {
   boolean rightBorderLogicForBlack(
       int[][] board, int row, int col, int selectedRow, int selectedCol);
 
-  boolean isTargetCellFree(int[][] board, int row, int col);
+  boolean isTargetCellFree(int targetCell);
 
   int getCheckerMove();
 
@@ -26,19 +26,4 @@ public interface MovementLogics {
 
   boolean isRightBorderChecker(int selectedCol);
 
-  boolean isWhiteCheckerResetToZero();
-
-  boolean isBlackCheckerResetToZero();
-
-  void minusOneWhiteChecker();
-
-  void minusOneBlackChecker();
-
-  void checkWhiteVictory();
-
-  void checkBlackVictory();
-
-  void gameOverWithWhiteVictory();
-
-  void gameOverWithBlackVictory();
 }

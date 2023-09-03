@@ -4,11 +4,9 @@ import graphics.code.Board;
 
 public class KingLogics implements MovementLogics {
 
-  private final int KING_WHITE_CHECKER = 3;
-  private final int KING_BLACK_CHECKER = 4;
-
-  PlayerLogics playerLogics = new PlayerLogics();
-
+  private static final int KING_WHITE_CHECKER = 3;
+  private static final int KING_BLACK_CHECKER = 4;
+  
   @Override
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     int differentRow = Math.abs(row - selectedRow);
@@ -56,20 +54,20 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow + (different - 1)][selectedCol + (different - 1)]
-            == playerLogics.getBLACKCHECKER()
+            == PlayerLogics.getBlackchecker()
             || board[selectedRow + (different - 1)][selectedCol + (different - 1)]
             == KING_BLACK_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow + (different - 1), selectedCol + (different - 1));
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow + 1][selectedCol + 1] == playerLogics.getBLACKCHECKER()
+        if ((board[selectedRow + 1][selectedCol + 1] == PlayerLogics.getBlackchecker()
             || board[selectedRow + 1][selectedCol + 1] == KING_BLACK_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(selectedRow + 1, selectedCol + 1);
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       }
@@ -87,20 +85,20 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow + (different - 1)][selectedCol + (different - 1)]
-            == playerLogics.getWHITECHECKER()
+            == PlayerLogics.getWhitechecker()
             || board[selectedRow + (different - 1)][selectedCol + (different - 1)]
             == KING_WHITE_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow + (different - 1), selectedCol + (different - 1));
-          playerLogics.checkBlackVictory();
+          Board.checkBlackVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow + 1][selectedCol + 1] == playerLogics.getWHITECHECKER()
+        if ((board[selectedRow + 1][selectedCol + 1] == PlayerLogics.getWhitechecker()
             || board[selectedRow + 1][selectedCol + 1] == KING_WHITE_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(selectedRow + 1, selectedCol + 1);
-          playerLogics.checkBlackVictory();
+          Board.checkBlackVictory();
           return true;
         }
       }
@@ -118,20 +116,20 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow + (different - 1)][selectedCol - (different - 1)]
-            == playerLogics.getBLACKCHECKER()
+            == PlayerLogics.getBlackchecker()
             || board[selectedRow + (different - 1)][selectedCol - (different - 1)]
             == KING_BLACK_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow + (different - 1), selectedCol - (different - 1));
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow + 1][selectedCol - 1] == playerLogics.getBLACKCHECKER()
+        if ((board[selectedRow + 1][selectedCol - 1] == PlayerLogics.getBlackchecker()
             || board[selectedRow + 1][selectedCol - 1] == KING_BLACK_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(selectedRow + 1, selectedCol - 1);
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       }
@@ -148,12 +146,12 @@ public class KingLogics implements MovementLogics {
             return false;
           }
         }
-        if ((board[selectedRow + 1][selectedCol - 1] == playerLogics.getWHITECHECKER()
+        if ((board[selectedRow + 1][selectedCol - 1] == PlayerLogics.getWhitechecker()
             || board[selectedRow + 1][selectedCol - 1] == KING_WHITE_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(
               selectedRow + 1, selectedCol - 1);
-          playerLogics.checkBlackVictory();
+          Board.checkBlackVictory();
           return true;
         }
       }
@@ -171,21 +169,21 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow - (different - 1)][selectedCol + (different - 1)]
-            == playerLogics.getBLACKCHECKER()
+            == PlayerLogics.getBlackchecker()
             || board[selectedRow - (different - 1)][selectedCol + (different - 1)]
             == KING_BLACK_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow - (different - 1), selectedCol + (different - 1));
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow - 1][selectedCol + 1] == playerLogics.getBLACKCHECKER()
+        if ((board[selectedRow - 1][selectedCol + 1] == PlayerLogics.getBlackchecker()
             || board[selectedRow - 1][selectedCol + 1] == KING_BLACK_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(
               selectedRow - 1, selectedCol + 1);
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       }
@@ -203,21 +201,21 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow - (different - 1)][selectedCol + (different - 1)]
-            == playerLogics.getWHITECHECKER()
+            == PlayerLogics.getWhitechecker()
             || board[selectedRow - (different - 1)][selectedCol + (different - 1)]
             == KING_WHITE_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow - (different - 1), selectedCol + (different - 1));
-          playerLogics.checkBlackVictory();
+          Board.checkBlackVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow - 1][selectedCol + 1] == playerLogics.getWHITECHECKER()
+        if ((board[selectedRow - 1][selectedCol + 1] == PlayerLogics.getWhitechecker()
             || board[selectedRow - 1][selectedCol + 1] == KING_WHITE_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(
               selectedRow - 1, selectedCol + 1);
-          playerLogics.checkBlackVictory();
+          Board.checkBlackVictory();
           return true;
         }
       }
@@ -235,21 +233,21 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow - (different - 1)][selectedCol - (different - 1)]
-            == playerLogics.getBLACKCHECKER()
+            == PlayerLogics.getBlackchecker()
             || board[selectedRow - (different - 1)][selectedCol - (different - 1)]
             == KING_BLACK_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow - (different - 1), selectedCol - (different - 1));
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow - 1][selectedCol - 1] == playerLogics.getBLACKCHECKER()
+        if ((board[selectedRow - 1][selectedCol - 1] == PlayerLogics.getBlackchecker()
             || board[selectedRow - 1][selectedCol - 1] == KING_BLACK_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(
               selectedRow - 1, selectedCol - 1);
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       }
@@ -267,21 +265,21 @@ public class KingLogics implements MovementLogics {
           }
         }
         if ((board[selectedRow - (different - 1)][selectedCol - (different - 1)]
-            == playerLogics.getWHITECHECKER()
+            == PlayerLogics.getWhitechecker()
             || board[selectedRow - (different - 1)][selectedCol - (different - 1)]
             == KING_WHITE_CHECKER) && (board[row][col] == 0)) {
           Board.killChecker(
               selectedRow - (different - 1), selectedCol - (different - 1));
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       } else {
-        if ((board[selectedRow - 1][selectedCol - 1] == playerLogics.getWHITECHECKER()
+        if ((board[selectedRow - 1][selectedCol - 1] == PlayerLogics.getWhitechecker()
             || board[selectedRow - 1][selectedCol - 1] == KING_WHITE_CHECKER) && (board[row][col]
             == 0)) {
           Board.killChecker(
               selectedRow - 1, selectedCol - 1);
-          playerLogics.checkWhiteVictory();
+          Board.checkWhiteVictory();
           return true;
         }
       }
@@ -314,7 +312,7 @@ public class KingLogics implements MovementLogics {
   }
 
   @Override
-  public boolean isTargetCellFree(int[][] board, int row, int col) {
+  public boolean isTargetCellFree(int targetCell) {
     return false;
   }
 
@@ -333,51 +331,11 @@ public class KingLogics implements MovementLogics {
     return false;
   }
 
-  @Override
-  public boolean isWhiteCheckerResetToZero() {
-    return false;
-  }
-
-  @Override
-  public boolean isBlackCheckerResetToZero() {
-    return false;
-  }
-
-  @Override
-  public void minusOneWhiteChecker() {
-
-  }
-
-  @Override
-  public void minusOneBlackChecker() {
-
-  }
-
-  @Override
-  public void checkWhiteVictory() {
-
-  }
-
-  @Override
-  public void checkBlackVictory() {
-
-  }
-
-  @Override
-  public void gameOverWithWhiteVictory() {
-
-  }
-
-  @Override
-  public void gameOverWithBlackVictory() {
-
-  }
-
-  public int getKING_WHITE_CHECKER() {
+  public static int getKING_WHITE_CHECKER() {
     return KING_WHITE_CHECKER;
   }
 
-  public int getKING_BLACK_CHECKER() {
+  public static int getKING_BLACK_CHECKER() {
     return KING_BLACK_CHECKER;
   }
 

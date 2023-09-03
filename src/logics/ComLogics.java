@@ -58,7 +58,7 @@ public class ComLogics extends PlayerLogics implements MovementLogics {
   }
 
   @Override
-  public boolean isTargetCellFree(int[][] board, int row, int col) {
+  public boolean isTargetCellFree(int targetCell) {
     return false;
   }
 
@@ -77,43 +77,4 @@ public class ComLogics extends PlayerLogics implements MovementLogics {
     return false;
   }
 
-  @Override
-  public boolean isWhiteCheckerResetToZero() {
-    return false;
-  }
-
-  @Override
-  public boolean isBlackCheckerResetToZero() {
-    return false;
-  }
-
-  @Override
-  public void minusOneWhiteChecker() {
-
-  }
-
-  @Override
-  public void minusOneBlackChecker() {
-
-  }
-
-  @Override
-  public void checkWhiteVictory() {
-
-  }
-
-  @Override
-  public void checkBlackVictory() {
-
-  }
-
-  @Override
-  public void gameOverWithWhiteVictory() {
-
-  }
-
-  @Override
-  public void gameOverWithBlackVictory() {
-
-  }
 }

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import logics.KingLogics;
 import logics.Player;
 import logics.PlayerLogics;
 
@@ -23,12 +24,16 @@ public class Board extends JPanel {
   private PlayerLogics movementLogics;
   private BufferedImage whitePieceImage;
   private BufferedImage blackPieceImage;
+  private BufferedImage whiteKingPieceImage;
+  private BufferedImage blackKingPieceImage;
   private static int selectedRow;
   private static int selectedCol;
   private Player activePlayer;
   private static Player player1;
   private static Player player2;
-  private boolean isPlayALone;
+  private static boolean isPlayALone;
+  private static int countWhiteChecker;
+  private static int countBlackChecker;
 
   private static int[][] board = {
       {0, 1, 0, 1, 0, 1, 0, 1},
@@ -47,11 +52,16 @@ public class Board extends JPanel {
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/sprites/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/sprites/blackSprite.png"));
+      whiteKingPieceImage = ImageIO.read(new File("src/graphics/sprites/whiteKingSprite.png"));
+      blackKingPieceImage = ImageIO.read(new File("src/graphics/sprites/blackKingSprite.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
     selectedRow = -1;
     selectedCol = -1;
+    countWhiteChecker = 12;
+    countBlackChecker = 12;
+
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -70,18 +80,21 @@ public class Board extends JPanel {
         }
 
         if (selectedRow == -1) {
-          if (board[row][col] != 0 && board[row][col] == activePlayer.getCheckerMove()) {
+          if (board[row][col] != 0 && board[row][col] == activePlayer.getCheckerMove()
+              || board[row][col] == activePlayer.getCheckerMove() + 2) {
             selectedRow = row;
             selectedCol = col;
           }
 
-        } else if (board[row][col] != 0 && board[row][col] == activePlayer.getCheckerMove()) {
+        } else if (board[row][col] != 0 && board[row][col] == activePlayer.getCheckerMove()
+            || board[row][col] == activePlayer.getCheckerMove() + 2) {
           selectedRow = row;
           selectedCol = col;
         }
         if (activePlayer.isMoveValid(board, row, col, selectedRow, selectedCol)) {
             board[row][col] = board[selectedRow][selectedCol];
             board[selectedRow][selectedCol] = 0;
+          movementLogics.isKing(row, col);
             selectedRow = -1;
             selectedCol = -1;
           if (!activePlayer.isCanDoNextMove()) {
@@ -130,10 +143,14 @@ public class Board extends JPanel {
         g.fillRect(x, y, CELL_SIZE, CELL_SIZE);
 
         int piece = board[row][col];
-        if (piece == 1) {
+        if (piece == PlayerLogics.getWhitechecker()) {
           g.drawImage(whitePieceImage, x, y, null);
-        } else if (piece == 2) {
+        } else if (piece == PlayerLogics.getBlackchecker()) {
           g.drawImage(blackPieceImage, x, y, null);
+        } else if (piece == KingLogics.getKING_WHITE_CHECKER()) {
+          g.drawImage(whiteKingPieceImage, x, y, null);
+        } else if (piece == KingLogics.getKING_BLACK_CHECKER()) {
+          g.drawImage(blackKingPieceImage, x, y, null);
         }
       }
     }
@@ -148,8 +165,12 @@ public class Board extends JPanel {
     }
   }
 
-  public int[][] getBoard() {
-    return board;
+  public static void setKing(int row, int col) {
+    if (board[row][col] == PlayerLogics.getWhitechecker()) {
+      board[row][col] = KingLogics.getKING_WHITE_CHECKER();
+    } else if (board[row][col] == PlayerLogics.getBlackchecker()) {
+      board[row][col] = KingLogics.getKING_BLACK_CHECKER();
+    }
   }
 
   /**
@@ -172,7 +193,77 @@ public class Board extends JPanel {
     player2 = player;
   }
 
-  public void setPlayALone(boolean playALone) {
+  public static void setPlayALone(boolean playALone) {
     isPlayALone = playALone;
+  }
+
+  /**
+   * Checking that there are no white checkers left on the field
+   *
+   * @return true if there are no white checkers left on the playing field
+   */
+  public static boolean isWhiteCheckerResetToZero() {
+    return countWhiteChecker == 0;
+  }
+
+  /**
+   * Checking that there are no black checkers left on the field
+   *
+   * @return true if there are no black checkers left on the playing field
+   */
+  public static boolean isBlackCheckerResetToZero() {
+    return countBlackChecker == 0;
+  }
+
+  /**
+   * Decrement of the number of white checkers
+   */
+  public static void minusOneWhiteChecker() {
+    countWhiteChecker--;
+  }
+
+  /**
+   * Decrement of the number of black checkers
+   */
+  public static void minusOneBlackChecker() {
+    countBlackChecker--;
+  }
+
+  /**
+   * Checking the victory of white checkers
+   */
+  public static void checkWhiteVictory() {
+    minusOneBlackChecker();
+    if (isBlackCheckerResetToZero()) {
+      gameOverWithWhiteVictory();
+    }
+  }
+
+  /**
+   * Checking the victory of black checkers
+   */
+  public static void checkBlackVictory() {
+    minusOneWhiteChecker();
+    if (isWhiteCheckerResetToZero()) {
+      gameOverWithBlackVictory();
+    }
+  }
+
+  /**
+   * The end of the game with the victory of the white checkers and exit the game
+   */
+  public static void gameOverWithWhiteVictory() {
+    // TODO увеличение побед белых и увеличение поражений черных
+    System.out.println("Игра завершена! Белые выиграли!");
+    System.exit(1);
+  }
+
+  /**
+   * The end of the game with the victory of the black checkers and exit the game
+   */
+  public static void gameOverWithBlackVictory() {
+    // TODO увеличение побед черных и увеличение поражений белых
+    System.out.println("Игра завершена! Черные выиграли!");
+    System.exit(1);
   }
 }

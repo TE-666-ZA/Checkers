@@ -56,10 +56,10 @@ public class Player extends PlayerLogics {
   }
 
   public void changeColor() {
-    if (selectedCheckerColor == PlayerLogics.WHITECHECKER) {
-      selectedCheckerColor = PlayerLogics.BLACKCHECKER;
+    if (selectedCheckerColor == PlayerLogics.WHITE_CHECKER) {
+      selectedCheckerColor = PlayerLogics.BLACK_CHECKER;
     } else {
-      selectedCheckerColor = PlayerLogics.WHITECHECKER;
+      selectedCheckerColor = PlayerLogics.WHITE_CHECKER;
     }
   }
 
