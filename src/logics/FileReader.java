@@ -36,6 +36,7 @@ public class FileReader {
     } catch (IOException e) {
       System.err.println("Statistic file could not be find");
     }
+
   }
 
   /**
