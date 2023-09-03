@@ -1,6 +1,6 @@
 package logics;
 
-public class Player {
+public class Player extends PlayerLogics {
 
   private String name;
   private int selectedCheckerColor;
@@ -53,6 +53,14 @@ public class Player {
 
   public int getSelectedCheckerColor() {
     return selectedCheckerColor;
+  }
+
+  public void changeColor() {
+    if (selectedCheckerColor == PlayerLogics.WHITECHECKER) {
+      selectedCheckerColor = PlayerLogics.BLACKCHECKER;
+    } else {
+      selectedCheckerColor = PlayerLogics.WHITECHECKER;
+    }
   }
 
   @Override

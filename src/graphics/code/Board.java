@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import logics.Player;
 import logics.PlayerLogics;
 
 public class Board extends JPanel {
@@ -24,8 +25,10 @@ public class Board extends JPanel {
   private BufferedImage blackPieceImage;
   private static int selectedRow;
   private static int selectedCol;
-  private static String player1Name;
-  private static String player2Name;
+  private Player activePlayer;
+  private static Player player1;
+  private static Player player2;
+  private boolean isPlayALone;
 
   private static int[][] board = {
       {0, 1, 0, 1, 0, 1, 0, 1},
@@ -40,6 +43,7 @@ public class Board extends JPanel {
 
   public Board() {
     movementLogics = new PlayerLogics();
+    isPlayALone = true;
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/sprites/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/sprites/blackSprite.png"));
@@ -54,23 +58,34 @@ public class Board extends JPanel {
         int row = e.getY() / Board.CELL_SIZE;
         int col = e.getX() / Board.CELL_SIZE;
 
+        if (!isPlayALone) {
+          if (movementLogics.getCheckerMove() == player1.getSelectedCheckerColor()) {
+            activePlayer = player1;
+          } else if (movementLogics.getCheckerMove() == player2.getSelectedCheckerColor()) {
+            activePlayer = player2;
+          }
+        } else {
+          activePlayer = player1;
+          player1.changeColor();
+        }
+
         if (selectedRow == -1) {
-          if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
+          if (board[row][col] != 0 && board[row][col] == activePlayer.getCheckerMove()) {
             selectedRow = row;
             selectedCol = col;
           }
 
-        } else if (board[row][col] != 0 && board[row][col] == movementLogics.getCheckerMove()) {
+        } else if (board[row][col] != 0 && board[row][col] == activePlayer.getCheckerMove()) {
           selectedRow = row;
           selectedCol = col;
         }
-        if (movementLogics.isMoveValid(board, row, col, selectedRow, selectedCol)) {
+        if (activePlayer.isMoveValid(board, row, col, selectedRow, selectedCol)) {
             board[row][col] = board[selectedRow][selectedCol];
             board[selectedRow][selectedCol] = 0;
             selectedRow = -1;
             selectedCol = -1;
-            if (!movementLogics.isCanDoNextMove()) {
-              movementLogics.changeMoveColor();
+          if (!activePlayer.isCanDoNextMove()) {
+            activePlayer.changeMoveColor();
             }
           }
 
@@ -93,9 +108,9 @@ public class Board extends JPanel {
     g.setColor(Color.BLACK);
     g.setFont(new Font("Arial", Font.BOLD, 18));
     g.setColor(Color.yellow);
-    g.drawString("Player 1: " + player1Name, 10, getHeight() - 30);
+    g.drawString("Player 1: " + player1.getName(), 10, getHeight() - 30);
     g.setColor(Color.green);
-    g.drawString("Player 2: " + player2Name, 10, getHeight() - 10);
+    g.drawString("Player 2: " + player2.getName(), 10, getHeight() - 10);
     //FIXME
     // vidilyaem kraya doski cvetom
     g.setColor(Color.GREEN);
@@ -137,14 +152,6 @@ public class Board extends JPanel {
     return board;
   }
 
-  public static void setPlayer1Name(String Name) {
-    player1Name = Name;
-  }
-
-  public static void setPlayer2Name(String Name) {
-    player2Name = Name;
-  }
-
   /**
    * Makes the cage from where the checker is walking, empty
    *
@@ -157,11 +164,15 @@ public class Board extends JPanel {
     board[selectedRow][selectedCol] = 0;
   }
 
-  public static void setSelectedRow(int row) {
-    selectedRow = row;
+  public static void setPlayer1(Player player) {
+    player1 = player;
   }
 
-  public static void setSelectedCol(int col) {
-    selectedCol = col;
+  public static void setPlayer2(Player player) {
+    player2 = player;
+  }
+
+  public void setPlayALone(boolean playALone) {
+    isPlayALone = playALone;
   }
 }

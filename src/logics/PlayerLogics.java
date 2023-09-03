@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 public class PlayerLogics extends JPanel implements MovementLogics {
 
   private int checkerMove;
-  private final int WHITECHECKER = 1;
-  private final int BLACKCHECKER = 2;
-  private int countWhiteChecker = 12;
-  private int countBlackChecker = 12;
+  public static final int WHITECHECKER = 1;
+  public static final int BLACKCHECKER = 2;
+  private int countWhiteChecker;
+  private int countBlackChecker;
   int lastRowPosition;
   int lastColPosition;
   boolean canDoNextMove;
@@ -19,6 +19,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     canDoNextMove = false;
     lastColPosition = -1;
     lastRowPosition = -1;
+    countWhiteChecker = 12;
+    countBlackChecker = 12;
   }
 
   /**
@@ -372,4 +374,5 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     changeMoveColor();
     return canDoNextMove = false;
   }
+
 }

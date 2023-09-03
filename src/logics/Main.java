@@ -20,7 +20,7 @@ public class Main {
 
   }
 
-  public static void play(Player player1, Player player2, boolean statisticIsOn) {
+  public static void play() {
 
     JFrame frame = new JFrame("Checkers Board");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

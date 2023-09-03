@@ -1,6 +1,6 @@
 package logics;
 
-public class ComLogics implements MovementLogics {
+public class ComLogics extends PlayerLogics implements MovementLogics {
 
   private Player player;
 
