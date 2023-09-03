@@ -3,8 +3,11 @@ package logics;
 import graphics.code.Board;
 import graphics.code.ColoredPrinter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class MainMenu {
@@ -14,7 +17,7 @@ public class MainMenu {
   private boolean isStatisticIsOn;
   private boolean isCheckersColorSelected;
   private int saveSelectedColor;
-  private FileReader fileReader;
+  FileReader fileReader;
 
   MainMenu() {
     this.printer = new ColoredPrinter();
@@ -23,7 +26,7 @@ public class MainMenu {
     this.fileReader = new FileReader();
   }
 
-  public void showMainMenu() throws IOException {
+  public void showMainMenu()  {
     fileReader.readingFromFile();
     printer.printInMiddlePurple("Checkers created by Natalya Seluynina & Kenan Iusubovi");
     printer.printInMiddleBlue("Checkers");
@@ -50,8 +53,20 @@ public class MainMenu {
         comVsCom();
         break;
       case 5:
+        List<Player> players = new ArrayList<>(fileReader.getPlayers());
+        List<Player> topPlayers = players.stream()
+            .sorted((player1, player2) -> {
+              if (player1.getNumberOfVictories() - player2.getNumberOfVictories() != 0) {
+                return player1.getNumberOfVictories() - player2.getNumberOfVictories();
+              }
+              return player2.getNumberOfDefeats() - player1.getNumberOfDefeats();
+            })
+            .toList();
         break;
       case 0:
+        break;
+      default:
+        System.out.println("Enter a number from 0 to 5");
         break;
     }
   }
@@ -59,112 +74,80 @@ public class MainMenu {
   public void player1VsPlayer1() {
     isStatisticIsOn = false;
     Player player = new Player("DefaultName");
-    Board.setPlayer1Name(player.getName());
-    Board.setPlayer2Name(player.getName());
-    Main.play(player, player, isStatisticIsOn);
+    Board.setPlayer1(player);
+    Board.setPlayer2(player);
+    Main.play();
   }
 
-  public void player1VsPlayer2() throws IOException {
+  public void player1VsPlayer2() {
+    Board.setPlayALone(false);
     isStatisticIsOn = true;
-    int choice;
     String name1Player = null;
     String name2Player = null;
-    Player player1;
-    Player player2;
-//    printer.printYellow("Please input 1st player name ");
-//    String input = scanner.nextLine();
-//    Player player1 = new Player(input);
-//    Board.setPlayer1Name(player1.getName());
-//    choseCheckersColor(player1);
-    printer.printYellow("Player №1 you are here for the first time: ");
-    System.out.println("1. Yes");
-    System.out.println("2. No");
-    choice = scanner.nextInt();
-    scanner.nextLine();
+    Player player1 = null;
+    Player player2 = null;
 
+    printer.printYellow("Player №1 have you played before: ");
+    int choice = choiceNewOrExistingPlayer();
     if (choice == 1) {
       printer.printYellow("Please input 1st player name ");
-      name1Player = scanner.nextLine();
-      player1 = new Player(name1Player);
-      fileReader.getPlayers().add(player1);
-      Board.setPlayer1Name(name1Player);
-      choseCheckersColor(player1);
+      name1Player = addNameNewPlayer();
+      player1 = addNewPlayer(name1Player);
     } else {
-      System.out.println("Choose the number of your name in the game:");
-      fileReader.printNumberedListNamesPlayers();
-      int numberName = scanner.nextInt();
-      scanner.nextLine();
-      int index = 0;
-      for (Player player : fileReader.getPlayers()) {
-        index++;
-        if (index == numberName) {
-          name1Player = player.getName();
-        }
-      }
-      player1 = new Player(name1Player);
+      printer.printYellow("Choose the number of your name in the game:");
+      name1Player = choiceNameExistingFirstPlayer();
+      player1 = selectingExistingPlayer(name1Player);
     }
 
-//    printer.printGreen("Please input 2nd player name ");
-//    scanner.next();
-//    input = scanner.nextLine();
-//    Player player2 = new Player(input);
-//    // Board.setPlayer2Name(player2.getName());
-//    choseCheckersColor(player2);
-//    Main.play(player1, player2, isStatisticIsOn);
+    player1.setName(name1Player);
+    choseCheckersColor(player1);
 
-    printer.printYellow("Player №2 you are here for the first time: ");
-    System.out.println("1. Yes");
-    System.out.println("2. No");
-    choice = scanner.nextInt();
-    scanner.nextLine();
-
+    printer.printGreen("Player №2 have you played before: ");
+    choice = choiceNewOrExistingPlayer();
     if (choice == 1) {
-      printer.printYellow("Please input 2nd player name ");
-      name2Player = scanner.nextLine();
-      player2 = new Player(name2Player);
-      fileReader.getPlayers().add(player2);
-      Board.setPlayer1Name(name2Player);
-      choseCheckersColor(player2);
+      printer.printGreen("Please input 2nd player name ");
+      name2Player = addNameNewPlayer();
+      player2 = addNewPlayer(name2Player);
     } else {
-      System.out.println("Choose the number of your name in the game:");
-      fileReader.printNumberedListNamesPlayers();
-      int numberName = scanner.nextInt();
-      scanner.nextLine();
-      int index = 0;
-      for (Player player : fileReader.getPlayers()) {
-        index++;
-        if (index == numberName) {
-          name2Player = player.getName();
-        }
-      }
-      player2 = new Player(name2Player);
+      printer.printGreen("Choose the number of your name in the game:");
+      name2Player = choiceNameExistingSecondPlayer(name1Player);
+      player2 = selectingExistingPlayer(name2Player);
     }
-    Main.play(player1, player2, isStatisticIsOn);
+//
+//    while (isSamePlayer(name1Player, name2Player)) {
+//      System.out.println("You have chosen the same player");
+//      player1VsPlayer2();
+//    }
+
+    player2.setName(name2Player);
+    choseCheckersColor(player2);
+
+    Main.play();
     fileReader.writingToFile();
   }
 
-  public void player1VsCom() throws IOException {
+  public void player1VsCom()  {
     isStatisticIsOn = true;
     String input = scanner.nextLine();
     Player player = new Player(input);
     ComLogics com = new ComLogics();
-    Board.setPlayer1Name(player.getName());
-    Board.setPlayer2Name(com.getPlayer().getName());
+    Board.setPlayer1(player);
+//    Board.setPlayer2(com);
     choseCheckersColor(player);
 
     choseCheckersColor(com.getPlayer());
 
-    Main.play(player, com.getPlayer(), isStatisticIsOn);
+    Main.play();
     fileReader.writingToFile();
   }
 
-  public void comVsCom() throws IOException {
+  public void comVsCom()  {
     isStatisticIsOn = false;
     ComLogics com1 = new ComLogics("com1");
     com1.getPlayer().selectCheckersColor(1);
     ComLogics com2 = new ComLogics("com2");
     com2.getPlayer().selectCheckersColor(2);
-    Main.play(com1.getPlayer(), com2.getPlayer(), isStatisticIsOn);
+    Main.play();
   }
 
   public void choseCheckersColor(Player player) {
@@ -206,5 +189,85 @@ public class MainMenu {
       player.selectCheckersColor(1);
       printer.printGreen("Player --" + player.getName() + "-- playing with WHITE color");
     }
+  }
+
+  public int choiceNewOrExistingPlayer() {
+    System.out.println("1. No");
+    System.out.println("2. Yes");
+    int choice = scanner.nextInt();
+    scanner.nextLine();
+    return choice;
+  }
+
+  public String addNameNewPlayer() {
+    String name = scanner.nextLine();
+    for (Player player : fileReader.getPlayers()) {
+      name = scanner.nextLine();
+      if (player.getName().contains(name));
+    }
+    while (fileReader.getPlayers().contains(name)) {
+      System.out.println("Такое имя уже есть в списке, введите другое:");
+      name = scanner.nextLine();
+    }
+    return name;
+  }
+
+  public Player addNewPlayer(String namePlayer) {
+    Player player = new Player(namePlayer);
+    fileReader.getPlayers().add(player);
+    return player;
+  }
+
+  public String choiceNameExistingFirstPlayer() {
+    fileReader.printNumberedListNamesPlayers();
+    String namePlayer = null;
+    int numberName = scanner.nextInt();
+    scanner.nextLine();
+    int index = 0;
+    for (Player player : fileReader.getPlayers()) {
+      index++;
+      if (index == numberName) {
+        namePlayer = player.getName();
+      }
+    }
+    return namePlayer;
+  }
+
+  public String choiceNameExistingSecondPlayer(String name) {
+    fileReader.printNumberedListNamesPlayers();
+    String namePlayer = null;
+    int numberName = scanner.nextInt();
+    scanner.nextLine();
+    int index = 0;
+    for (Player player : fileReader.getPlayers()) {
+      index++;
+      if (index == numberName) {
+        namePlayer = player.getName();
+      }
+    }
+    if (namePlayer.equals(name))  {
+      System.out.println("Вы выбрали того же игрока");
+      choiceNameExistingSecondPlayer(name);
+    }
+    return namePlayer;
+  }
+
+  public Player selectingExistingPlayer(String namePlayer) {
+    Player player = new Player(namePlayer);
+    return player;
+  }
+
+  public boolean isSamePlayer(String name1, String name2) {
+    if (name1.equals(name2)) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isSameNamePlayer(String name) {
+    if (!fileReader.getPlayers().contains(name)) {
+      return true;
+    }
+    return false;
   }
 }
