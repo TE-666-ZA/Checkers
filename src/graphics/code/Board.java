@@ -34,7 +34,6 @@ public class Board extends JPanel {
   private static boolean isPlayALone;
   private static int countWhiteChecker;
   private static int countBlackChecker;
-
   private static int[][] board = {
       {0, 1, 0, 1, 0, 1, 0, 1},
       {1, 0, 1, 0, 1, 0, 1, 0},
@@ -91,13 +90,14 @@ public class Board extends JPanel {
           selectedRow = row;
           selectedCol = col;
         }
-        if (activePlayer.isMoveValid(board, row, col, selectedRow, selectedCol)) {
+        if (selectedRow != -1 && activePlayer.isMoveValid(board, row, col, selectedRow,
+            selectedCol)) {
             board[row][col] = board[selectedRow][selectedCol];
             board[selectedRow][selectedCol] = 0;
           movementLogics.isKing(row, col);
             selectedRow = -1;
             selectedCol = -1;
-          if (!activePlayer.isCanDoNextMove()) {
+          if (!PlayerLogics.canDoNextMove) {
             activePlayer.changeMoveColor();
             }
           }
@@ -158,10 +158,11 @@ public class Board extends JPanel {
     if (selectedRow != -1 && selectedCol != -1) {
       g.setColor(Color.BLUE);
       g.drawRect(selectedCol * CELL_SIZE, selectedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-    } else if (movementLogics.isCanDoNextMove()) {
+    }
+    if (PlayerLogics.canDoNextMove) {
       g.setColor(Color.RED);
-      g.drawRect(movementLogics.getLastColPosition() * CELL_SIZE,
-          movementLogics.getLastRowPosition() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      g.drawRect(activePlayer.getLastColPosition() * CELL_SIZE,
+          activePlayer.getLastRowPosition() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
   }
 
