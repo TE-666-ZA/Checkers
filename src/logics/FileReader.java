@@ -3,13 +3,14 @@ package logics;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
 
   private String ourFile = "src/logics/res/playersStatistics.csv";
-  private HashSet<Player> players = new HashSet<>();
+  private List<Player> players = new ArrayList<>();
   private static final String SEPARATOR = ";";
 
   /**
@@ -57,7 +58,7 @@ public class FileReader {
     }
   }
 
-  public HashSet<Player> getPlayers() {
+  public List<Player> getPlayers() {
     return players;
   }
 
@@ -84,7 +85,7 @@ public class FileReader {
   public void printNumberedListNamesPlayers() {
     int index = 1;
     for (Player player : players) {
-      System.out.println(index + ". " + player.getName());
+      System.out.println(index + ". " + player);
       index++;
     }
   }

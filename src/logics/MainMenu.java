@@ -2,13 +2,8 @@ package logics;
 
 import graphics.code.Board;
 import graphics.code.ColoredPrinter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
 
 public class MainMenu {
 
@@ -28,46 +23,42 @@ public class MainMenu {
 
   public void showMainMenu()  {
     fileReader.readingFromFile();
-    printer.printInMiddlePurple("Checkers created by Natalya Seluynina & Kenan Iusubovi");
-    printer.printInMiddleBlue("Checkers");
-    printer.printBlue("1. Player 1 vs Player 1");
-    printer.printBlue("2. Player 1 vs Player 2");
-    printer.printBlue("3. Player 1 vs Com");
-    printer.printBlue("4. Com vs Com");
-    printer.printBlue("5. Show Statistics");
-    printer.printRed("0. Exit");
+    while (true) {
+      printer.printInMiddlePurple("Checkers created by Natalya Seluynina & Kenan Iusubovi");
+      printer.printInMiddleBlue("Checkers");
+      printer.printBlue("1. Player 1 vs Player 1");
+      printer.printBlue("2. Player 1 vs Player 2");
+      printer.printBlue("3. Player 1 vs Com");
+      printer.printBlue("4. Com vs Com");
+      printer.printBlue("5. Show Statistics");
+      printer.printRed("0. Exit");
 
-    int command = scanner.nextInt();
-    scanner.nextLine();
-    switch (command) {
-      case 1:
-        player1VsPlayer1();
-        break;
-      case 2:
-        player1VsPlayer2();
-        break;
-      case 3:
-        player1VsCom();
-        break;
-      case 4:
-        comVsCom();
-        break;
-      case 5:
-        List<Player> players = new ArrayList<>(fileReader.getPlayers());
-        List<Player> topPlayers = players.stream()
-            .sorted((player1, player2) -> {
-              if (player1.getNumberOfVictories() - player2.getNumberOfVictories() != 0) {
-                return player1.getNumberOfVictories() - player2.getNumberOfVictories();
-              }
-              return player2.getNumberOfDefeats() - player1.getNumberOfDefeats();
-            })
-            .toList();
-        break;
-      case 0:
-        break;
-      default:
-        System.out.println("Enter a number from 0 to 5");
-        break;
+      int command = scanner.nextInt();
+      scanner.nextLine();
+      switch (command) {
+        case 1:
+          player1VsPlayer1();
+          break;
+        case 2:
+          player1VsPlayer2();
+          break;
+        case 3:
+          player1VsCom();
+          break;
+        case 4:
+          comVsCom();
+          break;
+        case 5:
+          showStatistics();
+          break;
+        case 0:
+          System.out.println("Goodbye");
+          System.exit(0);
+          break;
+        default:
+          System.out.println("Enter a number from 0 to 5");
+          break;
+      }
     }
   }
 
@@ -82,22 +73,23 @@ public class MainMenu {
   public void player1VsPlayer2() {
     Board.setPlayALone(false);
     isStatisticIsOn = true;
-    String name1Player = null;
-    String name2Player = null;
-    Player player1 = null;
-    Player player2 = null;
+    String name1Player;
+    String name2Player;
+    Player player1;
+    Player player2;
 
     printer.printYellow("Player №1 have you played before: ");
     int choice = choiceNewOrExistingPlayer();
-    if (choice == 1) {
-      printer.printYellow("Please input 1st player name ");
-      name1Player = addNameNewPlayer();
-      player1 = addNewPlayer(name1Player);
-    } else {
-      printer.printYellow("Choose the number of your name in the game:");
-      name1Player = choiceNameExistingFirstPlayer();
-      player1 = selectingExistingPlayer(name1Player);
-    }
+
+      if (choice == 1) {
+        printer.printYellow("Please input 1st player name ");
+        name1Player = addNameNewPlayer();
+        player1 = addNewPlayer(name1Player);
+      } else {
+        printer.printYellow("Choose the number of your name in the game:");
+        name1Player = choiceNameExistingFirstPlayer();
+        player1 = selectingExistingPlayer(name1Player);
+      }
 
     player1.setName(name1Player);
     choseCheckersColor(player1);
@@ -113,11 +105,6 @@ public class MainMenu {
       name2Player = choiceNameExistingSecondPlayer(name1Player);
       player2 = selectingExistingPlayer(name2Player);
     }
-//
-//    while (isSamePlayer(name1Player, name2Player)) {
-//      System.out.println("You have chosen the same player");
-//      player1VsPlayer2();
-//    }
 
     player2.setName(name2Player);
     choseCheckersColor(player2);
@@ -128,6 +115,7 @@ public class MainMenu {
 
   public void player1VsCom()  {
     isStatisticIsOn = true;
+
     String input = scanner.nextLine();
     Player player = new Player(input);
     ComLogics com = new ComLogics();
@@ -200,15 +188,23 @@ public class MainMenu {
   }
 
   public String addNameNewPlayer() {
-    String name = scanner.nextLine();
-    for (Player player : fileReader.getPlayers()) {
+    String name;
+    do {
       name = scanner.nextLine();
-      if (player.getName().contains(name));
-    }
-    while (fileReader.getPlayers().contains(name)) {
-      System.out.println("Такое имя уже есть в списке, введите другое:");
-      name = scanner.nextLine();
-    }
+      boolean nameExist = false;
+      for (Player player : fileReader.getPlayers()) {
+        if (player.getName().equals(name)) {
+          nameExist = true;
+          break;
+        }
+      }
+      if (nameExist) {
+        System.out.println("This name is already in the list, enter another one:");
+      } else {
+        break;
+      }
+    } while (true);
+
     return name;
   }
 
@@ -269,5 +265,15 @@ public class MainMenu {
       return true;
     }
     return false;
+  }
+
+  public void showStatistics() {
+        fileReader.getPlayers().sort((player1, player2) -> {
+          if (player2.getNumberOfVictories() - player1.getNumberOfVictories() != 0) {
+            return player2.getNumberOfVictories() - player1.getNumberOfVictories();
+          }
+          return player2.getNumberOfDefeats() - player1.getNumberOfDefeats();
+        });
+        fileReader.getPlayers().forEach(System.out::println);
   }
 }
