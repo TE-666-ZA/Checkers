@@ -301,6 +301,10 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
   public boolean isCanDoNextMoveValid(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
+    if (row == 7 && col == 7 || row == 7 && col == 0 || row == 0 && col == 0
+        || row == 0 && col == 7) {
+      return false;
+    }
     if (row < 6 && row > 1 && col < 6 && col > 1) {
 
       if (checkerMove == WHITE_CHECKER) {
