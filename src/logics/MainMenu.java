@@ -28,8 +28,8 @@ public class MainMenu {
       printer.printInMiddleBlue("Checkers");
       printer.printBlue("1. Player 1 vs Player 1");
       printer.printBlue("2. Player 1 vs Player 2");
-      printer.printBlue("3. Player 1 vs Com");
-      printer.printBlue("4. Com vs Com");
+      printer.printBlue("3. Player 1 vs Com --COMING WITH NEXT UPDATE !--");
+      printer.printBlue("4. Com vs Com --COMING WITH NEXT UPDATE !--");
       printer.printBlue("5. Show Statistics");
       printer.printRed("0. Exit");
 

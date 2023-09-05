@@ -94,7 +94,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
         return rightBorderLogicForWhite(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(
-          board[row][col]) && board[selectedRow + 1][selectedCol + 1] == BLACK_CHECKER) {
+          board[row][col]) && board[selectedRow + 1][selectedCol + 1] == BLACK_CHECKER
+          || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()) {
         Board.killChecker(selectedRow + 1, selectedCol + 1);
         Board.checkWhiteVictory();
         isKing(row, col);
@@ -106,7 +107,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         return true;
 
       } else if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(
-          board[row][col]) && board[selectedRow + 1][selectedCol - 1] == BLACK_CHECKER) {
+          board[row][col]) && board[selectedRow + 1][selectedCol - 1] == BLACK_CHECKER
+          || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
         Board.killChecker(selectedRow + 1, selectedCol - 1);
         Board.checkWhiteVictory();
         isKing(row, col);
@@ -125,7 +127,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
         return rightBorderLogicForBlack(board, row, col, selectedRow, selectedCol);
       } else if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(
-          board[row][col]) && board[selectedRow - 1][selectedCol + 1] == WHITE_CHECKER) {
+          board[row][col]) && board[selectedRow - 1][selectedCol + 1] == WHITE_CHECKER
+          || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()) {
         Board.killChecker(selectedRow - 1, selectedCol + 1);
         Board.checkBlackVictory();
         lastRowPosition = row;
@@ -134,7 +137,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
         return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(
-          board[row][col]) && board[selectedRow - 1][selectedCol - 1] == WHITE_CHECKER) {
+          board[row][col]) && board[selectedRow - 1][selectedCol - 1] == WHITE_CHECKER
+          || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
         Board.killChecker(selectedRow - 1, selectedCol - 1);
         Board.checkBlackVictory();
         lastRowPosition = row;
@@ -165,7 +169,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean leftBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol + 2) && isTargetCellFree(board[row][col])
-        && board[selectedRow + 1][selectedCol + 1] == BLACK_CHECKER) {
+        && board[selectedRow + 1][selectedCol + 1] == BLACK_CHECKER
+        || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()) {
       Board.killChecker(selectedRow + 1, selectedCol + 1);
       Board.checkWhiteVictory();
       isKing(row, col);
@@ -196,7 +201,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean leftBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol + 2) && isTargetCellFree(board[row][col])
-        && board[selectedRow - 1][selectedCol + 1] == WHITE_CHECKER) {
+        && board[selectedRow - 1][selectedCol + 1] == WHITE_CHECKER
+        || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()) {
       Board.killChecker(selectedRow - 1, selectedCol + 1);
       Board.checkBlackVictory();
       lastRowPosition = row;
@@ -211,7 +217,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean rightBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board[row][col])
-        && board[selectedRow + 1][selectedCol - 1] == BLACK_CHECKER) {
+        && board[selectedRow + 1][selectedCol - 1] == BLACK_CHECKER
+        || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
       Board.killChecker(selectedRow + 1, selectedCol - 1);
       Board.checkWhiteVictory();
       isKing(row, col);
@@ -227,7 +234,8 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   public boolean rightBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board[row][col])
-        && board[selectedRow - 1][selectedCol - 1] == WHITE_CHECKER) {
+        && board[selectedRow - 1][selectedCol - 1] == WHITE_CHECKER
+        || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
       Board.killChecker(selectedRow - 1, selectedCol - 1);
       Board.checkBlackVictory();
       lastRowPosition = row;
@@ -309,14 +317,18 @@ public class PlayerLogics extends JPanel implements MovementLogics {
 
       if (checkerMove == WHITE_CHECKER) {
         if (board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
-            || board[row + 2][col - 2] == 0 && board[row + 1][col - 1] == BLACK_CHECKER) {
+            || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()
+            || board[row + 2][col - 2] == 0 && board[row + 1][col - 1] == BLACK_CHECKER
+            || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
           return true;
 
         }
       }
       if (checkerMove == BLACK_CHECKER) {
         if (board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
-            || board[row - 2][col - 2] == 0 && board[row - 1][col - 1] == WHITE_CHECKER) {
+            || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()
+            || board[row - 2][col - 2] == 0 && board[row - 1][col - 1] == WHITE_CHECKER
+            || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
           return true;
         }
       }
@@ -324,18 +336,22 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     if (col <= 1 || col >= 6) {
 
       if (checkerMove == WHITE_CHECKER) {
-        if (col <= 1 && board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER) {
+        if (col <= 1 && board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
+            || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()) {
           return true;
         } else if (col >= 6 && board[row + 2][col - 2] == 0
-            && board[row + 1][col - 1] == BLACK_CHECKER) {
+            && board[row + 1][col - 1] == BLACK_CHECKER
+            || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
           return true;
         }
       }
       if (checkerMove == BLACK_CHECKER) {
-        if (col <= 1 && board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER) {
+        if (col <= 1 && board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
+            || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()) {
           return true;
         } else if (col >= 6 && board[row - 2][col - 2] == 0
-            && board[row - 1][col - 1] == WHITE_CHECKER) {
+            && board[row - 1][col - 1] == WHITE_CHECKER
+            || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
           return true;
         }
       }
