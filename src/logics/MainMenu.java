@@ -19,6 +19,7 @@ public class MainMenu {
     this.scanner = new Scanner(System.in);
     this.isCheckersColorSelected = false;
     this.fileReader = new FileReader();
+
   }
 
   public void showMainMenu()  {
