@@ -6,6 +6,7 @@ public class KingLogics {
 
   private static final int KING_WHITE_CHECKER = 3;
   private static final int KING_BLACK_CHECKER = 4;
+  public static boolean canDoNextMove = false;
 
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     int differentRow = differentRow(selectedRow, selectedCol, row, col);
@@ -21,6 +22,10 @@ public class KingLogics {
 
     int rowStep = rowStep(selectedRow, row);
     int colStep = colStep(selectedCol, col);
+
+    if (canDoNextMove) {
+      return canKill(board, row, col, selectedRow, selectedCol, rowStep, colStep);
+    }
 
     if (differentRow == 1) {
       if (board[row][col] != 0) {
@@ -53,6 +58,7 @@ public class KingLogics {
       } else {
         Board.killChecker(row - rowStep, col - colStep);
         Board.checkWhiteVictory();
+        canDoNextMove = isCanDoNextMoveValid(board, row, col);
         return true;
       }
     } else if (board[selectedRow][selectedCol] == 4) {
@@ -61,6 +67,7 @@ public class KingLogics {
       } else {
         Board.killChecker(row - rowStep, col - colStep);
         Board.checkBlackVictory();
+        canDoNextMove = isCanDoNextMoveValid(board, row, col);
         return true;
       }
     }
@@ -118,6 +125,45 @@ public class KingLogics {
     } else {
       return canKill(board, row, col, selectedRow, selectedCol, rowStep, colStep);
     }
+  }
+
+  public boolean isCanDoNextMoveValid(int[][] board, int row, int col) {
+//    if (board[row + 2][col + 2] != 0 || board[row + 2][col - 2] != 0
+//        || board[row - 2][col + 2] != 0 || board[row - 2][col - 2] != 0) {
+//      return false;
+//    }
+
+    if (board[row][col] == 3) {
+      if ((row + 2) <= 7 && (col + 2) <= 7 && board[row + 2][col + 2] == 0 && (
+          board[row + 1][col + 1] == 2 || board[row + 1][col + 1] == 4)) {
+        return true;
+      } else if ((row + 2) <= 7 && (col - 2) >= 0 && board[row + 2][col - 2] == 0 && (
+          board[row + 1][col - 1] == 2 || board[row + 1][col - 1] == 4)) {
+        return true;
+      } else if ((row - 2) >= 0 && (col + 2) <= 7 && board[row - 2][col + 2] == 0 && (
+          board[row - 1][col + 1] == 2 || board[row - 1][col + 1] == 4)) {
+        return true;
+      } else if ((row - 2) >= 0 && (col - 2) >= 0 && board[row - 2][col - 2] == 0 && (
+          board[row - 1][col - 1] == 2 || board[row - 1][col - 1] == 4)) {
+        return true;
+      }
+    }
+    if (board[row][col] == 4) {
+      if ((row + 2) <= 7 && (col + 2) <= 7 && board[row + 2][col + 2] == 0 && (
+          board[row + 1][col + 1] == 1 || board[row + 1][col + 1] == 3)) {
+        return true;
+      } else if ((row + 2) <= 7 && (col - 2) >= 0 && board[row + 2][col - 2] == 0 && (
+          board[row + 1][col - 1] == 1 || board[row + 1][col - 1] == 3)) {
+        return true;
+      } else if ((row - 2) >= 0 && (col + 2) <= 7 && board[row - 2][col + 2] == 0 && (
+          board[row - 1][col + 1] == 1 || board[row - 1][col + 1] == 3)) {
+        return true;
+      } else if ((row - 2) >= 0 && (col - 2) >= 0 && board[row - 2][col - 2] == 0 && (
+          board[row - 1][col - 1] == 1 || board[row - 1][col - 1] == 3)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
