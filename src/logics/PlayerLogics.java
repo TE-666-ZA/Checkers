@@ -67,7 +67,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         }
       }
     }
-    return false;
+    return true;
   }
 
   /**
