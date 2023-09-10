@@ -14,11 +14,17 @@ public class Player extends PlayerLogics {
     this.numberOfDefeats = 0;
   }
 
+  /**
+   * Choose the color of the checkers for the player to start the game
+   *
+   * @param choice the number of the checkers color that the player has chosen
+   */
   public void selectCheckersColor(int choice) {
     if (choice > 0 && choice < 3) {
       selectedCheckerColor = choice;
     }
   }
+
   public String getName() {
     return name;
   }
@@ -55,6 +61,10 @@ public class Player extends PlayerLogics {
     return selectedCheckerColor;
   }
 
+  /**
+   * Provides color change of selected checkers
+   *
+   */
   public void changeColor() {
     if (selectedCheckerColor == PlayerLogics.WHITE_CHECKER) {
       selectedCheckerColor = PlayerLogics.BLACK_CHECKER;
