@@ -143,9 +143,9 @@ public class Board extends JPanel {
         g.fillRect(x, y, CELL_SIZE, CELL_SIZE);
 
         int piece = board[row][col];
-        if (piece == PlayerLogics.getWhitechecker()) {
+        if (piece == PlayerLogics.getWhiteChecker()) {
           g.drawImage(whitePieceImage, x, y, null);
-        } else if (piece == PlayerLogics.getBlackchecker()) {
+        } else if (piece == PlayerLogics.getBlackChecker()) {
           g.drawImage(blackPieceImage, x, y, null);
         } else if (piece == KingLogics.getKING_WHITE_CHECKER()) {
           g.drawImage(whiteKingPieceImage, x, y, null);
@@ -167,9 +167,9 @@ public class Board extends JPanel {
   }
 
   public static void setKing(int row, int col) {
-    if (board[row][col] == PlayerLogics.getWhitechecker()) {
+    if (board[row][col] == PlayerLogics.getWhiteChecker()) {
       board[row][col] = KingLogics.getKING_WHITE_CHECKER();
-    } else if (board[row][col] == PlayerLogics.getBlackchecker()) {
+    } else if (board[row][col] == PlayerLogics.getBlackChecker()) {
       board[row][col] = KingLogics.getKING_BLACK_CHECKER();
     }
   }
