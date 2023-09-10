@@ -11,6 +11,10 @@ public class Main {
     menu.showMainMenu();
   }
 
+  /**
+   * Creates and displays a graphical window for playing checkers
+   *
+   */
   public static void play() {
     JFrame frame = new JFrame("Checkers Board");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

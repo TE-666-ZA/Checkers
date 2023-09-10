@@ -98,7 +98,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *                    which we want to eat the opponent's checker is located
    * @param selectedCol the position of the column of the cell of the field where the checker with
    *                    which we want to eat the opponent's checker is located
-   * @return true if the white checker can eat the opponent's black checker, and false if it can't
+   * @return true if the checker can eat the opponent's checker, and false if it can't
    */
   public boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol) {
     if (checkerMove == WHITE_CHECKER) {

@@ -107,6 +107,11 @@ public class Board extends JPanel {
     });
   }
 
+  /**
+   * Draws the game board in the window
+   *
+   * @param g the <code>Graphics</code> object to protect - context for drawing in the component
+   */
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -186,14 +191,29 @@ public class Board extends JPanel {
     board[selectedRow][selectedCol] = 0;
   }
 
+  /**
+   * Sets an object of the Player type to the player1 variable
+   *
+   * @param player Player type object
+   */
   public static void setPlayer1(Player player) {
     player1 = player;
   }
 
+  /**
+   * Sets an object of the Player type to the player2 variable
+   *
+   * @param player Player type object
+   */
   public static void setPlayer2(Player player) {
     player2 = player;
   }
 
+  /**
+   * Determines whether the player is playing alone
+   *
+   * @param playALone boolean value of playALone
+   */
   public static void setPlayALone(boolean playALone) {
     isPlayALone = playALone;
   }

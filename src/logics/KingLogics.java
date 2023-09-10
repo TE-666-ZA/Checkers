@@ -7,9 +7,24 @@ public class KingLogics {
   private static final int KING_WHITE_CHECKER = 3;
   private static final int KING_BLACK_CHECKER = 4;
 
+  /**
+   * Checking the possibility of movement of the king's checkers
+   *
+   * @param board       playing field
+   * @param row         the position of the row of the cell of the field where we want to move the
+   *                    king's checker
+   * @param col         the position of the column of the cell of the field where we want to move
+   *                    the king's checker
+   * @param selectedRow the position of the row of the cell of the field from where we want to move
+   *                    the king's checker
+   * @param selectedCol the position of the column of the cell of the field from where we want to
+   *                    move the king's checker
+   * @return true if the king's checker can be moved, and false if the king's checker cannot be
+   * moved
+   */
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
-    int differentRow = differentRow(selectedRow, selectedCol, row, col);
-    int differentCol = differentCol(selectedRow, selectedCol, row, col);
+    int differentRow = differentRow(selectedRow, row);
+    int differentCol = differentCol(selectedCol, col);
 
     if (!isDifferentRowAndCol(differentRow, differentCol)) {
       return false;
@@ -45,6 +60,22 @@ public class KingLogics {
     return false;
   }
 
+  /**
+   * The opportunity to eat the opponent's checker
+   *
+   * @param board       playing field
+   * @param row         the position of the row of the field cell where we will get to if we can eat
+   *                    the opponent's checker
+   * @param col         the position of the column of the cell of the field where we will get if we
+   *                    can eat the opponent's checker
+   * @param selectedRow the position of the row of the cell of the field where the king's checker
+   *                    with which we want to eat the opponent's checker is located
+   * @param selectedCol the position of the column of the cell of the field where the king's checker
+   *                    with which we want to eat the opponent's checker is located
+   * @param rowStep     step to change the string
+   * @param colStep     step to change the column
+   * @return true if the king's checker can eat the opponent's checker, and false if it can't
+   */
   public boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol,
       int rowStep, int colStep) {
     if (board[selectedRow][selectedCol] == 3) {
@@ -77,30 +108,93 @@ public class KingLogics {
     return KING_BLACK_CHECKER;
   }
 
-  public int differentRow(int selectedRow, int selectedCol, int row, int col) {
+  /**
+   * Calculates and returns the absolute difference between the values of the initial value of the
+   * string and the final value
+   *
+   * @param selectedRow the starting position of the row of the field cell where the king's checker
+   *                    is located
+   * @param row         the final position of the row of the field cell where the king's checker
+   *                    plans to be
+   * @return the absolute difference between the initial value of the cell row of the field and the
+   * final value
+   */
+  public int differentRow(int selectedRow, int row) {
     int differentRow = Math.abs(row - selectedRow);
     return differentRow;
   }
 
-  public int differentCol(int selectedRow, int selectedCol, int row, int col) {
+  /**
+   * Calculates and returns the absolute difference between the values of the initial value of the
+   * string and the final value
+   *
+   * @param selectedCol the starting position of the column of the field cell where the king's
+   *                    checker is located
+   * @param col         the final position of the column of the field cell where the king's checker
+   *                    plans to be
+   * @return the absolute difference between the initial value of the cell column of the field and
+   * the final value
+   */
+  public int differentCol(int selectedCol, int col) {
     int differentCol = Math.abs(col - selectedCol);
     return differentCol;
   }
 
+  /**
+   * Checks whether the values of the difference between rows and the difference between columns are
+   * equal
+   *
+   * @param differentRow the difference between the initial value of the row and the final one
+   * @param differentCol the difference between the initial value of the column and the final one
+   * @return true if the values are equal, and false if they differ
+   */
   public boolean isDifferentRowAndCol(int differentRow, int differentCol) {
     return differentRow == differentCol;
   }
 
+  /**
+   * Calculates and returns a "step" (1 or -1), which indicates the direction of the king checker's
+   * movement
+   *
+   * @param selectedRow the starting position of the row of the field cell where the king's checker
+   *                    is located
+   * @param row         the final position of the row of the field cell where the king's checker
+   *                    plans to be
+   * @return returns step 1 if the movement is in the positive direction and step -1 if in the
+   * negative
+   */
   public int rowStep(int selectedRow, int row) {
     int rowStep = (row - selectedRow) > 0 ? 1 : -1;
     return rowStep;
   }
 
+  /**
+   * Calculates and returns a "step" (1 or -1), which indicates the direction of the king checker's
+   * movement
+   *
+   * @param selectedCol the starting position of the column of the field cell where the king's
+   *                    checker is located
+   * @param col         the final position of the column of the field cell where the king's checker
+   *                    plans to be
+   * @return returns step 1 if the movement is in the positive direction and step -1 if in the
+   * negative
+   */
   public int colStep(int selectedCol, int col) {
     int colStep = (col - selectedCol) > 0 ? 1 : -1;
     return colStep;
   }
 
+  /**
+   * @param row the position of the row of the field cell where we want to move the king's checker or where the king's checker will come after eating the opponent's checkers
+   * @param col the position of the column of the field cell where we want to move the king's checker or where the king's checker will come after eating the opponent's checkers
+   * @param rowStep
+   * @param colStep
+   * @param board
+   * @param selectedRow
+   * @param selectedCol
+   * @param differentRow
+   * @return
+   */
   public boolean choiceMoveOrKill(int row, int col, int rowStep, int colStep, int[][] board,
       int selectedRow, int selectedCol, int differentRow) {
     int current = 1;
@@ -122,6 +216,12 @@ public class KingLogics {
     }
   }
 
+  /**
+   * @param board
+   * @param row
+   * @param col
+   * @return
+   */
   public boolean isCanDoNextMoveValid(int[][] board, int row, int col) {
     if (board[row][col] == 3) {
       if ((row + 2) <= 7 && (col + 2) <= 7 && board[row + 2][col + 2] == 0 && (
