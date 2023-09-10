@@ -185,15 +185,27 @@ public class KingLogics {
   }
 
   /**
-   * @param row the position of the row of the field cell where we want to move the king's checker or where the king's checker will come after eating the opponent's checkers
-   * @param col the position of the column of the field cell where we want to move the king's checker or where the king's checker will come after eating the opponent's checkers
-   * @param rowStep
-   * @param colStep
-   * @param board
-   * @param selectedRow
-   * @param selectedCol
-   * @param differentRow
-   * @return
+   * Сhecks whether the player can make a move or a hit in the game
+   *
+   * @param row          the position of the row of the field cell where we want to move the king's
+   *                     checker or where the king's checker will come after eating the opponent's
+   *                     checkers
+   * @param col          the position of the column of the field cell where we want to move the
+   *                     king's checker or where the king's checker will come after eating the
+   *                     opponent's checkers
+   * @param rowStep      the king checker's move down or up the line by one position
+   * @param colStep      the king checker's move along the column to the left or right by one
+   *                     position
+   * @param board        playing field
+   * @param selectedRow  the position of the row of the field cell from where we want to move the
+   *                     king's checker or from where the king's checker can eat the opponent's
+   *                     checker
+   * @param selectedCol  the position of the column of the field cell from where we want to move the
+   *                     king's checker or from where the king's checker can eat the opponent's
+   *                     checker
+   * @param differentRow the absolute difference between the initial value of the cell row of the
+   *                     field and the final value
+   * @return true if it can move or eat the opponent and false if it can't
    */
   public boolean choiceMoveOrKill(int row, int col, int rowStep, int colStep, int[][] board,
       int selectedRow, int selectedCol, int differentRow) {
@@ -217,10 +229,15 @@ public class KingLogics {
   }
 
   /**
-   * @param board
-   * @param row
-   * @param col
-   * @return
+   * Checks whether it is permissible to make the next move for the king's checker in this position
+   *
+   * @param board playing field
+   * @param row   the position of the cell row of the field where the king's checker has moved the
+   *              checker and from where he plans to eat another opponent's checker
+   * @param col   the position of the column of the field cell where the king's checker has moved
+   *              the checker and from where he plans to eat another opponent's checker
+   * @return true if the king's checker can make another move and eat the opponent's checker and
+   * false if she can't
    */
   public boolean isCanDoNextMoveValid(int[][] board, int row, int col) {
     if (board[row][col] == 3) {
