@@ -39,32 +39,48 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    */
 
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
-    if (board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()
-        || board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
-      return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
-    }
+//    if (board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()
+//        || board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
+//      return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+//    }
     if (canDoNextMove) {
-      return canKill(board, row, col, selectedRow, selectedCol);
+      if (board[selectedRow][selectedCol] == WHITE_CHECKER
+          || board[selectedRow][selectedCol] == BLACK_CHECKER) {
+        return canKill(board, row, col, selectedRow, selectedCol);
+      } else if (board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()
+          || board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()) {
+        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+      }
     } else {
-      if (checkerMove == WHITE_CHECKER) {
+      if (checkerMove == WHITE_CHECKER
+          && board[selectedRow][selectedCol] != KingLogics.getKING_WHITE_CHECKER()) {
         if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
             && isTargetCellFree(board[row][col])) {
           isKing(row, col);
           return true;
         } else {
-
           return canKill(board, row, col, selectedRow, selectedCol);
         }
       }
 
-      if (checkerMove == BLACK_CHECKER) {
+      if (checkerMove == WHITE_CHECKER
+          && board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
+        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+      }
+
+      if (checkerMove == BLACK_CHECKER
+          && board[selectedRow][selectedCol] != KingLogics.getKING_BLACK_CHECKER()) {
         if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow - 1)
             && isTargetCellFree(board[row][col])) {
           return true;
         } else {
-
           return canKill(board, row, col, selectedRow, selectedCol);
         }
+      }
+
+      if (checkerMove == BLACK_CHECKER
+          && board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()) {
+        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
       }
     }
     return true;
@@ -102,7 +118,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         lastRowPosition = row;
         lastColPosition = col;
         canDoNextMove = isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol);
-
 
         return true;
 
@@ -250,7 +265,6 @@ public class PlayerLogics extends JPanel implements MovementLogics {
   /**
    * Checks that the cell of the playing field is free
    *
-
    * @return true if the cell of the playing field is free, and false if there is another checker on
    * the cell
    */
@@ -313,49 +327,85 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         || row == 0 && col == 7) {
       return false;
     }
-    if (row < 6 && row > 1 && col < 6 && col > 1) {
 
-      if (checkerMove == WHITE_CHECKER) {
-        if (board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
-            || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()
-            || board[row + 2][col - 2] == 0 && board[row + 1][col - 1] == BLACK_CHECKER
-            || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
-          return true;
-
-        }
-      }
-      if (checkerMove == BLACK_CHECKER) {
-        if (board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
-            || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()
-            || board[row - 2][col - 2] == 0 && board[row - 1][col - 1] == WHITE_CHECKER
-            || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
-          return true;
-        }
+    if (checkerMove == WHITE_CHECKER && row < 6 && ((col + 2) <= 7)
+        && board[row][col] == WHITE_CHECKER) {
+      if (board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
+          || board[row + 1][col + 1] == KingLogics.getKING_BLACK_CHECKER()) {
+        return true;
       }
     }
-    if (col <= 1 || col >= 6) {
 
-      if (checkerMove == WHITE_CHECKER) {
-        if (col <= 1 && board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
-            || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()) {
-          return true;
-        } else if (col >= 6 && board[row + 2][col - 2] == 0
-            && board[row + 1][col - 1] == BLACK_CHECKER
-            || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
-          return true;
-        }
-      }
-      if (checkerMove == BLACK_CHECKER) {
-        if (col <= 1 && board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
-            || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()) {
-          return true;
-        } else if (col >= 6 && board[row - 2][col - 2] == 0
-            && board[row - 1][col - 1] == WHITE_CHECKER
-            || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
-          return true;
-        }
+    if (checkerMove == WHITE_CHECKER && row < 6 && ((col - 2) >= 0)
+        && board[row][col] == WHITE_CHECKER) {
+      if (board[row + 2][col - 2] == 0 && board[row + 1][col - 1] == BLACK_CHECKER
+          || board[row + 1][col - 1] == KingLogics.getKING_BLACK_CHECKER()) {
+        return true;
       }
     }
+
+    if (checkerMove == BLACK_CHECKER && row > 1 && ((col + 2) <= 7)
+        && board[row][col] == BLACK_CHECKER) {
+      if (board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
+          || board[row - 1][col + 1] == KingLogics.getKING_WHITE_CHECKER()) {
+        return true;
+      }
+    }
+
+    if (checkerMove == BLACK_CHECKER && row > 1 && ((col - 2) >= 0)
+        && board[row][col] == BLACK_CHECKER) {
+      if (board[row - 2][col - 2] == 0 && board[row - 1][col - 1] == WHITE_CHECKER
+          || board[row - 1][col - 1] == KingLogics.getKING_WHITE_CHECKER()) {
+        return true;
+      }
+    }
+
+//    if (checkerMove == WHITE_CHECKER && row < 6 && ((col - 2) >= 0)) {
+//
+//    }
+//    if (row < 6 && row > 1 && col < 6 && col > 1) {
+//
+//      if (checkerMove == WHITE_CHECKER) {
+//        if (board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
+//            || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()
+//            || board[row + 2][col - 2] == 0 && board[row + 1][col - 1] == BLACK_CHECKER
+//            || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
+//          return true;
+//
+//        }
+//      }
+//      if (checkerMove == BLACK_CHECKER) {
+//        if (board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
+//            || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()
+//            || board[row - 2][col - 2] == 0 && board[row - 1][col - 1] == WHITE_CHECKER
+//            || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
+//          return true;
+//        }
+//      }
+//    }
+//    if (col <= 1 || col >= 6) {
+//
+//      if (checkerMove == WHITE_CHECKER) {
+//        if (col <= 1 && board[row + 2][col + 2] == 0 && board[row + 1][col + 1] == BLACK_CHECKER
+//            || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()) {
+//          return true;
+//        } else if (col >= 6 && board[row + 2][col - 2] == 0
+//            && board[row + 1][col - 1] == BLACK_CHECKER
+//            || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
+//          return true;
+//        }
+//      }
+//      if (checkerMove == BLACK_CHECKER) {
+//        if (col <= 1 && board[row - 2][col + 2] == 0 && board[row - 1][col + 1] == WHITE_CHECKER
+//            || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()) {
+//          return true;
+//        } else if (col >= 6 && board[row - 2][col - 2] == 0
+//            && board[row - 1][col - 1] == WHITE_CHECKER
+//            || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
+//          return true;
+//        }
+//      }
+//    }
     return false;
   }
 
@@ -367,11 +417,11 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     }
   }
 
-  public static int getWhitechecker() {
+  public static int getWhiteChecker() {
     return WHITE_CHECKER;
   }
 
-  public static int getBlackchecker() {
+  public static int getBlackChecker() {
     return BLACK_CHECKER;
   }
 
