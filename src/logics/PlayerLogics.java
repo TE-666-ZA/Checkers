@@ -229,6 +229,21 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return false;
   }
 
+  /**
+   * Checks the possibility of eating the opponent's black checkers with a white checker located in
+   * the right most column
+   *
+   * @param board       playing field
+   * @param row         the position of the row of the cell of the playing field, where the white
+   *                    checker will fall if it eats the opponent's checker
+   * @param col         the position of the column of the cell of the playing field, where the white
+   *                    checker will fall if it eats the opponent's checker
+   * @param selectedRow the position of the cell row of the white checker field, which is located in
+   *                    the left most column and which plans to eat the opponent's black checker
+   * @param selectedCol the position of the left most column where the white checker is located,
+   *                    which plans to eat the opponent's black checker
+   * @return true if the white checker can eat the opponent's black checker, and false if it can't
+   */
   public boolean rightBorderLogicForWhite(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow + 2) && col == (selectedCol - 2) && isTargetCellFree(board[row][col])
@@ -246,6 +261,21 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return false;
   }
 
+  /**
+   * Checks the possibility of eating the opponent's white checkers with a black checker located in
+   * the right most column
+   *
+   * @param board       playing field
+   * @param row         the position of the row of the cell of the playing field, where the black
+   *                    checker will fall if it eats the opponent's white checker
+   * @param col         the position of the column of the cell of the playing field, where the black
+   *                    checker will fall if it eats the opponent's white checker
+   * @param selectedRow the position of the cell row of the black checker field, which is located in
+   *                    the left most column and which plans to eat the opponent's white checker
+   * @param selectedCol the position of the left most column where the black checker is located
+   *                    which plans to eat the opponent's white checker
+   * @return true if the black checker can eat the opponent's white checker, and false if it can't
+   */
   public boolean rightBorderLogicForBlack(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(board[row][col])
@@ -305,6 +335,9 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return canDoNextMove;
   }
 
+  /**
+   * Changes the order of the player's turn
+   */
   public void changeMoveColor() {
     if (checkerMove == WHITE_CHECKER) {
       checkerMove = BLACK_CHECKER;
@@ -321,6 +354,19 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return lastColPosition;
   }
 
+  /**
+   * Checks whether it is permissible to make the next move for the checker in this position
+   *
+   * @param board       playing field
+   * @param row         the position of the cell row of the field where the checker has moved the
+   *                    checker and from where he plans to eat another opponent's checker
+   * @param col         the position of the column of the field cell where the checker has moved the
+   *                    checker and from where he plans to eat another opponent's checker
+   * @param selectedRow
+   * @param selectedCol
+   * @return true if the checker can make another move and eat the opponent's checker and false if
+   * she can't
+   */
   public boolean isCanDoNextMoveValid(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
     if (row == 7 && col == 7 || row == 7 && col == 0 || row == 0 && col == 0
@@ -409,6 +455,15 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return false;
   }
 
+  /**
+   * Performs the check and transformation of an ordinary checker into a king's checker, provided
+   * that it is in a certain position
+   *
+   * @param row the position of the row of the cell of the field where the king's checker turned out
+   *            to be after moving or eating the opponent's checkers
+   * @param col the position of the column of the cell of the field where the king's checker turned
+   *            out to be after moving or eating the opponent's checkers
+   */
   public void isKing(int row, int col) {
     if (checkerMove == WHITE_CHECKER && row == 7) {
       Board.setKing(row, col);
