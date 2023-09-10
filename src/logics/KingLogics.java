@@ -57,7 +57,7 @@ public class KingLogics {
           differentRow);
     }
 
-    return false;
+    return true;
   }
 
   /**
@@ -210,17 +210,46 @@ public class KingLogics {
   public boolean choiceMoveOrKill(int row, int col, int rowStep, int colStep, int[][] board,
       int selectedRow, int selectedCol, int differentRow) {
     int current = 1;
-    while (current < differentRow - 1) {
-      if (board[selectedRow + rowStep][selectedCol + colStep] != 0) {
-        return false;
-      } else {
-        rowStep++;
-        colStep++;
-        current++;
+    if (rowStep == 1 && colStep == 1) {
+      while (current < differentRow - 1) {
+        if (board[selectedRow + current][selectedCol + current] != 0) {
+          return false;
+        } else {
+          current++;
+        }
       }
     }
-    rowStep = rowStep(selectedRow, row);
-    colStep = colStep(selectedCol, col);
+
+    if (rowStep == 1 && colStep == -1) {
+      while (current < differentRow - 1) {
+        if (board[selectedRow + current][selectedCol - current] != 0) {
+          return false;
+        } else {
+          current++;
+        }
+      }
+    }
+
+    if (rowStep == -1 && colStep == 1) {
+      while (current < differentRow - 1) {
+        if (board[selectedRow - current][selectedCol + current] != 0) {
+          return false;
+        } else {
+          current++;
+        }
+      }
+    }
+
+    if (rowStep == -1 && colStep == -1) {
+      while (current < differentRow - 1) {
+        if (board[selectedRow - current][selectedCol - current] != 0) {
+          return false;
+        } else {
+          current++;
+        }
+      }
+    }
+
     if (board[row - rowStep][col - colStep] == 0) {
       return true;
     } else {
