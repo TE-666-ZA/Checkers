@@ -39,48 +39,38 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    */
 
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
-//    if (board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()
-//        || board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
-//      return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
-//    }
     if (canDoNextMove) {
-      if (board[selectedRow][selectedCol] == WHITE_CHECKER
-          || board[selectedRow][selectedCol] == BLACK_CHECKER) {
+      if (checkerMove == WHITE_CHECKER || checkerMove == BLACK_CHECKER) {
         return canKill(board, row, col, selectedRow, selectedCol);
-      } else if (board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()
-          || board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()) {
+      } else {
         return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
       }
+
     } else {
-      if (checkerMove == WHITE_CHECKER
-          && board[selectedRow][selectedCol] != KingLogics.getKING_WHITE_CHECKER()) {
+      if (board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()
+          || board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
+        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+      }
+
+      if (checkerMove == WHITE_CHECKER) {
         if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
             && isTargetCellFree(board[row][col])) {
           isKing(row, col);
           return true;
         } else {
+
           return canKill(board, row, col, selectedRow, selectedCol);
         }
       }
 
-      if (checkerMove == WHITE_CHECKER
-          && board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
-        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
-      }
-
-      if (checkerMove == BLACK_CHECKER
-          && board[selectedRow][selectedCol] != KingLogics.getKING_BLACK_CHECKER()) {
+      if (checkerMove == BLACK_CHECKER) {
         if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow - 1)
             && isTargetCellFree(board[row][col])) {
           return true;
         } else {
+
           return canKill(board, row, col, selectedRow, selectedCol);
         }
-      }
-
-      if (checkerMove == BLACK_CHECKER
-          && board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()) {
-        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
       }
     }
     return true;
