@@ -22,6 +22,10 @@ public class MainMenu {
 
   }
 
+  /**
+   * It is the main menu of the game of checkers and provides a choice of different game modes
+   *
+   */
   public void showMainMenu()  {
     fileReader.readingFromFile();
     while (true) {
@@ -63,6 +67,10 @@ public class MainMenu {
     }
   }
 
+  /**
+   * Creates a game in which one player will play for two
+   *
+   */
   public void player1VsPlayer1() {
     isStatisticIsOn = false;
     Player player = new Player("DefaultName");
@@ -71,6 +79,10 @@ public class MainMenu {
     Main.play();
   }
 
+  /**
+   * Creates a game between two players
+   *
+   */
   public void player1VsPlayer2() {
     Board.setPlayALone(false);
     isStatisticIsOn = true;
@@ -116,6 +128,10 @@ public class MainMenu {
     fileReader.writingToFile();
   }
 
+  /**
+   * Creates a game between the player and the computer
+   *
+   */
   public void player1VsCom()  {
     isStatisticIsOn = true;
 
@@ -132,6 +148,10 @@ public class MainMenu {
     fileReader.writingToFile();
   }
 
+  /**
+   * Creates a game where a computer will play for both players
+   *
+   */
   public void comVsCom()  {
     isStatisticIsOn = false;
     ComLogics com1 = new ComLogics("com1");
@@ -270,6 +290,10 @@ public class MainMenu {
     return false;
   }
 
+  /**
+   * Displays player statistics
+   *
+   */
   public void showStatistics() {
         fileReader.getPlayers().sort((player1, player2) -> {
           if (player2.getNumberOfVictories() - player1.getNumberOfVictories() != 0) {
