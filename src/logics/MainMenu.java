@@ -92,8 +92,9 @@ public class MainMenu {
         player1 = selectingExistingPlayer(name1Player);
       }
 
-    player1.setName(name1Player);
-    choseCheckersColor(player1);
+      player1.setName(name1Player);
+      Board.setPlayer1(player1);
+      choseCheckersColor(player1);
 
     printer.printGreen("Player №2 have you played before: ");
     choice = choiceNewOrExistingPlayer();
@@ -108,6 +109,7 @@ public class MainMenu {
     }
 
     player2.setName(name2Player);
+    Board.setPlayer2(player2);
     choseCheckersColor(player2);
 
     Main.play();
