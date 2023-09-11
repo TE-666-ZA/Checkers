@@ -39,19 +39,15 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    */
 
   public boolean isMoveValid(int[][] board, int row, int col, int selectedRow, int selectedCol) {
+    if (board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()
+        || board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
+      return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    }
+
     if (canDoNextMove) {
-      if (checkerMove == WHITE_CHECKER || checkerMove == BLACK_CHECKER) {
         return canKill(board, row, col, selectedRow, selectedCol);
-      } else {
-        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
-      }
 
     } else {
-      if (board[selectedRow][selectedCol] == KingLogics.getKING_BLACK_CHECKER()
-          || board[selectedRow][selectedCol] == KingLogics.getKING_WHITE_CHECKER()) {
-        return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
-      }
-
       if (checkerMove == WHITE_CHECKER) {
         if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
             && isTargetCellFree(board[row][col])) {
