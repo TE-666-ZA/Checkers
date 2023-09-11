@@ -6,7 +6,6 @@ public class KingLogics {
 
   private static final int KING_WHITE_CHECKER = 3;
   private static final int KING_BLACK_CHECKER = 4;
-  public static boolean canDoNextMoveKingChecker = false;
 
   /**
    * Checking the possibility of movement of the king's checkers
@@ -38,7 +37,7 @@ public class KingLogics {
     int rowStep = rowStep(selectedRow, row);
     int colStep = colStep(selectedCol, col);
 
-    if (canDoNextMoveKingChecker) {
+    if (Board.isCanDoNextMove()) {
       return canKill(board, row, col, selectedRow, selectedCol, rowStep, colStep);
 
     } else {
@@ -86,7 +85,7 @@ public class KingLogics {
       } else {
         Board.killChecker(row - rowStep, col - colStep);
         Board.checkWhiteVictory();
-        canDoNextMoveKingChecker = isCanDoNextMoveValid(board, row, col);
+       Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
         return true;
       }
     } else if (board[selectedRow][selectedCol] == 4) {
@@ -95,7 +94,7 @@ public class KingLogics {
       } else {
         Board.killChecker(row - rowStep, col - colStep);
         Board.checkBlackVictory();
-        canDoNextMoveKingChecker = isCanDoNextMoveValid(board, row, col);
+        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
         return true;
       }
     }
