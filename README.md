@@ -32,7 +32,7 @@ There are 2 main folders in our project:
    ![White king's checker](https://github.com/TE-666-ZA/Checkers/blob/main/src/graphics/sprites/whiteKingSprite.png)
    ![Black king's checker](https://github.com/TE-666-ZA/Checkers/blob/main/src/graphics/sprites/blackKingSprite.png)
    ![White checker](https://github.com/TE-666-ZA/Checkers/blob/main/src/graphics/sprites/whiteSprite.png)
-   ![Black checker](https://github.com/TE-666-ZA/Checkers/blob/main/src/graphics/sprites/blackSprite.pngg)
+   ![Black checker](https://github.com/TE-666-ZA/Checkers/blob/main/src/graphics/sprites/blackSprite.png)
 
 2. **"logics"**
    - There are the following classes in the folder:
