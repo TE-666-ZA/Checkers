@@ -29,7 +29,7 @@ There are 2 main folders in our project:
    - The "sprite" folder contains images of checkers:
 
 
-   ![White king's checker](src\graphics\sprites\whiteKingSprite.png)
+   ![White king's checker](https://github.com/TE-666-ZA/Checkers/blob/main/src/graphics/sprites/whiteKingSprite.png)
    ![Black king's checker](src\graphics\sprites\blackKingSprite.png)
    ![White checker](src\graphics\sprites\whiteSprite.png)
    ![Black checker](src\graphics\sprites\blackSprite.png)
