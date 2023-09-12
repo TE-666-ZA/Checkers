@@ -16,7 +16,7 @@ The idea of the project is to recreate the well-known game of checkers. This pro
      menu.showMainMenu();
 ```
 
-- The game requires a file ""src/logic/res/playersStatistics.csv", where the names of players and their statistics are stored.
+- The game requires a file "src/logic/res/playersStatistics.csv", where the names of players and their statistics are stored.
 
 ## Project structure
 
@@ -29,10 +29,10 @@ There are 2 main folders in our project:
    - The "sprite" folder contains images of checkers:
 
 
-   ![White king's checker](C:\Users\selun\IdeaProjects\Checkers\src\graphics\sprites\whiteKingSprite.png)
-   ![Black king's checker](C:\Users\selun\IdeaProjects\Checkers\src\graphics\sprites\blackKingSprite.png)
-   ![White checker](C:\Users\selun\IdeaProjects\Checkers\src\graphics\sprites\whiteSprite.png)
-   ![Black checker](C:\Users\selun\IdeaProjects\Checkers\src\graphics\sprites\blackSprite.png)
+   ![White king's checker](src\graphics\sprites\whiteKingSprite.png)
+   ![Black king's checker](src\graphics\sprites\blackKingSprite.png)
+   ![White checker](src\graphics\sprites\whiteSprite.png)
+   ![Black checker](src\graphics\sprites\blackSprite.png)
 
 2. **"logics"**
    - There are the following classes in the folder:
