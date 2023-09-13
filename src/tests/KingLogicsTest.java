@@ -30,4 +30,20 @@ public class KingLogicsTest {
     int differentRow = kingLogics.differentRow(selectedRow, row);
     assertEquals(4, differentRow);
   }
+
+  @Test
+  public void differentColRight() {
+    int selectedCol = 2;
+    int col = 5;
+    int differentCol = kingLogics.differentCol(selectedCol, col);
+    assertEquals(3, differentCol);
+  }
+
+  @Test
+  public void differentColLeft() {
+    int selectedCol = 5;
+    int col = 2;
+    int differentCol = kingLogics.differentCol(selectedCol, col);
+    assertEquals(3, differentCol);
+  }
 }
