@@ -1,13 +1,15 @@
 package tests;
 
-import logics.KingLogics;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import logics.KingLogics;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class KingLogicsTest {
   private KingLogics kingLogics;
+
   @BeforeEach
   public void setUp() {
     this.kingLogics = new KingLogics();
