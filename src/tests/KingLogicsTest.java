@@ -218,7 +218,7 @@ public class KingLogicsTest {
   }
 
   @Test
-  public void isMoveValidButCanKillTwoStepsRight() {
+  public void isMoveValidButCanKillTwoStepsRightKingWhite() {
     int selectedRow = 2;
     int row = 4;
     int selectedCol = 1;
@@ -260,7 +260,7 @@ public class KingLogicsTest {
   }
 
   @Test
-  public void isMoveValidAndCanKillNegativeTwoStepsRight() {
+  public void isMoveValidAndCanKillNegativeTwoStepsRightWhite() {
     int selectedRow = 2;
     int row = 4;
     int selectedCol = 1;
@@ -270,6 +270,69 @@ public class KingLogicsTest {
         {1, 0, 1, 0, 1, 0, 1, 0},
         {0, 3, 0, 1, 0, 1, 0, 1},
         {0, 0, 1, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidButCanKillTwoStepsLeftWhite() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 3;
+    int col = 1;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 3, 0, 1, 0, 1},
+        {0, 0, 2, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isMoveValidNegativeTwoStepsLeft() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 3;
+    int col = 1;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 3, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 2, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidaAndCanKillNegativeTwoStepsLeft() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 3;
+    int col = 1;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 3, 0, 1, 0, 1},
+        {0, 0, 3, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0},
         {2, 0, 2, 0, 2, 0, 2, 0},
         {0, 2, 0, 2, 0, 2, 0, 2},

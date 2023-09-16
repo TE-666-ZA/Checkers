@@ -43,11 +43,7 @@ public class KingLogics {
 
     } else {
       if (differentRow == 1) {
-        if (board[row][col] != 0) {
-          return false;
-        } else {
           return true;
-        }
       }
 
       if (differentRow == 2) {
