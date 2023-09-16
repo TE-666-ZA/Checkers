@@ -281,6 +281,26 @@ public class KingLogicsTest {
   }
 
   @Test
+  public void isMoveValidAndCanKillNegativeTwoStepsRight() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 1;
+    int col = 3;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 3, 0, 1, 0, 1, 0, 1},
+        {0, 0, 2, 0, 0, 0, 0, 0},
+        {0, 0, 0, 2, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertFalse(result);
+  }
+  @Test
   public void isMoveValidButCanKillTwoStepsLeftWhite() {
     int selectedRow = 2;
     int row = 4;
@@ -323,7 +343,7 @@ public class KingLogicsTest {
   }
 
   @Test
-  public void isMoveValidaAndCanKillNegativeTwoStepsLeft() {
+  public void isMoveValidaAndCanKillNegativeTwoStepsLeftWhite() {
     int selectedRow = 2;
     int row = 4;
     int selectedCol = 3;
@@ -341,5 +361,89 @@ public class KingLogicsTest {
 
     boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
     assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidaAndCanKillNegativeTwoStepsLeft() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 3;
+    int col = 1;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 3, 0, 1, 0, 1},
+        {0, 0, 2, 0, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidNegativeSevenStepsLeft() {
+    int selectedRow = 0;
+    int row = 7;
+    int selectedCol = 7;
+    int col = 0;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 3},
+        {1, 0, 1, 0, 1, 0, 0, 0},
+        {0, 1, 0, 3, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 0, 0, 2, 0, 2, 0},
+        {0, 0, 0, 2, 0, 2, 0, 2},
+        {1, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidAndCanKillSevenStepsLeftWhite() {
+    int selectedRow = 0;
+    int row = 7;
+    int selectedCol = 7;
+    int col = 0;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 3},
+        {1, 0, 1, 0, 1, 0, 0, 0},
+        {0, 1, 0, 3, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 0, 0, 2, 0, 2, 0},
+        {0, 4, 0, 2, 0, 2, 0, 2},
+        {0, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isMoveValidAndCanKillNegativeSevenStepsLeft() {
+    int selectedRow = 0;
+    int row = 7;
+    int selectedCol = 7;
+    int col = 0;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 3},
+        {1, 0, 1, 0, 1, 0, 0, 0},
+        {0, 1, 0, 3, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 0, 0, 2, 0, 2, 0},
+        {0, 4, 0, 2, 0, 2, 0, 2},
+        {0, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
   }
 }
