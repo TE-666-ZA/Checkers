@@ -345,8 +345,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    */
   public boolean isCanDoNextMoveValid(int[][] board, int row, int col, int selectedRow,
       int selectedCol) {
-    if (row == 7 && col == 7 || row == 7 && col == 0 || row == 0 && col == 0
-        || row == 0 && col == 7) {
+    if(!isBorderCheckerOrCorner(row,col)) {
       return false;
     }
     if (row < 6 && row > 1 && col < 6 && col > 1) {
@@ -354,7 +353,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       if (checkerMove == WHITE_CHECKER) {
         if (isTargetCellFree(board[row+2][col+2]) && board[row + 1][col + 1] == BLACK_CHECKER
             || board[selectedRow + 1][selectedCol + 1] == KingLogics.getKING_BLACK_CHECKER()
-            || board[row + 2][col - 2] == 0 && board[row + 1][col - 1] == BLACK_CHECKER
+            || isTargetCellFree(board[row+2][col-2]) && board[row + 1][col - 1] == BLACK_CHECKER
             || board[selectedRow + 1][selectedCol - 1] == KingLogics.getKING_BLACK_CHECKER()) {
           return true;
 
@@ -363,13 +362,13 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       if (checkerMove == BLACK_CHECKER) {
         if (isTargetCellFree(board[row - 2][col+2]) && board[row - 1][col + 1] == WHITE_CHECKER
             || board[selectedRow - 1][selectedCol + 1] == KingLogics.getKING_WHITE_CHECKER()
-            || board[row - 2][col - 2] == 0 && board[row - 1][col - 1] == WHITE_CHECKER
+            || isTargetCellFree(board[row-2][col-2]) && board[row - 1][col - 1] == WHITE_CHECKER
             || board[selectedRow - 1][selectedCol - 1] == KingLogics.getKING_WHITE_CHECKER()) {
           return true;
         }
       }
     }
-    if (col <= 1 || col >= 6) {
+    if (col <= 1 || col >= 6 && selectedCol != 7 && selectedCol != 0) {
 
       if (checkerMove == WHITE_CHECKER) {
         if (col < 1 && isTargetCellFree(board[row+2][col+2])&& board[row + 1][col + 1] == BLACK_CHECKER
@@ -395,6 +394,10 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return false;
   }
 
+ private boolean isBorderCheckerOrCorner (int row , int col){
+   return row == 0 && col == 7 || row == 0 && col == 1 || row == 7 && col == 0
+       || row == 7 && col == 6;
+ }
   /**
    * Performs the check and transformation of an ordinary checker into a king's checker, provided
    * that it is in a certain position
