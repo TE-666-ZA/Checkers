@@ -13,13 +13,14 @@ public class MainMenu {
   private boolean isCheckersColorSelected;
   private int saveSelectedColor;
   FileReader fileReader;
+  private String saveFirstPlayerName;
 
   MainMenu() {
     this.printer = new ColoredPrinter();
     this.scanner = new Scanner(System.in);
     this.isCheckersColorSelected = false;
     this.fileReader = new FileReader();
-
+    this.saveFirstPlayerName = null;
   }
 
   /**
@@ -100,14 +101,15 @@ public class MainMenu {
       player1 = addNewPlayer(name1Player);
     } else {
       printer.printYellow("Choose the number of your name in the game:");
-      fileReader.printNumberedListStatistics();
+      fileReader.printNumberedListStatistics(saveFirstPlayerName);
       name1Player = choiceNameExistingPlayer();
       player1 = selectingExistingPlayer(name1Player);
     }
 
     player1.setName(name1Player);
-    Board.setPlayer1(player1);
     choseCheckersColor(player1);
+    Board.setPlayer1(player1);
+
 
     printer.printGreen("Player №2 have you played before: ");
     choice = choiceNewOrExistingPlayer();
@@ -117,13 +119,15 @@ public class MainMenu {
       player2 = addNewPlayer(name2Player);
     } else {
       printer.printGreen("Choose the number of your name in the game:");
-      name2Player = choiceNameExistingSecondPlayer(name1Player);
+      fileReader.printNumberedListStatistics(saveFirstPlayerName);
+      name2Player = choiceNameExistingPlayer();
       player2 = selectingExistingPlayer(name2Player);
     }
 
     player2.setName(name2Player);
-    Board.setPlayer2(player2);
     choseCheckersColor(player2);
+    Board.setPlayer2(player2);
+
 
     Main.play();
     fileReader.writingToFile();
@@ -239,30 +243,20 @@ public class MainMenu {
   }
 
   public String choiceNameExistingPlayer() {
-    String namePlayer = null;
+    String playerName = null;
     int numberName = scanner.nextInt();
     scanner.nextLine();
     int index = 0;
     for (Player player : fileReader.getPlayers()) {
+      if(!player.getName().equals(saveFirstPlayerName)){
       index++;
       if (index == numberName) {
-        namePlayer = player.getName();
+        playerName = player.getName();
+      }
       }
     }
-    return namePlayer;
-  }
-
-  public String choiceNameExistingSecondPlayer(String name) {
-    int index = 1;
-    for (Player player : fileReader.getPlayers()) {
-      if (!player.getName().equals(name)) {
-        System.out.println(index + ". " + player.getName());
-        index++;
-      }
-    }
-
-    String namePlayer = choiceNameExistingPlayer();
-    return namePlayer;
+    saveFirstPlayerName = playerName;
+    return playerName;
   }
 
   public Player selectingExistingPlayer(String namePlayer) {

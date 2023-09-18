@@ -1,6 +1,6 @@
 package logics;
 
-public class Player {
+public class Player extends PlayerLogics {
 
   private String name;
   private int selectedCheckerColor;

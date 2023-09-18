@@ -49,10 +49,10 @@ public class Board extends JPanel {
   };
 
   public Board() {
-    printer = new ColoredPrinter();
     movementLogics = new PlayerLogics();
     isPlayALone = true;
     canDoNextMove = false;
+    printer = new ColoredPrinter();
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/sprites/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/sprites/blackSprite.png"));
@@ -97,15 +97,15 @@ public class Board extends JPanel {
         }
         if (selectedRow != -1 && activePlayer.isMoveValid(board, row, col, selectedRow,
             selectedCol)) {
-            board[row][col] = board[selectedRow][selectedCol];
-            board[selectedRow][selectedCol] = 0;
+          board[row][col] = board[selectedRow][selectedCol];
+          board[selectedRow][selectedCol] = 0;
           movementLogics.isKing(row, col);
-            selectedRow = -1;
-            selectedCol = -1;
+          selectedRow = -1;
+          selectedCol = -1;
           if (!canDoNextMove) {
             activePlayer.changeMoveColor();
-            }
           }
+        }
 
         repaint();
       }
@@ -134,7 +134,8 @@ public class Board extends JPanel {
     g.drawString("Player 1: " + player1.getName(), 10, getHeight() - 30);
     g.setColor(Color.green);
     g.drawString("Player 2: " + player2.getName(), 10, getHeight() - 10);
-
+    //FIXME
+    // vidilyaem kraya doski cvetom
     g.setColor(Color.GREEN);
     g.drawRect(0, 0, BOARD_SIZE * BOARD_SIZE + 1, BOARD_SIZE * BOARD_SIZE + 1);
 
@@ -277,6 +278,9 @@ public class Board extends JPanel {
   /**
    * The end of the game with the victory of the white checkers and exit the game
    */
+  /**
+   * The end of the game with the victory of the white checkers and exit the game
+   */
   public static void gameOverWithWhiteVictory() {
     if(player1.getSelectedCheckerColor() == PlayerLogics.WHITE_CHECKER){
       player1.setAmountOfVictories(player1.getAmountOfVictories() + 1);
@@ -307,6 +311,7 @@ public class Board extends JPanel {
 
     System.exit(1);
   }
+
 
   public static boolean isCanDoNextMove() {
     return canDoNextMove;

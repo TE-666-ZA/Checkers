@@ -1,5 +1,6 @@
 package logics;
 
+import graphics.code.Board;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -66,13 +67,15 @@ public class FileReader {
   /**
    * Output of a numbered list of players with statistics data
    */
-  public void printNumberedListStatistics() {
+  public void printNumberedListStatistics(String firstPlayerName) {
     int index = 1;
     for (Player player : players) {
-      System.out.println(
-          index + ". " + player.getName() + ": victories: " + player.getAmountOfVictories()
-              + ", defeats: " + player.getAmountOfDefeats());
-      index++;
+      if (!player.getName().equals(firstPlayerName)) {
+        System.out.println(
+            index + ". " + player.getName() + ": victories: " + player.getAmountOfVictories()
+                + ", defeats: " + player.getAmountOfDefeats());
+        index++;
+      }
     }
   }
 
