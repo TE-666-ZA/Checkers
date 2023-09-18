@@ -532,6 +532,27 @@ public class KingLogicsTest {
   }
 
   @Test
+  public void isMoveValidThreeStepsRightDown() {
+    int selectedRow = 3;
+    int row = 6;
+    int selectedCol = 2;
+    int col = 5;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 0, 0, 1, 0, 1},
+        {0, 0, 3, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 0, 0, 2, 0},
+        {0, 2, 0, 2, 0, 0, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
+  }
+
+  @Test
   public void isMoveValidNegativeThreeStepsLeftDown() {
     int selectedRow = 2;
     int row = 5;
@@ -553,6 +574,27 @@ public class KingLogicsTest {
   }
 
   @Test
+  public void isMoveValidThreeStepsLeftDown() {
+    int selectedRow = 2;
+    int row = 5;
+    int selectedCol = 5;
+    int col = 2;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 0, 0, 4, 0, 1},
+        {0, 0, 3, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 0, 0, 0, 0, 2, 0},
+        {0, 2, 0, 2, 0, 0, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
+  }
+
+  @Test
   public void isMoveValidNegativeThreeStepsRightUp() {
     int selectedRow = 6;
     int row = 3;
@@ -571,6 +613,27 @@ public class KingLogicsTest {
 
     boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
     assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidThreeStepsRightUp() {
+    int selectedRow = 6;
+    int row = 3;
+    int selectedCol = 1;
+    int col = 4;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 0, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 0, 0, 0, 0, 2, 0},
+        {0, 4, 0, 2, 0, 0, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
   }
 
   @Test
@@ -698,4 +761,157 @@ public class KingLogicsTest {
     boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
     assertFalse(result);
   }
+
+  @Test
+  public void isCanDoNextMoveValidKingWhiteRightDown() {
+    int row = 2;
+    int col = 3;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 3, 0, 1, 0, 1},
+        {0, 0, 3, 0, 2, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingWhiteLeftDown() {
+    int row = 2;
+    int col = 3;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 3, 0, 1, 0, 1},
+        {0, 0, 4, 0, 2, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingWhiteRightUp() {
+    int row = 4;
+    int col = 1;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 0, 0, 1, 0, 1},
+        {0, 0, 4, 0, 2, 0, 0, 0},
+        {0, 3, 0, 0, 0, 1, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingWhiteLeftUp() {
+    int row = 3;
+    int col = 0;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 0, 1, 0, 1, 0},
+        {0, 2, 0, 0, 0, 1, 0, 1},
+        {3, 0, 0, 0, 2, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingBlackRightDown() {
+    int row = 2;
+    int col = 1;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 4, 0, 1, 0, 1, 0, 1},
+        {0, 0, 1, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingBlackLeftDown() {
+    int row = 3;
+    int col = 4;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {0, 0, 0, 0, 4, 0, 0, 0},
+        {0, 0, 0, 3, 0, 0, 0, 0},
+        {2, 0, 0, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingBlackRightUp() {
+    int row = 6;
+    int col = 3;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 1, 0, 2, 0},
+        {0, 2, 0, 4, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
+  @Test
+  public void isCanDoNextMoveValidKingBlackLeftUp() {
+    int row = 4;
+    int col = 0;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 0, 1, 0, 1, 0},
+        {0, 0, 0, 1, 0, 1, 0, 1},
+        {3, 0, 3, 0, 0, 0, 0, 0},
+        {0, 0, 0, 4, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
+    assertTrue(result);
+  }
+
 }
