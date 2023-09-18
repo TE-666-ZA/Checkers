@@ -28,8 +28,6 @@ public class FileReader {
         String line = scanner.nextLine();
         String[] cells = line.split(SEPARATOR);
         String name = cells[0];
-        int numberOfVictories = Integer.parseInt(cells[1]);
-        int numberOfDefeats = Integer.parseInt(cells[2]);
         Player player = new Player(name);
         players.add(player);
       }
@@ -37,7 +35,6 @@ public class FileReader {
     } catch (IOException e) {
       System.err.println("Statistic file could not be find");
     }
-
   }
 
   /**
