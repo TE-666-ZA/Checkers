@@ -70,8 +70,8 @@ public class FileReader {
     int index = 1;
     for (Player player : players) {
       System.out.println(
-          index + ". " + player.getName() + ": кол-во побед - " + player.getNumberOfVictories()
-              + ", кол-во поражений - " + player.getNumberOfDefeats());
+          index + ". " + player.getName() + ": victories: " + player.getNumberOfVictories()
+              + ", defeats: " + player.getNumberOfDefeats());
       index++;
     }
   }

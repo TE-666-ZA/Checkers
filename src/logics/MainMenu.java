@@ -31,11 +31,11 @@ public class MainMenu {
     while (true) {
       printer.printInMiddlePurple("Checkers created by Natalya Seluynina & Kenan Iusubovi");
       printer.printInMiddleBlue("Checkers");
-      printer.printBlue("1. Player 1 vs Player 1");
-      printer.printBlue("2. Player 1 vs Player 2");
-      printer.printBlue("3. Player 1 vs Com --COMING WITH NEXT UPDATE !--");
-      printer.printBlue("4. Com vs Com --COMING WITH NEXT UPDATE !--");
-      printer.printBlue("5. Show Statistics");
+      printer.printBlue("1. Player 1 vs Player 1" + "\n"
+          +"2. Player 1 vs Player 2" + "\n"
+          + "3. Player 1 vs Com --COMING WITH NEXT UPDATE !--" + "\n"
+          + "4. Com vs Com --COMING WITH NEXT UPDATE !--" + "\n"
+          + "5. Show Statistics");
       printer.printRed("0. Exit");
 
       int command = scanner.nextInt();
@@ -100,7 +100,8 @@ public class MainMenu {
         player1 = addNewPlayer(name1Player);
       } else {
         printer.printYellow("Choose the number of your name in the game:");
-        name1Player = choiceNameExistingFirstPlayer();
+        fileReader.printNumberedListStatistics();
+        name1Player = choiceNameExistingPlayer();
         player1 = selectingExistingPlayer(name1Player);
       }
 
@@ -237,8 +238,7 @@ public class MainMenu {
     return player;
   }
 
-  public String choiceNameExistingFirstPlayer() {
-    fileReader.printNumberedListNamesPlayers();
+  public String choiceNameExistingPlayer() {
     String namePlayer = null;
     int numberName = scanner.nextInt();
     scanner.nextLine();
@@ -253,21 +253,15 @@ public class MainMenu {
   }
 
   public String choiceNameExistingSecondPlayer(String name) {
-    fileReader.printNumberedListNamesPlayers();
-    String namePlayer = null;
-    int numberName = scanner.nextInt();
-    scanner.nextLine();
-    int index = 0;
+    int index = 1;
     for (Player player : fileReader.getPlayers()) {
-      index++;
-      if (index == numberName) {
-        namePlayer = player.getName();
+      if (!player.getName().equals(name)) {
+        System.out.println(index + ". " + player.getName());
+        index++;
       }
     }
-    if (namePlayer.equals(name))  {
-      System.out.println("Вы выбрали того же игрока");
-      choiceNameExistingSecondPlayer(name);
-    }
+
+    String namePlayer = choiceNameExistingPlayer();
     return namePlayer;
   }
 
