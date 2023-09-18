@@ -897,14 +897,14 @@ public class KingLogicsTest {
 
   @Test
   public void isCanDoNextMoveValidKingBlackLeftUp() {
-    int row = 4;
-    int col = 0;
+    int row = 3;
+    int col = 2;
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 0, 0, 1, 0, 1, 0},
-        {0, 0, 0, 1, 0, 1, 0, 1},
-        {3, 0, 3, 0, 0, 0, 0, 0},
-        {0, 0, 0, 4, 0, 0, 0, 0},
+        {0, 0, 0, 0, 1, 0, 1, 0},
+        {1, 4, 1, 1, 0, 1, 0, 1},
+        {1, 0, 3, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
         {2, 0, 2, 0, 2, 0, 2, 0},
         {0, 2, 0, 2, 0, 2, 0, 2},
         {2, 0, 2, 0, 2, 0, 2, 0}
@@ -913,5 +913,4 @@ public class KingLogicsTest {
     boolean result = kingLogics.isCanDoNextMoveValid(board, row, col);
     assertTrue(result);
   }
-
 }
