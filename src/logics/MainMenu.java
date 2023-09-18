@@ -94,20 +94,20 @@ public class MainMenu {
     printer.printYellow("Player №1 have you played before: ");
     int choice = choiceNewOrExistingPlayer();
 
-      if (choice == 1) {
-        printer.printYellow("Please input 1st player name ");
-        name1Player = addNameNewPlayer();
-        player1 = addNewPlayer(name1Player);
-      } else {
-        printer.printYellow("Choose the number of your name in the game:");
-        fileReader.printNumberedListStatistics();
-        name1Player = choiceNameExistingPlayer();
-        player1 = selectingExistingPlayer(name1Player);
-      }
+    if (choice == 1) {
+      printer.printYellow("Please input 1st player name ");
+      name1Player = addNameNewPlayer();
+      player1 = addNewPlayer(name1Player);
+    } else {
+      printer.printYellow("Choose the number of your name in the game:");
+      fileReader.printNumberedListStatistics();
+      name1Player = choiceNameExistingPlayer();
+      player1 = selectingExistingPlayer(name1Player);
+    }
 
-      player1.setName(name1Player);
-      Board.setPlayer1(player1);
-      choseCheckersColor(player1);
+    player1.setName(name1Player);
+    Board.setPlayer1(player1);
+    choseCheckersColor(player1);
 
     printer.printGreen("Player №2 have you played before: ");
     choice = choiceNewOrExistingPlayer();
@@ -290,10 +290,10 @@ public class MainMenu {
    */
   public void showStatistics() {
         fileReader.getPlayers().sort((player1, player2) -> {
-          if (player2.getNumberOfVictories() - player1.getNumberOfVictories() != 0) {
-            return player2.getNumberOfVictories() - player1.getNumberOfVictories();
+          if (player2.getAmountOfVictories() - player1.getAmountOfVictories() != 0) {
+            return player2.getAmountOfVictories() - player1.getAmountOfVictories();
           }
-          return player2.getNumberOfDefeats() - player1.getNumberOfDefeats();
+          return player2.getAmountOfDefeats() - player1.getAmountOfDefeats();
         });
         fileReader.getPlayers().forEach(System.out::println);
   }

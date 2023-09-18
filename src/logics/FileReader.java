@@ -45,8 +45,8 @@ public class FileReader {
       FileWriter fileWriter = new FileWriter(ourFile);
 
       for (Player player : players) {
-        String result = player.getName() + SEPARATOR + player.getNumberOfVictories() + SEPARATOR
-            + player.getNumberOfDefeats();
+        String result = player.getName() + SEPARATOR + player.getAmountOfVictories() + SEPARATOR
+            + player.getAmountOfDefeats();
         fileWriter.write(result + "\n");
       }
       fileWriter.close();
@@ -70,8 +70,8 @@ public class FileReader {
     int index = 1;
     for (Player player : players) {
       System.out.println(
-          index + ". " + player.getName() + ": victories: " + player.getNumberOfVictories()
-              + ", defeats: " + player.getNumberOfDefeats());
+          index + ". " + player.getName() + ": victories: " + player.getAmountOfVictories()
+              + ", defeats: " + player.getAmountOfDefeats());
       index++;
     }
   }
