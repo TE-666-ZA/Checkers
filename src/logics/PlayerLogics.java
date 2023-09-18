@@ -42,28 +42,28 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       return kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
     }
     if (Board.isCanDoNextMove()) {
-        return canKill(board, row, col, selectedRow, selectedCol);
+      return canKill(board, row, col, selectedRow, selectedCol);
     } else
-      if (checkerMove == WHITE_CHECKER) {
-        if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
-            && isTargetCellFree(board[row][col])) {
-          isKing(row, col);
-          return true;
-        } else {
+    if (checkerMove == WHITE_CHECKER) {
+      if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow + 1)
+          && isTargetCellFree(board[row][col])) {
+        isKing(row, col);
+        return true;
+      } else {
 
-          return canKill(board, row, col, selectedRow, selectedCol);
-        }
+        return canKill(board, row, col, selectedRow, selectedCol);
       }
+    }
 
-      if (checkerMove == BLACK_CHECKER) {
-        if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow - 1)
-            && isTargetCellFree(board[row][col])) {
-          return true;
-        } else {
+    if (checkerMove == BLACK_CHECKER) {
+      if (col == (selectedCol + 1) | col == (selectedCol - 1) && row == (selectedRow - 1)
+          && isTargetCellFree(board[row][col])) {
+        return true;
+      } else {
 
-          return canKill(board, row, col, selectedRow, selectedCol);
-        }
+        return canKill(board, row, col, selectedRow, selectedCol);
       }
+    }
     return true;
   }
 
@@ -394,10 +394,10 @@ public class PlayerLogics extends JPanel implements MovementLogics {
     return false;
   }
 
- private boolean isBorderCheckerOrCorner (int row , int col){
-   return row == 0 && col == 7 || row == 0 && col == 1 || row == 7 && col == 0
-       || row == 7 && col == 6;
- }
+  private boolean isBorderCheckerOrCorner (int row , int col){
+    return row == 0 && col == 7 || row == 0 && col == 1 || row == 7 && col == 0
+        || row == 7 && col == 6;
+  }
   /**
    * Performs the check and transformation of an ordinary checker into a king's checker, provided
    * that it is in a certain position

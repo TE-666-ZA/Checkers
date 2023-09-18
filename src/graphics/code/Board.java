@@ -34,6 +34,8 @@ public class Board extends JPanel {
   private static boolean isPlayALone;
   private static int countWhiteChecker;
   private static int countBlackChecker;
+
+  static boolean canDoNextMove;
   private static int[][] board = {
       {0, 1, 0, 1, 0, 1, 0, 1},
       {1, 0, 1, 0, 1, 0, 1, 0},
@@ -48,6 +50,7 @@ public class Board extends JPanel {
   public Board() {
     movementLogics = new PlayerLogics();
     isPlayALone = true;
+    canDoNextMove = false;
     try {
       whitePieceImage = ImageIO.read(new File("src/graphics/sprites/whiteSprite.png"));
       blackPieceImage = ImageIO.read(new File("src/graphics/sprites/blackSprite.png"));
@@ -97,7 +100,7 @@ public class Board extends JPanel {
           movementLogics.isKing(row, col);
             selectedRow = -1;
             selectedCol = -1;
-          if (!PlayerLogics.canDoNextMove) {
+          if (!canDoNextMove) {
             activePlayer.changeMoveColor();
             }
           }
@@ -164,7 +167,7 @@ public class Board extends JPanel {
       g.setColor(Color.BLUE);
       g.drawRect(selectedCol * CELL_SIZE, selectedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
-    if (PlayerLogics.canDoNextMove) {
+    if (canDoNextMove) {
       g.setColor(Color.RED);
       g.drawRect(activePlayer.getLastColPosition() * CELL_SIZE,
           activePlayer.getLastRowPosition() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -286,5 +289,13 @@ public class Board extends JPanel {
     // TODO увеличение побед черных и увеличение поражений белых
     System.out.println("Игра завершена! Черные выиграли!");
     System.exit(1);
+  }
+
+  public static boolean isCanDoNextMove() {
+    return canDoNextMove;
+  }
+
+  public static void setCanDoNextMove(boolean canDoNextMove) {
+    Board.canDoNextMove = canDoNextMove;
   }
 }
