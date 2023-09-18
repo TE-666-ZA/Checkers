@@ -323,6 +323,27 @@ public class KingLogicsTest {
   }
 
   @Test
+  public void isMoveValidButCanKillTwoStepsRightKingBlack() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 3;
+    int col = 5;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 4, 0, 1, 0, 1},
+        {0, 0, 0, 0, 3, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertTrue(result);
+  }
+
+  @Test
   public void isMoveValidNegativeTwoStepsRight() {
     int selectedRow = 2;
     int row = 4;
@@ -354,6 +375,27 @@ public class KingLogicsTest {
         {1, 0, 1, 0, 1, 0, 1, 0},
         {0, 3, 0, 1, 0, 1, 0, 1},
         {0, 0, 1, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
+    assertFalse(result);
+  }
+
+  @Test
+  public void isMoveValidAndCanKillNegativeTwoStepsRightBlack() {
+    int selectedRow = 2;
+    int row = 4;
+    int selectedCol = 1;
+    int col = 3;
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 4, 0, 1, 0, 1, 0, 1},
+        {0, 0, 2, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0},
         {2, 0, 2, 0, 2, 0, 2, 0},
         {0, 2, 0, 2, 0, 2, 0, 2},
@@ -637,23 +679,23 @@ public class KingLogicsTest {
   }
 
   @Test
-  public void isMoveValidAndCanKillNegativeSevenStepsLeft() {
-    int selectedRow = 0;
-    int row = 7;
-    int selectedCol = 7;
-    int col = 0;
+  public void isMoveValidAndCanKillNegativeSevenStepsRight() {
+    int selectedRow = 7;
+    int row = 0;
+    int selectedCol = 0;
+    int col = 7;
     int[][] board = {
-        {0, 1, 0, 1, 0, 1, 0, 3},
+        {0, 1, 0, 1, 0, 1, 0, 0},
         {1, 0, 1, 0, 1, 0, 0, 0},
         {0, 1, 0, 3, 0, 0, 0, 1},
         {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 2, 0, 0, 0, 0},
         {2, 0, 0, 0, 2, 0, 2, 0},
-        {0, 4, 0, 2, 0, 2, 0, 2},
-        {0, 0, 2, 0, 2, 0, 2, 0}
+        {0, 0, 0, 2, 0, 2, 0, 2},
+        {4, 0, 2, 0, 2, 0, 2, 0}
     };
 
     boolean result = kingLogics.isMoveValid(board, row, col, selectedRow, selectedCol);
-    assertTrue(result);
+    assertFalse(result);
   }
 }
