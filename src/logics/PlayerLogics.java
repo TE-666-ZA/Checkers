@@ -3,7 +3,7 @@ package logics;
 import graphics.code.Board;
 import javax.swing.JPanel;
 
-public class PlayerLogics extends JPanel implements MovementLogics {
+public class PlayerLogics extends JPanel {
 
   private int checkerMove;
   public static final int WHITE_CHECKER = 1;

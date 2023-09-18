@@ -1,17 +1,17 @@
 package logics;
 
-public class Player extends PlayerLogics {
+public class Player {
 
   private String name;
   private int selectedCheckerColor;
-  private int numberOfVictories;
-  private int numberOfDefeats;
+  private int amountOfVictories;
+  private int amountOfDefeats;
 
 
   public Player(String name) {
     this.name = name;
-    this.numberOfVictories = 0;
-    this.numberOfDefeats = 0;
+    this.amountOfVictories = 0;
+    this.amountOfDefeats = 0;
   }
 
   /**
@@ -33,28 +33,28 @@ public class Player extends PlayerLogics {
     this.name = name;
   }
 
-  public int getNumberOfVictories() {
-    return numberOfVictories;
+  public int getAmountOfVictories() {
+    return amountOfVictories;
   }
 
   /**
    * Increment of the number of wins
    */
-  public void setNumberOfVictories() {
-    this.numberOfVictories++;
+  public void setAmountOfVictories(int amountOfVictories) {
+    this.amountOfVictories = amountOfVictories;
   }
 
-  public int getNumberOfDefeats() {
-    return numberOfDefeats;
+  public int getAmountOfDefeats() {
+    return amountOfDefeats;
   }
 
   /**
    * Increment of the number of defeats
    *
-   * @param numberOfDefeats number of defeats
+   * @param amountOfDefeats number of defeats
    */
-  public void setNumberOfDefeats(int numberOfDefeats) {
-    this.numberOfDefeats++;
+  public void setAmountOfDefeats(int amountOfDefeats) {
+    this.amountOfDefeats = amountOfDefeats;
   }
 
   public int getSelectedCheckerColor() {
@@ -77,8 +77,8 @@ public class Player extends PlayerLogics {
   public String toString() {
     return "Player{" +
         "name='" + name + '\'' +
-        ", numberOfVictories=" + numberOfVictories +
-        ", numberOfDefeats=" + numberOfDefeats +
+        ", numberOfVictories=" + amountOfVictories +
+        ", numberOfDefeats=" + amountOfDefeats +
         '}';
   }
 }

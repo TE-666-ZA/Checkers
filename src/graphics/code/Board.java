@@ -34,6 +34,7 @@ public class Board extends JPanel {
   private static boolean isPlayALone;
   private static int countWhiteChecker;
   private static int countBlackChecker;
+  private static ColoredPrinter printer;
 
   static boolean canDoNextMove;
   private static int[][] board = {
@@ -48,6 +49,7 @@ public class Board extends JPanel {
   };
 
   public Board() {
+    printer = new ColoredPrinter();
     movementLogics = new PlayerLogics();
     isPlayALone = true;
     canDoNextMove = false;
@@ -132,8 +134,7 @@ public class Board extends JPanel {
     g.drawString("Player 1: " + player1.getName(), 10, getHeight() - 30);
     g.setColor(Color.green);
     g.drawString("Player 2: " + player2.getName(), 10, getHeight() - 10);
-    //FIXME
-    // vidilyaem kraya doski cvetom
+
     g.setColor(Color.GREEN);
     g.drawRect(0, 0, BOARD_SIZE * BOARD_SIZE + 1, BOARD_SIZE * BOARD_SIZE + 1);
 
@@ -277,8 +278,16 @@ public class Board extends JPanel {
    * The end of the game with the victory of the white checkers and exit the game
    */
   public static void gameOverWithWhiteVictory() {
-    // TODO увеличение побед белых и увеличение поражений черных
-    System.out.println("Игра завершена! Белые выиграли!");
+    if(player1.getSelectedCheckerColor() == PlayerLogics.WHITE_CHECKER){
+      player1.setAmountOfVictories(player1.getAmountOfVictories() + 1);
+      player2.setAmountOfDefeats(player2.getAmountOfDefeats() + 1);
+      printer.printInMiddleYellow("WHITE IS WINNER ! " + player1.getName() + "WIN!");
+    }else {
+      player2.setAmountOfVictories(player2.getAmountOfVictories() + 1);
+      player1.setAmountOfDefeats(player1.getAmountOfDefeats() + 1);
+      printer.printInMiddleYellow("WHITE IS WINNER ! " + player2.getName() + "WIN!");
+    }
+
     System.exit(1);
   }
 
@@ -286,8 +295,16 @@ public class Board extends JPanel {
    * The end of the game with the victory of the black checkers and exit the game
    */
   public static void gameOverWithBlackVictory() {
-    // TODO увеличение побед черных и увеличение поражений белых
-    System.out.println("Игра завершена! Черные выиграли!");
+    if(player1.getSelectedCheckerColor() == PlayerLogics.BLACK_CHECKER){
+      player1.setAmountOfVictories(player1.getAmountOfVictories() + 1);
+      player2.setAmountOfDefeats(player2.getAmountOfDefeats() + 1);
+      printer.printInMiddleYellow("BLACK IS WINNER ! " + player1.getName() + "WIN!");
+    }else {
+      player2.setAmountOfVictories(player2.getAmountOfVictories() + 1);
+      player1.setAmountOfDefeats(player1.getAmountOfDefeats() + 1);
+      printer.printInMiddleYellow("BLACK IS WINNER ! " + player2.getName() + "WIN!");
+    }
+
     System.exit(1);
   }
 
