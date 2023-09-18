@@ -97,7 +97,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         isKing(row, col);
         lastRowPosition = row;
         lastColPosition = col;
-        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
         return true;
 
@@ -108,7 +108,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         isKing(row, col);
         lastRowPosition = row;
         lastColPosition = col;
-        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
         return true;
       }
@@ -126,7 +126,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         Board.checkBlackVictory();
         lastRowPosition = row;
         lastColPosition = col;
-        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
         return true;
       } else if (row == (selectedRow - 2) && col == (selectedCol - 2) && isTargetCellFree(
@@ -135,7 +135,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         Board.checkBlackVictory();
         lastRowPosition = row;
         lastColPosition = col;
-        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+        Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
         return true;
       }
@@ -167,7 +167,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       isKing(row, col);
       lastRowPosition = row;
       lastColPosition = col;
-      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
       return true;
     }
@@ -197,7 +197,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       Board.checkBlackVictory();
       lastRowPosition = row;
       lastColPosition = col;
-      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
       return true;
     }
@@ -228,7 +228,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       isKing(row, col);
       lastRowPosition = row;
       lastColPosition = col;
-      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
       return true;
     }
@@ -258,7 +258,7 @@ public class PlayerLogics extends JPanel implements MovementLogics {
       Board.checkBlackVictory();
       lastRowPosition = row;
       lastColPosition = col;
-      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col, selectedRow, selectedCol));
+      Board.setCanDoNextMove(isCanDoNextMoveValid(board, row, col));
 
       return true;
     }
@@ -330,33 +330,12 @@ public class PlayerLogics extends JPanel implements MovementLogics {
    *                    checker and from where he plans to eat another opponent's checker
    * @param col         the position of the column of the field cell where the checker has moved the
    *                    checker and from where he plans to eat another opponent's checker
-   * @param selectedRow
-   * @param selectedCol
    * @return true if the checker can make another move and eat the opponent's checker and false if
    * she can't
    */
-  public boolean isCanDoNextMoveValid(int[][] board, int row, int col, int selectedRow,
-      int selectedCol) {
-    if(isCanDoNextMoveFromBorder(board, row,col,selectedRow,selectedCol)) {
-      return false;
-    }
-    if (row < 6 && row > 1 && col < 6 && col > 1) {
+  public boolean isCanDoNextMoveValid(int[][] board, int row, int col) {
 
-      if (checkerMove == WHITE_CHECKER) {
-        if (isTargetCellFree(board[row+2][col+2]) && isNextCellBlackChecker(board[row + 1][col + 1])
-            || isTargetCellFree(board[row+2][col-2]) && isNextCellBlackChecker(board[row + 1][col - 1])) {
-          return true;
-
-        }
-      }
-      if (checkerMove == BLACK_CHECKER) {
-        if (isTargetCellFree(board[row - 2][col+2]) && isNextCellWhiteChecker(board[row - 1][col + 1])
-            || isTargetCellFree(board[row-2][col-2]) && isNextCellWhiteChecker(board[row - 1][col - 1])) {
-          return true;
-        }
-      }
-    }
-    if (col <= 1 || col >= 6) {
+    if (col <= 1 && row > 1 || col >= 6 && row < 6) {
 
       if (checkerMove == WHITE_CHECKER) {
         if (col < 1 && isTargetCellFree(board[row+2][col+2])&& isNextCellBlackChecker(board[row + 1][col + 1])) {
@@ -375,17 +354,24 @@ public class PlayerLogics extends JPanel implements MovementLogics {
         }
       }
     }
-    return false;
-  }
+    if (row < 6 && row > 1 && col < 6 && col > 1) {
 
-  private boolean isCanDoNextMoveFromBorder(int[][] board, int row , int col, int selectedRow, int selectedCol){
-   if(checkerMove == WHITE_CHECKER){
-     if(selectedRow == 1 && selectedCol == 0 && isTargetCellFree(board[selectedRow+2][selectedCol+2]) &&
-         isNextCellWhiteChecker(board[selectedRow+1][selectedCol+1])){
-       return true;
-     }
-   }
-   return false;
+      if (checkerMove == WHITE_CHECKER) {
+        if (isTargetCellFree(board[row+2][col+2]) && isNextCellBlackChecker(board[row + 1][col + 1])
+            || isTargetCellFree(board[row+2][col-2]) && isNextCellBlackChecker(board[row + 1][col - 1])) {
+          return true;
+
+        }
+      }
+      if (checkerMove == BLACK_CHECKER) {
+        if (isTargetCellFree(board[row - 2][col+2]) && isNextCellWhiteChecker(board[row - 1][col + 1])
+            || isTargetCellFree(board[row-2][col-2]) && isNextCellWhiteChecker(board[row - 1][col - 1])) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private boolean isNextCellWhiteChecker(int nextCell){
