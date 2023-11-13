@@ -1,6 +1,6 @@
 package logics;
 
-public class ComLogics extends PlayerLogics implements MovementLogics {
+public class ComLogics extends PlayerLogics {
 
   private Player player;
 
@@ -29,7 +29,7 @@ public class ComLogics extends PlayerLogics implements MovementLogics {
   }
 
   @Override
-  public boolean canKill(int[][] board, int row, int col, int selectedRow, int selectedCol) {
+  public boolean canKill(int[][] board, int targetRow, int targetCol, int selectedRow, int selectedCol) {
     return false;
   }
 
