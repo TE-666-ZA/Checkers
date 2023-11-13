@@ -135,7 +135,7 @@ public class PlayerLogicsTest {
   }
 
   @Test
-  public void isMoveValidForEmptyCell() {
+  public void isMoveValidFromEmptyCell() {
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -162,8 +162,71 @@ public class PlayerLogicsTest {
     assertFalse(result);
   }
 
+
   @Test
   public void WhiteCanKillBlackIfTargetCellFree() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 2, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 0, 2, 0, 2, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    int targetRow = 4;
+    int targetCol = 5;
+    int selectedRow = 2;
+    int selectedCol = 3;
+
+    boolean result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow,
+        selectedCol);
+    assertTrue(result);
+
+    selectedCol = 5;
+    targetCol = 3;
+
+    result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
+    assertTrue(result);
+
+  }
+
+  @Test
+  public void WhiteCanKillBlackIfTargetCellOccupied() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 2, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 0, 2, 0, 2, 0},
+        {0, 0, 0, 1, 0, 2, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    int targetRow = 4;
+    int targetCol = 5;
+    int selectedRow = 2;
+    int selectedCol = 3;
+
+    boolean result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow,
+        selectedCol);
+    assertFalse(result);
+
+    selectedCol = 5;
+    targetCol = 3;
+
+    result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
+    assertFalse(result);
+
+  }
+
+  @Test
+  public void WhiteCanKillBlackIfTargetCellFreeFromBorder() {
 
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
@@ -226,7 +289,7 @@ public class PlayerLogicsTest {
   }
 
   @Test
-  public void BlackCanKillWhiteIfTargetCellFree() {
+  public void BlackCanKillWhiteIfTargetCellFreeFromBorder() {
 
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
@@ -259,4 +322,152 @@ public class PlayerLogicsTest {
     assertTrue(result);
 
   }
+
+  @Test
+  public void BlackCanKillWhiteIfTargetCellFree() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 1, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 1, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    playerLogics.changeMoveColor();
+
+    int targetRow = 3;
+    int targetCol = 4;
+    int selectedRow = 5;
+    int selectedCol = 2;
+
+    boolean result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow,
+        selectedCol);
+    assertTrue(result);
+
+   selectedCol = 4;
+   targetCol = 2;
+
+    result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
+    assertTrue(result);
+
+  }
+
+  @Test
+  public void BlackCanKillBlackIfTargetCellFree() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 2, 0, 2, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 1, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    playerLogics.changeMoveColor();
+
+    int targetRow = 3;
+    int targetCol = 4;
+    int selectedRow = 5;
+    int selectedCol = 2;
+
+    boolean result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow,
+        selectedCol);
+    assertFalse(result);
+
+    selectedCol = 4;
+    targetCol = 2;
+
+    result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
+    assertFalse(result);
+
+  }
+
+  @Test
+  public void BlackCanKillWhiteIfTargetCellOccupied() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {2, 0, 1, 0, 2, 0, 0, 0},
+        {0, 1, 0, 1, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 1, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    playerLogics.changeMoveColor();
+
+    int targetRow = 3;
+    int targetCol = 4;
+    int selectedRow = 5;
+    int selectedCol = 2;
+
+    boolean result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow,
+        selectedCol);
+    assertFalse(result);
+
+    selectedCol = 4;
+    targetCol = 2;
+
+    result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
+    assertFalse(result);
+
+  }
+
+  @Test
+  public void WhiteCanDoNextMove() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 2, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 0, 2, 0, 2, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 2, 0},
+        {0, 2, 0, 0, 0, 0, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    int targetRow = 4;
+    int targetCol = 5;
+
+    boolean result = playerLogics.isCanDoNextMoveValid(board,targetRow,targetCol);
+    assertTrue(result);
+
+  }
+
+
+  @Test
+  public void BlackCanDoNextMove() {
+
+    int[][] board = {
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 1, 0, 0, 0, 0},
+        {2, 0, 2, 0, 2, 0, 1, 0},
+        {0, 2, 0, 2, 0, 2, 0, 2},
+        {2, 0, 2, 0, 2, 0, 2, 0}
+    };
+
+    playerLogics.changeMoveColor();
+
+    int targetRow = 3;
+    int targetCol = 4;
+
+
+    boolean result = playerLogics.isCanDoNextMoveValid(board, targetRow, targetCol);
+    assertTrue(result);
+
+  }
+
 }
