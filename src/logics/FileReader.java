@@ -1,6 +1,5 @@
 package logics;
 
-import graphics.code.Board;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -62,6 +61,14 @@ public class FileReader {
 
   public String getOurFile() {
     return ourFile;
+  }
+
+  public void setOurFile(String ourFile) {
+    this.ourFile = ourFile;
+  }
+
+  public void setPlayers(List<Player> players) {
+    this.players = players;
   }
 
   /**

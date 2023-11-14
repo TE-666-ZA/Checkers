@@ -46,4 +46,4 @@ There are 2 main folders in our project:
 
 
 3. **"tests"**
-   Tests for the following classes are written in this folder:
+   This folder contains the test classes PlayerLogicsTest, KingLogicsTest and FileReaderTest for the following classes, respectively: PlayerLogics, KingLogics and FileReader.

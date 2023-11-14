@@ -407,5 +407,4 @@ public class PlayerLogics extends JPanel {
   public static int getBlackChecker() {
     return BLACK_CHECKER;
   }
-
 }

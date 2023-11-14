@@ -14,6 +14,12 @@ public class Player extends PlayerLogics {
     this.amountOfDefeats = 0;
   }
 
+  public Player(String name, int amountOfVictories, int amountOfDefeats) {
+    this.name = name;
+    this.amountOfVictories = amountOfVictories;
+    this.amountOfDefeats = amountOfDefeats;
+  }
+
   /**
    * Choose the color of the checkers for the player to start the game
    *

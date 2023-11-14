@@ -11,7 +11,6 @@ public class PlayerLogicsTest {
 
   private PlayerLogics playerLogics;
 
-
   @BeforeEach
   public void setUp() {
     this.playerLogics = new PlayerLogics();
@@ -43,7 +42,6 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertTrue(result);
-
   }
 
   @Test
@@ -75,7 +73,6 @@ public class PlayerLogicsTest {
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow,
         selectedCol);
     assertTrue(result);
-
   }
 
   @Test
@@ -104,7 +101,6 @@ public class PlayerLogicsTest {
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertFalse(result);
   }
-
 
   @Test
   public void isMoveValidToOccupiedCellBlackChecker() {
@@ -162,10 +158,8 @@ public class PlayerLogicsTest {
     assertFalse(result);
   }
 
-
   @Test
   public void WhiteCanKillBlackIfTargetCellFree() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -191,12 +185,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertTrue(result);
-
   }
 
   @Test
   public void WhiteCanKillBlackIfTargetCellOccupied() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -222,12 +214,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertFalse(result);
-
   }
 
   @Test
   public void WhiteCanKillBlackIfTargetCellFreeFromBorder() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -255,12 +245,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertTrue(result);
-
   }
 
   @Test
   public void WhiteCanKillWhiteIfTargetCellFree() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -285,12 +273,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertFalse(result);
-
   }
 
   @Test
   public void BlackCanKillWhiteIfTargetCellFreeFromBorder() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -320,12 +306,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertTrue(result);
-
   }
 
   @Test
   public void BlackCanKillWhiteIfTargetCellFree() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -353,12 +337,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertTrue(result);
-
   }
 
   @Test
   public void BlackCanKillBlackIfTargetCellFree() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -386,12 +368,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertFalse(result);
-
   }
 
   @Test
   public void BlackCanKillWhiteIfTargetCellOccupied() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -419,12 +399,10 @@ public class PlayerLogicsTest {
 
     result = playerLogics.isMoveValid(board, targetRow, targetCol, selectedRow, selectedCol);
     assertFalse(result);
-
   }
 
   @Test
   public void WhiteCanDoNextMove() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0},
@@ -441,13 +419,10 @@ public class PlayerLogicsTest {
 
     boolean result = playerLogics.isCanDoNextMoveValid(board,targetRow,targetCol);
     assertTrue(result);
-
   }
-
 
   @Test
   public void BlackCanDoNextMove() {
-
     int[][] board = {
         {0, 1, 0, 1, 0, 1, 0, 1},
         {1, 0, 0, 0, 1, 0, 1, 0},
@@ -467,7 +442,5 @@ public class PlayerLogicsTest {
 
     boolean result = playerLogics.isCanDoNextMoveValid(board, targetRow, targetCol);
     assertTrue(result);
-
   }
-
 }
